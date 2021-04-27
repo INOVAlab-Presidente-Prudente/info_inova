@@ -1,0 +1,104 @@
+
+/* font-family: 'PT Sans', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body{
+    font-family: 'PT Sans', sans-serif;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+    background-color: #d1d1d1be;
+    
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0px 1px 10px #e0e0e0;
+}
+
+.form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    transition: 0.5s;
+    outline: none;
+    border-radius: 5px;
+    -webkit-transition: 0.5s;
+    width: 100%
+}
+.form select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    transition: 0.5s;
+    outline: none;
+    border-radius: 5px;
+    -webkit-transition: 0.5s;
+    width: 100%;
+}
+.form label {
+    margin-right: 0.5em;
+    font-size: 16px;
+    margin-top: 0.5em;
+    font-weight: bold;
+}
+
+.form input:focus {
+    border-bottom: 2px solid rgb(255, 186, 37);
+}
+
+.form-links {
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ca8a00;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    transition: 0.5s;
+}
+
+.form-links:hover {
+    color: #ddb150;
+}
+
+.flexDouble{
+    margin-top: 0.40em;
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+button { 
+    border: none;
+    padding: 10px;
+    background-color: rgb(255, 199, 79);
+    color: #212121;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: 0.5s;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: rgb(219, 156, 20);
+    color: black;
+}
+
+.title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 3vw;
+    padding: 10px;
+    color:rgb(59, 59, 59)
+}

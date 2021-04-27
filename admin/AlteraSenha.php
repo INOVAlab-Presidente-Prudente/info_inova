@@ -1,0 +1,18 @@
+<?php
+if(!isset($_SERVER['HTTP_REFERER']))
+    header('location: /');
+
+$novaSenha = $_POST['novaSenha'];
+$confirmaSenha = $_POST['confirmaSenha'];
+
+if ($novaSenha == $confirmaSenha) {
+    require_once("DB.php");
+    $senhaHash = password_hash($novaSenha, PASSWORD_BCRYPT);
+    $sql = "UPDATE usuario SET usu_senha = '".$senhaHash."', usu_primeiro_login = 0 WHERE usu_cpf = '".$_SESSION['cpf']."'";
+    $query = mysqli_query($connect, $sql);
+
+    if($query)
+        header("location: /pages/adminPage.php?senha_alterada=true");
+} else{
+    echo "<p class='text-danger'>Senhas nao coincidem.</p>";
+}
