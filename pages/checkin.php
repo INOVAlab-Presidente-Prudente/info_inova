@@ -1,4 +1,3 @@
-
 <?php include('../includes/header.php'); ?>
 
 <body onload="document.title='Admin Page | Check In'" class="hold-transition sidebar-mini">
@@ -29,70 +28,71 @@
       <section class="content">
         <div class="container-fluid">
           <div class="row">
-            <!-- left column -->
             <div class="col-md-12">
-              <!-- jquery validation -->
               <div class="card card-primary">
                 <form action="../admin/CheckInUsuario.php" id="quickForm" method="get">
                   <div class="card-body">
-                      <div class="form-group">
-                          <label for="cpf">CPF</label>
-                          <!-- pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" -->
-                          <input type="text" name="cpf" class="form-control" id="cpf" placeholder="xxx.xxx.xxx-xx">
-                      </div> 
+                    <div class="form-group">
+                      <label for="cpf">CPF</label>
+                      <input type="text" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" minlength="14" maxlength="14" name="cpf" class="form-control" id="cpf" placeholder="xxx.xxx.xxx-xx">
+                    </div> 
                   </div>
                   <div class="card-footer mid">
                     <button type="submit" class="btn btn-primary">Check-in / Check-out</button>
                   </div>
                 </form>
-                  <?php 
-                      if (isset($_GET['checkin']))
-                          echo "<br><div class='alert alert-info' role='alert'>Horario de Entrada: ". date("H:i:sa")."</div>";
-                      if (isset($_GET['checkout']))
-                          echo "<br><div class='alert alert-info' role='alert'>Horario de Saída: ". date("H:i:sa")."</div>";
-                      if (isset($_GET['erro']))
-                          echo "<br><div class='alert alert-warning' role='alert'>CPF não encontrado</div>";
-                  ?>
+                <?php 
+                  date_default_timezone_set('America/Sao_Paulo');
+                  if (isset($_GET['checkin']))
+                  echo "<br><div class='alert alert-info' role='alert'>Horario de Entrada: ". date("H:i:sa")."</div>";
+                  if (isset($_GET['checkout']))
+                  echo "<br><div class='alert alert-info' role='alert'>Horario de Saída: ". date("H:i:sa")."</div>";
+                  if (isset($_GET['erro']))
+                  echo "<br><div class='alert alert-warning' role='alert'>CPF não encontrado</div>";
+                ?>
               </div>
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header"><h3 class="card-title"> Check-in Aberto</h3></div>
-                    <div class="card-footer mid">
-                      <?php 
-                        require_once("../admin/DB.php");
-                        $sql = 'SELECT * FROM check_in INNER JOIN usuario ON check_in.usu_id = usuario.usu_id WHERE che_horario_saida is NULL';
-                        $query = mysqli_query($connect, $sql);
-                        $row = mysqli_fetch_assoc($query);
-                      ?>
-                      <div class="card-body table-responsive p-0" style="height: 400px;">
-                        <table class="table table-hover text-nowrap">
-                          <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>CPF</th>
-                                <th>Horário de Entrada</th>
-                                <th>Checkout</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php while($row != null) { ?>
-                              <tr>
-                                <td><?=$row['usu_nome']?></td>
-                                <td><?=$row['usu_cpf']?></td>
-                                <td><?=$row['che_horario_entrada']?></td>
-                                <td><button class="btn btn-primary center" onclick="checkout('<?=$row['usu_cpf']?>')" name="fechar">Checkout</button></td>
-                              </tr>
-                            <?php 
-                              $row = mysqli_fetch_assoc($query);  
-                            }
-                            ?> 
-                          </tbody>
-                        </table>
-                    </div><!-- fim do card-body -->
-                  </div> <!-- fim do card-footer-->
-                </div><!-- fim do card-->
-              </div> <!-- fim div col-md-12-->
             </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">[
+                  <h3 class="card-title"> Check-in Aberto</h3>
+                </div>
+
+                <div class="card-footer mid">
+                  <?php 
+                  require_once("../admin/DB.php");
+                  $sql = 'SELECT * FROM check_in, usuario WHERE check_in.usu_id = usuario.usu_id AND che_horario_saida is NULL';
+                  $query = mysqli_query($connect, $sql);
+                  $row = mysqli_fetch_assoc($query);
+                  ?>
+                  <div class="card-body table-responsive p-0" style="height: 400px;">
+                    <table class="table table-hover text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>Nome</th>
+                          <th>CPF</th>
+                          <th>Horário de Entrada</th>
+                          <th>Checkout</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php while($row != null) { ?>
+                        <tr>
+                          <td><?=$row['usu_nome']?></td>
+                          <td><?=$row['usu_cpf']?></td>
+                          <td><?=$row['che_horario_entrada']?></td>
+                          <td><button class="btn btn-primary center" onclick="checkout('<?=$row['usu_cpf']?>')" name="fechar">Checkout</button></td>
+                        </tr>
+                        <?php 
+                        $row = mysqli_fetch_assoc($query);  
+                        }
+                        ?> 
+                      </tbody>
+                    </table>
+                  </div><!-- fim do card-body -->
+                </div> <!-- fim do card-footer-->
+              </div> <!-- fim do card-->
+            </div> <!-- fim div col-md-12-->
           </div>
         </div>
       </section>

@@ -57,11 +57,11 @@
                         <div class="row">
                           <div class="form-group col-4">
                               <label>CPF</label>
-                              <input required pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" type="text" id="cpf" name="cpf" class="form-control" placeholder="xxx.xxx.xxx-xx">
+                              <input required pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" minlength="14" maxlength="14"type="text" id="cpf" name="cpf" class="form-control" placeholder="xxx.xxx.xxx-xx">
                           </div>
                           <div class="form-group col-4">
                               <label>RG</label>
-                              <input required pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}-[0-9a-zA-Z]{1}" type="text" id="rg" name="rg" class="form-control" placeholder="xx.xxx.xxx-x">
+                              <input required pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}-[0-9a-zA-Z]{1}" minlength="12" maxlength="12" type="text" id="rg" name="rg" class="form-control" placeholder="xx.xxx.xxx-x">
                           </div>
                           <div class="form-group col-4">
                             <label>Data de Nascimento</label>
@@ -79,41 +79,15 @@
 
                           <div class="form-group col-6">
                               <label>Telefone do Responsável</label>
-                              <input type="phone" id="telResponsavel" name="telResponsavel" class="form-control" placeholder="(xx)xxxxx-xxxx">
+                              <input pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" type="phone" id="telResponsavel" name="telResponsavel" class="form-control" placeholder="(xx)xxxxx-xxxx">
                           </div>
                         </div>
 
                         <div class="row">
                           <div class="form-group col-3">
                               <label>CEP</label>
-                              <input required onpaste="consultaCEP(this.value)" onchange="consultaCEP(this.value)" type="text" id="cep" name="cep" class="form-control" placeholder="xxxxx-xxx">
+                              <input required pattern="[0-9]{5}-[0-9]{3}" minlength="9" maxlength="9" onpaste="consultaCEP(this.value)" onchange="consultaCEP(this.value)" type="text" id="cep" name="cep" class="form-control" placeholder="xxxxx-xxx">
                           </div>
-                          <script>
-                              function consultaCEP(CEP){
-                                  if(CEP.length==9){
-                                    document.getElementById('bairro').value = "...";
-                                    document.getElementById('endereco').value = "...";
-                                    document.getElementById('municipio').value = "...";
-
-                                    var elemento = document.createElement('script');
-                                    elemento.src = 'https://viacep.com.br/ws/'+ CEP + '/json/?callback=meu_callback';
-                                    document.body.appendChild(elemento);
-                                  }
-                              }
-
-                              function meu_callback(retorno){
-                                if(!("erro" in retorno)){
-                                  document.getElementById('bairro').value = (retorno.bairro);
-                                  document.getElementById('endereco').value = (retorno.logradouro);
-                                  document.getElementById('municipio').value = (retorno.localidade);
-                                }else{
-                                  document.getElementById('bairro').value = "";
-                                  document.getElementById('endereco').value = "";
-                                  document.getElementById('municipio').value = "";
-                                }
-                                
-                              }
-                            </script>
                           <div class="form-group col-4">
                             <label>Município</label>
                             <input required type="text" id="municipio" name="municipio" class="form-control" placeholder="Municipio">
@@ -132,16 +106,52 @@
                           
                       </div>
 
-                      
-
                       <div class="col-3 md-4 mb-2">
-                        <img src="../images/avatar-df.png" class="img-fluid" alt="">
+                        <img src="../images/avatar-df.png" class="img-fluid img-thumbnail" id="imgUsuario" alt="">
+                        <input type="hidden" id="img64" name="img64"/>
+                        <input type="button" onclick="abrirModal()" value="Tirar Foto"></input>
+                        <section class="modal-camera" id="modal-camera">
+                          <div class="modal-content">
+                            <video id="video" autoplay></video>
+                            <button type="button" onclick="tirarFoto()">
+                              <i class="fas fa-camera-retro"></i>
+                            </button>
+                            <script>
+                                const modal = document.getElementById("modal-camera");
+                                function abrirModal(){
+                                  modal.style.display = "block";
+                                  startVideoFromCamera();
+                                }
+                                window.onclick = (e) => {
+                                    if (e.target === modal)
+                                      modal.style.display = 'none';
+                                }
+                                function startVideoFromCamera() {
+                                    navigator.mediaDevices.getUserMedia({video:{width:320}}).then(stream=>{
+                                        const videoElement = document.querySelector("#video")
+                                        videoElement.srcObject = stream
+                                    })
+                                }
+                                function tirarFoto(){
+                                  const video = document.getElementById("video");
+                                  const canvas = document.createElement("canvas");
+                                  // scale the canvas accordingly
+                                  canvas.width = video.videoWidth;
+                                  canvas.height = video.videoHeight;
+                                  // draw the video at that frame
+                                  canvas.getContext('2d')
+                                    .drawImage(video, 0, 0, canvas.width, canvas.height);
+                                  document.getElementById("imgUsuario").src = canvas.toDataURL();
+                                  document.getElementById("img64").value = canvas.toDataURL();
+                                  modal.style.display = 'none';
+                                }
+                                //window.addEventListener("DOMContentLoaded", startVideoFromCamera())
+                            </script>
+                          </div>
+                        </section>
                       </div>
                     </div>
-                    
-                    
-                      
-                    
+
                     <div class="row">
                       <div class="form-group col-8">
                         <label>Email</label>
@@ -149,10 +159,11 @@
                       </div>
                       <div class="form-group col-4">
                         <label>Telefone(com DDD)</label>
-                        <input required type="phone" id="telefone" name="telefone" class="form-control" placeholder="(xx)xxxxx-xxxx">
+                        <input required pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" type="phone" id="telefone" name="telefone" class="form-control" placeholder="(xx)xxxxx-xxxx">
                       </div>
                       
                     </div>
+
                     <div class="row">
                       <div class="form-group col-6">
                         <label>Área de Atuação</label>
@@ -165,11 +176,7 @@
                       </div>
                     </div>
                     
-
                     <div class="row">
-                    
-                      
-                      
                       <div class="form-group col-7">
                         <label>Empresa</label>
                         <select required name="empresa" class="form-control ">
@@ -214,11 +221,24 @@
                           </select>
                       </div>
                     </div>
-                    
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
                     <button type="submit" name="cadastrar" class="btn btn-primary">Cadastrar</button>
+                    <!-- onclick="cadastrar()" -->
+                    <script>
+                      function cadastrar(){
+                        const form = document.getElementByID('quickForm');
+                        var FormData = FormData(form);
+                        var canvas = document.getElementById('canvas');
+                        if(canvas){
+                          FormData.append('imagem', canvas.toDataURL());
+                          var request = new XMLHttpRequest();
+                          request.open("POST", "../admin/CadastroUsuario.php");
+                          request.send(FormData);
+                        }
+                      }
+                    </script>
                   </div>
                 </form>
               </div>
@@ -234,5 +254,6 @@
     </div>
   </div>
   <script src="../js/verificaIdade.js"></script>
+  <script src="../js/consultaCep.js"></script>
  
   <?php include('../includes/footer.php'); ?>

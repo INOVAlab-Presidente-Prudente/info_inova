@@ -10,7 +10,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1>Seja Bem-Vindo</h1>
+                <div class="display-4">Seja Bem-Vindo</div>
               </div>
               <!-- Mostrar o nome do user nessa HomePage -->
             </div>
@@ -32,8 +32,12 @@
               
             </div>
             <div class="card-body">
-             Bem vindo ao painel do InfoInova
-             <p>Selecione uma das funcionalidades na barra lateral para conseguir usufruir do sistema</p>
+              Bem vindo ao painel do InfoInova
+              <p>Selecione uma das funcionalidades na barra lateral para conseguir usufruir do sistema</p>
+              <div class="row">
+                <img class="img-thumbnail" src="../images/Coworking_home.jpg" alt="imageHome">
+              
+              </div>
             </div>
             
           </div>

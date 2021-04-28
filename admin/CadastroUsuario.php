@@ -32,6 +32,10 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
 !empty($dataNascimento) && ($responsavel != "''") && ($telResponsavel != "''") && !empty($bairro) && !empty($endereco) && 
 !empty($municipio) && !empty($email) && !empty($areaAtuacao) && 
 !empty($areaInteresse) &&  !empty($telefone)) {
+
+    $upload_dir = "../images/usuarios//";
+    $file = $upload_dir . hash("md5", $cpf) . ".png";
+
     require_once("DB.php");
 
     if ($empresa == '...')
@@ -62,8 +66,17 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
         if (!$perfilUsuario)
             echo "<div class='alert alert-info' role='alert'>Você nao tem permissão para cadastrar um usuário com esse perfil.</div>";
         else {
-            if ($query)
+            if ($query){
                 echo "<div class='alert alert-success' role='alert'> Usuario cadastrado</div>";
+                // upload imagem
+                    $img = $_POST['img64'];
+                    $img = str_replace('data:image/png;base64,', '', $img);
+                    $img = str_replace(' ', '+', $img);
+                    $data = base64_decode($img);
+                    $success = file_put_contents($file, $data);
+                    print $success ? $file : 'Unable to save the file.';
+                //fim upload
+            }
             else
                 echo "<div class='alert alert-info' role='alert'>Nao foi possivel cadastar usuario</div>";
         }

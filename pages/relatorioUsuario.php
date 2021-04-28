@@ -82,13 +82,9 @@
                                             ?>
                                             <!-- html entre as pesquisas -->
                                             <?php
-                                            // $sql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(c.che_horario_saida, c.che_horario_entrada)))) FROM usuario u, checkin c WHERE u.usu_id = c.usu_id
-                                            //         AND c.che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' 
-                                            //         AND c.che_horario_saida <= '".$_POST['dtFim']." 23:59:59' ";
-                                            $sql = "SELECT usu_id, usu_area_atuacao FROM usuario ORDER BY usu_area_atuacao";
+                                            $sql = "SELECT usu_id, usu_nome, usu_area_atuacao FROM usuario ORDER BY usu_area_atuacao";
                                             $query = mysqli_query($connect, $sql);
                                             $row = mysqli_fetch_assoc($query);
-                                            $i = 1;
                                             ?>
                                             <table border='1px solid black'>
                                                 <tr>
@@ -104,7 +100,7 @@
                                                 $row2 = mysqli_fetch_assoc($query2);
                                                 if ($row2['tempo']){?>
                                                         <tr>
-                                                            <td>Usuario <?=$i?></td>
+                                                            <td><?=$row['usu_nome']?></td>
                                                             <td><?=$row2['tempo']?></td>
                                                             <td><?=$row2['qtde']?></td>
                                                             <td><?=$row['usu_area_atuacao']?></td>

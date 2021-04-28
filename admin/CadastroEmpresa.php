@@ -12,7 +12,6 @@ if (!empty($razaoSocial) && !empty($cnpj) && !empty($telefone) && !empty($areaAt
     require_once("DB.php");
     $sql = "INSERT INTO empresa VALUES (null, '".$razaoSocial."', '".$cnpj."', '".$telefone."', '".$areaAtuacao."')";
     $query = mysqli_query($connect, $sql);
-    
     if ($query) {
         echo "<div class='alert alert-success' role='alert' >Empresa cadastrada </div>"; 
     } else {

@@ -31,7 +31,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Faça login para iniciar sua sessão</p>
 
-      <form action="admin/Login.php" method="post">
+      <form method="post">
         <div class="input-group mb-3">
           <input type="email" name = "email" class="form-control" placeholder="example@email.com">
           <div class="input-group-append">
@@ -66,6 +66,11 @@
           <!-- /.col -->
         </div>
       </form>
+      <?php 
+          if (isset($_POST['entrar'])) {
+              require_once("admin/Login.php");
+          }
+      ?>
 </div>
 </div>
 <!-- /.login-box -->

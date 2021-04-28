@@ -13,12 +13,13 @@ $sql = "SELECT usu_nome, usu_senha, pu_id, usu_primeiro_login, usu_cpf FROM usua
 $query = mysqli_query($connect, $sql);
 
 $fetch = mysqli_fetch_assoc($query);
-
 if ($fetch != null) {
     if (password_verify($senha, $fetch['usu_senha'])) {
         $_SESSION['logado'] = true;
         $_SESSION['cpf'] =  $fetch['usu_cpf'];
-        $_SESSION['nome'] =  $fetch['usu_nome'];
+        $nome = explode(" ", $fetch['usu_nome'])[0];
+        $sobrenome = explode(" ", $fetch['usu_nome'])[count(explode(" ", $fetch['usu_nome']))-1];
+        $_SESSION['nome'] =  $nome . " " . $sobrenome;
         
         switch ($fetch['pu_id']) {
             case "1":

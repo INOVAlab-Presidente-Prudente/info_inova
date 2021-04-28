@@ -70,11 +70,11 @@
                     <div class="row">
                       <div class="form-group col-6">
                           <label>CPF</label>
-                          <input required <?=$alterar?> type="text" name="cpf" class="form-control" <?="value='".$row['usu_cpf']."'"?>>
+                          <input required <?=$alterar?> pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" minlength="14" maxlength="14" id="cpf" type="text" name="cpf" class="form-control" <?="value='".$row['usu_cpf']."'"?>>
                       </div>
                       <div class="form-group col-6">
                           <label>RG</label>
-                          <input required <?=$alterar?> type="text" name="rg" class="form-control" <?="value='".$row['usu_rg']."'"?>>
+                          <input required <?=$alterar?> type="text" pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}-[0-9a-zA-Z]{1}" minlength="12" maxlength="12" id="rg" name="rg" class="form-control" <?="value='".$row['usu_rg']."'"?>>
                       </div>
                     </div>
                     
@@ -92,28 +92,26 @@
 
                       <div class="form-group">
                           <label>Telefone do Responsável</label>
-                          <input <?=$alterar?> type="phone" id="telRe>sponsavel" name="telResponsavel" class="form-control" <?="value='".$row['usu_tel_responsavel']."'"?>>
+                          <input <?=$alterar?> type="phone" id="telResponsavel" pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" name="telResponsavel" class="form-control" <?="value='".$row['usu_tel_responsavel']."'"?>>
                       </div>
                     </div>
-                    
-
 
                     <div class="form-group">
                         <label>CEP</label>
-                        <input required <?=$alterar?> type="text" name="cep" class="form-control" <?="value='".$row['usu_cep']."'"?>>
+                        <input required <?=$alterar?> pattern="[0-9]{5}-[0-9]{3}" minlength="9" maxlength="9" onpaste="consultaCEP(this.value)" onchange="consultaCEP(this.value)" type="text" id="cep" name="cep" class="form-control" <?="value='".$row['usu_cep']."'"?>>
                     </div>
                     <div class="form-group">
                         <label>Bairro</label>
-                        <input required <?=$alterar?> type="text" name="bairro" class="form-control" <?="value='".$row['usu_bairro']."'"?>>
+                        <input required <?=$alterar?> type="text" id="bairro" name="bairro" class="form-control" <?="value='".$row['usu_bairro']."'"?>>
                     </div>
 
                   <div class="form-group">
                     <label>Endereço</label>
-                    <input required <?=$alterar?> type="text" name="endereco" class="form-control" <?="value='".$row['usu_endereco']."'"?>>
+                    <input required <?=$alterar?> type="text" id="endereco" name="endereco" class="form-control" <?="value='".$row['usu_endereco']."'"?>>
                   </div>
                   <div class="form-group">
                     <label>Município</label>
-                    <input required <?=$alterar?> type="text" name="municipio" class="form-control" <?="value='".$row['usu_municipio']."'"?>>
+                    <input required <?=$alterar?> type="text" id="municipio" name="municipio" class="form-control" <?="value='".$row['usu_municipio']."'"?>>
                   </div>
 
                   <div class="form-group">
@@ -133,7 +131,7 @@
                   
                   <div class="form-group">
                     <label>Telefone(com DDD)</label>
-                    <input required <?=$alterar?> type="phone" name="telefone" class="form-control" <?="value='".$row['usu_telefone']."'"?>>
+                    <input required <?=$alterar?> type="phone" id="telefone" name="telefone" pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" class="form-control" <?="value='".$row['usu_telefone']."'"?>>
                   </div>
                     <div class="form-group">
                         <label>Perfil de Usuário</label>
@@ -214,7 +212,7 @@
                           else {
                               if ($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])) {
                                   echo "<div class='col'> <button type='submit' name='alterar' class='btn btn-warning w-100'>Alterar</button> </div>";
-                                  echo "<div id='btn-excluir' name='excluir' class='col btn btn-danger w-100'> Excluir</div>";    
+                                  echo "<div id='btn-excluir' name='excluir' class='col btn btn-danger w-100 modalSwalDelete'> Excluir</div>";    
                               }
                               if (isset($_POST['alterar'])) {
                                   header("location: ?cpf=".$row['usu_cpf']."&alterar=enabled");
@@ -257,6 +255,7 @@
         </div>
     </div>     
   </div>
+  
   <script> 
     const modal = document.getElementById("modal-excluir");
     const btnExcluir = document.getElementById("btn-excluir");
@@ -274,4 +273,9 @@
     }
   </script>
   <script src="../js/verificaIdade.js"></script>
+  <script src="../js/consultaCep.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="../../plugins/toastr/toastr.min.js"></script>
 <?php include('../includes/footer.php'); ?>

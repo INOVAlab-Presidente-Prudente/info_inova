@@ -40,7 +40,7 @@
                   <div class="card-body">
                       <div class="form-group">
                           <label for="cnpj">CNPJ</label>
-                          <input type="text" name="cnpj" class="form-control" id="cnpj" placeholder="xx.xxx.xxx/0001-xx">
+                          <input type="text" pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" minlength="18" maxlength="18" name="cnpj" class="form-control" id="cnpj" placeholder="xx.xxx.xxx/0001-xx">
                       </div> 
                   </div>
                   <div class="card-footer mid">

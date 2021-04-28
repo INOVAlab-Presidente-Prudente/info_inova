@@ -56,11 +56,11 @@
                                 </div>  
                                 <div class="form-group">
                                     <label>CNPJ</label>
-                                    <input <?=$alterar." value='".$row['emp_cnpj']."'"?> name="cnpj" class="form-control">
+                                    <input <?=$alterar." value='".$row['emp_cnpj']."'"?> pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" name="cnpj" class="form-control">
                                 </div>    
                                 <div class="form-group">
                                     <label>Telefone</label>
-                                    <input <?=$alterar." value='".$row['emp_telefone']."'"?> name="telefone" class="form-control">
+                                    <input <?=$alterar." value='".$row['emp_telefone']."'"?> pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" name="telefone" class="form-control">
                                 </div>    
                                 <div class="form-group">
                                     <label>Ramo de atuação</label>

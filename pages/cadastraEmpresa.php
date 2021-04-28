@@ -47,38 +47,17 @@
                               <input required type="text" name="razaoSocial" id="razaoSocial" class="form-control" >
                           </div>
                           <div class="form-group">
-                          <!-- pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" -->
                               <label>CNPJ</label>
-                              <input required onpaste="consultaCNPJ(this.value)" onchange="consultaCNPJ(this.value)" type="text" id="cnpj" name="cnpj" class="form-control" placeholder="xx.xxx.xxx/0001-xx">
+                              <input required pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" minlength="18" maxlength="18" onpaste="consultaCNPJ(this.value)" onchange="consultaCNPJ(this.value)" type="text" id="cnpj" name="cnpj" class="form-control" placeholder="xx.xxx.xxx/0001-xx">
                           </div>
-                          <script>
-                            function consultaCNPJ(CNPJ){
-                              CNPJ = CNPJ.replace(/[./-]/g, "")
-                              console.log(CNPJ)
-                              if(CNPJ.length==14){
-                                var script = document.createElement('script');
-                                script.src = "https://www.receitaws.com.br/v1/cnpj/"+CNPJ+"?callback=meuCallback";
-                                document.body.appendChild(script);
-
-                              }
-                            }
-                            function meuCallback(conteudo){
-                              document.getElementById('razaoSocial').value=(conteudo.nome);
-                              document.getElementById('telefone').value=(conteudo.telefone);
-                              document.getElementById('ramo').value= (conteudo.atividade_principal[0].text);
-                              console.log(conteudo.atividade_principal[0].text);
-                            }
-                          </script>
                           <div class="form-group">
                               <label>Telefone</label>
-                              <input required type="phone" name="telefone" id="telefone" class="form-control" placeholder="(xx)xxxxx-xxxx">
+                              <input required pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" type="phone" name="telefone" id="telefone" class="form-control" placeholder="(xx)xxxxx-xxxx">
                           </div>
                           <div class="form-group">
                               <label>Ramo de atuação</label>
                               <input required type="text" name="areaAtuacao" id="ramo" class="form-control" >
                           </div>
-
-                          
                       </div>
                       <!-- /.card-body -->
                       <div class="card-footer">
@@ -101,4 +80,22 @@
           <!-- /.content -->
         </div>
       </div>
+      <script>
+        function consultaCNPJ(CNPJ){
+          CNPJ = CNPJ.replace(/[./-]/g, "")
+          console.log(CNPJ)
+          if(CNPJ.length==14){
+            var script = document.createElement('script');
+            script.src = "https://www.receitaws.com.br/v1/cnpj/"+CNPJ+"?callback=meuCallback";
+            document.body.appendChild(script);
+
+          }
+        }
+        function meuCallback(conteudo){
+          document.getElementById('razaoSocial').value=(conteudo.nome);
+          document.getElementById('telefone').value=(conteudo.telefone).replace(" ", "");
+          document.getElementById('ramo').value= (conteudo.atividade_principal[0].text);
+          console.log(conteudo.atividade_principal[0].text);
+        }
+      </script>
 <?php include("../includes/footer.php")?>

@@ -37,7 +37,7 @@
                   <div class="card-body">
                       <div class="form-group">
                           <label for="cpf">CPF</label>
-                          <input type="text" name="cpf" class="form-control" id="cpf" placeholder="xxx.xxx.xxx-xx">
+                          <input type="text" name="cpf" class="form-control" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" minlength="14" maxlength="14" id="cpf" placeholder="xxx.xxx.xxx-xx">
                       </div> 
                   </div>
                   <div class="card-footer mid">
@@ -45,10 +45,9 @@
                     <!-- Depois validar para redirecionar para determinadas -->
                   </div>
                 </form>
-                
+              </div>
             </div>
-          </div>
-          <div class="col-md-12">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"> Lista de Usuários</h3>
@@ -142,4 +141,9 @@
               modal.style.display = 'none';
         }
     </script>
+    <!-- SweetAlert2 -->
+    <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="../../plugins/toastr/toastr.min.js"></script>
+
 <?php include('../includes/footer.php'); ?>
