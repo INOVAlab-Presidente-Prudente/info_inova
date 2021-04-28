@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SERVER['HTTP_REFERER'])){
-    header('location: /');
+    header('location: ../');
 }
 
 require_once("DB.php");

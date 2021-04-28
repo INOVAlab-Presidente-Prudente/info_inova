@@ -9,7 +9,7 @@
       <div class="card-body login-card-body">
         <p class="login-box-msg">Como é seu primeiro login no InfoInova, é necessário que você faça a alteração da sua senha</p>
 
-        <form  method="post">
+        <form action="../admin/AlteraSenha.php" method="post">
           <div class="input-group mb-3">
             <input name="novaSenha" type="password" class="form-control" placeholder="Password">
             <div class="input-group-append">
@@ -32,15 +32,10 @@
             </div>
             <!-- /.col -->
           </div>
-          <?php 
-            if (isset($_POST['alterarSenha'])) {
-                require_once("../admin/AlteraSenha.php");
-            }
-          ?>
         </form>
 
         <p class="mt-3 mb-1">
-          <a href="/">Ir para a HomePage</a>
+          <a href="../">Ir para a HomePage</a>
         </p>
       </div>
       <!-- /.login-card-body -->

@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-slide="true" href="../../admin/Logout.php" role="button">
+                <a class="nav-link" data-slide="true" href="../admin/Logout.php" role="button">
                 <i class="fas fa-sign-out-alt"></i>
                 </a>
             </li>
