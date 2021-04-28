@@ -89,7 +89,7 @@
                         <li class="nav-item">
                             <a href="../layout/top-nav.html" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Agendamento</p>
+                            <p>Agendamento de Salas</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -144,7 +144,7 @@
                         <li class="nav-item">
                             <a href="../pages/consultaEmpresa.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Consulta Empresa</p>
+                            <p>Consultar Empresa</p>
                             </a>
                         </li>
                     </ul>
@@ -171,7 +171,7 @@
                         <li class="nav-item">
                             <a href="../pages/consultaSala.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Consulta Sala</p>
+                            <p>Consultar Sala</p>
                             </a>
                         </li>
                     </ul>
