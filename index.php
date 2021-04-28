@@ -1,10 +1,12 @@
 <?php 
     session_start();
-    if (!isset($_SESSION['logado'])) {
+    if (isset($_SESSION['logado'])) {
+      header("location: pages/adminPage.php");
+    }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +31,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Faça login para iniciar sua sessão</p>
 
-      <form method="post">
+      <form action="admin/Login.php" method="post">
         <div class="input-group mb-3">
           <input type="email" name = "email" class="form-control" placeholder="example@email.com">
           <div class="input-group-append">
@@ -64,14 +66,6 @@
           <!-- /.col -->
         </div>
       </form>
-
-      
-      <?php 
-        if (isset($_POST['entrar'])) {
-            require_once("admin/Login.php");
-        }
-      ?>
-
 </div>
 </div>
 <!-- /.login-box -->
@@ -84,8 +78,3 @@
 <script src="dist/js/adminlte.min.js"></script>
 </body>
 </html>
-<?php
-}else {
-      header("location: pages/adminPage.php");
-    }
-?>
