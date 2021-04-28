@@ -2,7 +2,7 @@
     session_start();
     if (!isset($_SESSION['logado']) && (!isset($_SESSION['coworking']) || !isset($_SESSION['admin']))) 
     {
-        header("location: /");
+        header("location: ../");
     }
 ?>
 <!DOCTYPE html>

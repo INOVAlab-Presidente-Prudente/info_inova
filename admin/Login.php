@@ -45,9 +45,9 @@ if ($fetch != null) {
             session_destroy();
             echo "<small style='font-color: red'>Acesso negado.</small>";
         }else if ($fetch['usu_primeiro_login']){
-            header("location: pages/alterarSenha.php");
+            header("location: ../pages/alterarSenha.php");
         }else{
-            header("location: pages/adminPage.php");}
+            header("location: ../pages/adminPage.php");}
     } else  
         echo "<small style='font-color: red'>E-mail ou senha invalidos.</small>";
 } else
