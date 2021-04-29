@@ -83,7 +83,6 @@
       <script>
         function consultaCNPJ(CNPJ){
           CNPJ = CNPJ.replace(/[./-]/g, "")
-          console.log(CNPJ)
           if(CNPJ.length==14){
             var script = document.createElement('script');
             script.src = "https://www.receitaws.com.br/v1/cnpj/"+CNPJ+"?callback=meuCallback";

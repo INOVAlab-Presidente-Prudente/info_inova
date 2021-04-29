@@ -70,11 +70,15 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                 echo "<div class='alert alert-success' role='alert'> Usuario cadastrado</div>";
                 // upload imagem
                     $img = $_POST['img64'];
-                    $img = str_replace('data:image/png;base64,', '', $img);
-                    $img = str_replace(' ', '+', $img);
-                    $data = base64_decode($img);
-                    $success = file_put_contents($file, $data);
-                    print $success ? $file : 'Unable to save the file.';
+                    //write_log($img);
+                    if($img!=""){
+                        $img = str_replace('data:image/png;base64,', '', $img);
+                        $img = str_replace(' ', '+', $img);
+                        $data = base64_decode($img);
+                        $success = file_put_contents($file, $data);
+                        // print $success ? $file : 'Unable to save the file.';
+                    }
+                    
                 //fim upload
             }
             else

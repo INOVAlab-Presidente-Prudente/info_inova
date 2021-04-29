@@ -25,12 +25,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Consulta de Empresa</h1>
+            <h1>Consultar de Empresa</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
-              <li class="breadcrumb-item "><a href="/pages/consultaEmpresa.php">Consulta de Empresa</a></li>
+              <li class="breadcrumb-item "><a href="/pages/consultarEmpresa.php">Consulta de Empresa</a></li>
               <li class="breadcrumb-item active"><?= $row['emp_razao_social'] ?></li>
             </ol>
           </div>
@@ -149,5 +149,5 @@
     <?php include('../includes/footer.php');
 }
 else
-    header("location: /consultaEmpresa.php");
+    header("location: /consultarEmpresa.php");
 ?>

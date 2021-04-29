@@ -61,7 +61,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../pages/relatorioUsuario.php" class="nav-link">
+                            <a href="../pages/relatorioCoworking.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Utilização - Coworking</p>
                             </a>
@@ -91,20 +91,20 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="cadastroUsers.php" class="nav-link">
+                            <a href="/pages/cadastrarUsuario.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Cadastrar Usuários</p>
+                            <p>Cadastrar Usuário</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/pages/consultaUsers.php" class="nav-link">
+                            <a href="/pages/consultarUsuario.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Consultar Usuário</p>
                             </a>
                         </li>
                         <!-- 
                         <li class="nav-item">
-                            <a href="/pages/listarUsuarios.php" class="nav-link">
+                            <a href="/pages/listarUsuario.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Listar todos Usuários</p>
                             </a>
@@ -131,19 +131,19 @@
                     <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-briefcase"></i>
                     <p>
-                        Gerenciar Empresa
+                        Gerenciar Empresas
                         <i class="right fas fa-angle-left"></i>
                     </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../pages/cadastraEmpresa.php" class="nav-link">
+                            <a href="../pages/cadastrarEmpresa.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Cadastrar Empresa</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../pages/consultaEmpresa.php" class="nav-link">
+                            <a href="../pages/consultarEmpresa.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Consultar Empresa</p>
                             </a>
@@ -164,15 +164,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href=".../pages/cadastraSala.php" class="nav-link">
+                            <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Adicionar Sala</p>
+                            <p>Adicionar Sala - Em Breve</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../pages/consultaSala.php" class="nav-link">
+                            <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Consultar Sala</p>
+                            <p>Consultar Sala - Em Breve</p>
                             </a>
                         </li>
                     </ul>
@@ -188,21 +188,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="../forms/general.html" class="nav-link">
+                        <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Coworking</p>
+                        <p>Coworking - Em Breve</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../forms/advanced.html" class="nav-link">
+                        <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Eventos</p>
+                        <p>Eventos - Em Breve</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../forms/editors.html" class="nav-link">
+                        <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Financeiro</p>
+                        <p>Financeiro - Em Breve</p>
                         </a>
                     </li>
                     </ul>

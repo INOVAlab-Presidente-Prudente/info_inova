@@ -8,7 +8,7 @@ $cpf = $_POST['cpf'];
 $sql = "SELECT usu_cpf FROM usuario WHERE usu_cpf = '".$cpf."'";
 $query = mysqli_query($connect, $sql);
 if (mysqli_num_rows($query)) {
-    header("location: ../pages/consultaUsersEdit.php?cpf=".$cpf."");
+    header("location: ../pages/consultarUsuarioEdit.php?cpf=".$cpf."");
 } else {
-    header("location: ../pages/consultaUsers.php?usuario_nao_existe=true");
+    header("location: ../pages/consultarUsuario.php?usuario_nao_existe=true");
 }

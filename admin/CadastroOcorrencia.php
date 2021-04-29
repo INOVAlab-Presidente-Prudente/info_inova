@@ -14,10 +14,10 @@ if(!empty($data) && !empty($hora) && !empty($descricao)){
     $query = mysqli_query($connect, $sql);
 
     if($query)
-        echo "Ocorrência cadastrada";
+        echo "Ocorrência cadastrada"; //lembrar de colocar o alert
     else
-        echo "Não foi possivel cadastrar ocorrência";
+        echo "Não foi possivel cadastrar ocorrência"; //lembrar de colocar o alert
     
     
-}else
-    echo "Preencha todos os campos";
+} else
+    echo "Preencha todos os campos"; //lembrar de colocar o alert

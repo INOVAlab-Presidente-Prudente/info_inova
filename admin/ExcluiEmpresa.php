@@ -15,4 +15,4 @@ $query = mysqli_query($connect, $sql);
 $sql = "DELETE FROM empresa WHERE emp_id = '".$emp_id."'";
 $query = mysqli_query($connect, $sql);
 
-header("location: /pages/consultaEmpresa.php?empresa_excluida=true");
+header("location: /pages/consultarEmpresa.php?empresa_excluida=true"); 

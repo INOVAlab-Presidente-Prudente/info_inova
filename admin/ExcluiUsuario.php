@@ -14,7 +14,7 @@ $pu_id = $fetch['pu_id'];
 $cpf = $fetch['usu_cpf'];
     
 if (($pu_id == '1' && !isset($_SESSION['admin'])) || ($pu_id == '2' && !isset($_SESSION['admin']) && $cpf != $_SESSION['cpf']))
-    header("location: /pages/consultaUsers.php?erro=permissao_negada");
+    header("location: /pages/consultarUsuario.php?erro=permissao_negada");
 else {
     $sql = "DELETE FROM check_in WHERE usu_id = '".$usu_id."'";
     $query = mysqli_query($connect, $sql);
@@ -28,5 +28,5 @@ else {
 
     $sql = "DELETE FROM usuario WHERE usu_id = '".$usu_id."'";
     $query = mysqli_query($connect, $sql);
-    header("location: /pages/consultaUsers.php?usuario_excluido=true");
+    header("location: /pages/consultarUsuario.php?usuario_excluido=true");
 }

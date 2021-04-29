@@ -24,7 +24,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
-              <li class="breadcrumb-item "><a href="/pages/consultaUsers.php">Consulta de Usuário</a></li>
+              <li class="breadcrumb-item "><a href="/pages/consultarUsuario.php">Consulta de Usuário</a></li>
               <li class="breadcrumb-item active" ><?=$row['usu_nome']?></li>
             </ol>
           </div>
@@ -212,7 +212,8 @@
                           else {
                               if ($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])) {
                                   echo "<div class='col'> <button type='submit' name='alterar' class='btn btn-warning w-100'>Alterar</button> </div>";
-                                  echo "<div id='btn-excluir' name='excluir' class='col btn btn-danger w-100 modalSwalDelete'> Excluir</div>";    
+                                  echo "<div id='btn-excluir' name='excluir' class='col btn btn-danger w-100'> Excluir</div>";  
+                                  echo "<div class='col'><button type='button' class='btn btn-info w-100' onclick='window.location.href = \"cadastrarOcorrencia.php?usu_id=".$row['usu_id']."\" '>Nova Ocorrência</button></div>"  ;
                               }
                               if (isset($_POST['alterar'])) {
                                   header("location: ?cpf=".$row['usu_cpf']."&alterar=enabled");
@@ -225,7 +226,7 @@
                 <?php
                 
                     }else {
-                        header("location: consultaUsers.php");
+                        header("location: consultarUsuario.php");
                     }
                 ?>
                

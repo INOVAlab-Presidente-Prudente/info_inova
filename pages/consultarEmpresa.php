@@ -10,7 +10,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Consulta Empresa</h1>
+              <h1>Consultar Empresa</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -76,7 +76,7 @@
                         <tbody>
                           <?php while($row != null) { ?>
                             <tr>
-                              <td><a href="consultaEmpresaEdit.php?cnpj=<?=$row['emp_cnpj']?>"><?= $row['emp_razao_social'] ?></a></td>
+                              <td><a href="consultarEmpresaEdit.php?cnpj=<?=$row['emp_cnpj']?>"><?= strlen($row['emp_razao_social']) >= 35 ? substr($row['emp_razao_social'], 0, 35)."..." : $row['emp_razao_social']?></a></td>
                               <td><?= $row['emp_cnpj']?></td>
                               <!-- botoes -->
                               <td><button class="btn btn-warning center" name="alterar" onclick="redireciona('<?=$row['emp_cnpj']?>')">
@@ -116,7 +116,7 @@
           const btnNao = document.getElementById("btn-nao");
 
         function redireciona(cnpj){
-            window.location.href="consultaEmpresaEdit.php?cnpj="+cnpj+"&alterar=enabled";
+            window.location.href="consultarEmpresaEdit.php?cnpj="+cnpj+"&alterar=enabled";
         }
 
         function excluirEmpresa(e, razao, cnpj){

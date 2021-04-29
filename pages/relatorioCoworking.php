@@ -91,21 +91,32 @@
                                                     <th>Usuario</th>
                                                     <th>Qtd Horas</th>
                                                     <th>Qtde check-in</th>
+                                                    <th>Qtde Ocorrencias</th>
                                                     <th>Area atuacao</th>
                                                 </tr>
                                             <?php
                                             while($row != null){
-                                                $sql2 = "SELECT COUNT(c.che_id) AS qtde, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(c.che_horario_saida, c.che_horario_entrada)))) AS tempo FROM check_in c WHERE c.usu_id = ".$row['usu_id']." AND c.che_horario_entrada >= '2021-04-01 00:00:00' AND c.che_horario_saida <= '2021-04-30 23:59:59'";
+                                                $sql2 = "SELECT COUNT(c.che_id) AS qtde, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(c.che_horario_saida, c.che_horario_entrada)))) AS tempo 
+                                                            FROM check_in c WHERE c.usu_id = ".$row['usu_id']." AND c.che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' 
+                                                            AND c.che_horario_saida <= '".$_POST['dtFim']." 23:59:59'";
                                                 $query2 = mysqli_query($connect, $sql2);
                                                 $row2 = mysqli_fetch_assoc($query2);
+
+                                                $sql3 = "SELECT COUNT(oc_id) AS qtdeOcorrencia
+                                                            FROM ocorrencia WHERE usu_id = ".$row['usu_id']." AND oc_data >= '".$_POST['dtInicio']." 00:00:00' 
+                                                            AND oc_data <= '".$_POST['dtFim']." 23:59:59'";
+                                                $query3 = mysqli_query($connect, $sql3);
+                                                $row3 = mysqli_fetch_assoc($query3);
+
                                                 if ($row2['tempo']){?>
                                                         <tr>
                                                             <td><?=$row['usu_nome']?></td>
                                                             <td><?=$row2['tempo']?></td>
                                                             <td><?=$row2['qtde']?></td>
+                                                            <td><?=$row3['qtdeOcorrencia']?></td>
                                                             <td><?=$row['usu_area_atuacao']?></td>
                                                         </tr>
-                                                <?php $i++;}
+                                                <?php }
                                                 $row = mysqli_fetch_assoc($query);
                                             }
                                         }

@@ -10,7 +10,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Consulta Usuário</h1>
+              <h1>Consultar Usuário</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -78,7 +78,7 @@
                       <tbody>
                         <?php while ($row != null) { ?>
                             <tr>
-                                <td><a href="consultaUsersEdit.php?cpf=<?=$row['usu_cpf']?>"><?=$row['usu_nome']?></a></td>
+                                <td><a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>"><?=$row['usu_nome']?></a></td>
                                 <td><?=$row['usu_cpf']?></td>
 
                                 <?php $dis = (($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])))? "":"disabled"?>
@@ -118,7 +118,7 @@
         function redireciona(i, cod){
             switch (i){
                 case 1:
-                    window.location.href="consultaUsersEdit.php?cpf="+cod+"&alterar=enabled"; break;
+                    window.location.href="consultarUsuarioEdit.php?cpf="+cod+"&alterar=enabled"; break;
                 case 3:
                     window.location.href="ocorrencias.php?usu_id="+cod; break;
             }
