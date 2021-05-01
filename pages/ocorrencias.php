@@ -20,9 +20,10 @@
                         <div class="col-md-12">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h1 class="card-title">Todas Ocorrências de <strong><?=$row['usu_nome']?> </strong></h1>
+                                    <h1 class="card-title">Todas Ocorrências de</strong></h1>
                                 </div>
                                 <div class="card-body">
+                                <button type='button' class='btn btn-info w-100' onclick="window.location.href = 'cadastrarOcorrencia.php?usu_id=<?=$_GET['usu_id']?>'">Nova ocorrência</button>
                                 <?php
                                     if(isset($_GET['excluido']))
                                         echo "excluido"; //ALERT EXCLUIDO
@@ -41,19 +42,16 @@
                                         if($res == null)
                                             echo "".$row['usu_nome']." não possui ocorrência";
                                         while($res != null){
-                                            echo "".$res['oc_data']."<br> Ocorrência: ".$res['oc_descricao']."<br>";
-                                            echo "<button name='alterar' onclick=\"window.location.href='alterarocorrencia.php?usu_id=".$_GET['usu_id']."&oc_id=".$res['oc_id']."' \">Alterar</button>";
-                                            echo "<button name='excluir' onclick='excluir(".$res['oc_id'].",".$_GET['usu_id'].")'>Excluir</button><br><br>";
+                                            echo "".$res['oc_data']."<br> Ocorrência: ".$res['oc_descricao']."<br>\n";
+                                            echo "<button name='alterar' onclick=\"window.location.href='alterarOcorrencia.php?oc_id=".$res['oc_id']."'\">Alterar</button>";
+                                            echo "<button name='excluir' onclick=\"excluir(".$res['oc_id'].",".$_GET['usu_id'].")\">
+                                                    Excluir
+                                                  </button><br><br>";
                                             $res = mysqli_fetch_array($query);
                                         }
                                     }else echo "Usuario não encontrado";
                                 ?>
-                                <script>
-                                    function excluir(oc_id, usu_id){
-                                        if(confirm("Deseja mesmo excluir esta ocorrência?")) //substituir pela modal
-                                            window.location.href="../admin/ExcluiOcorrencia.php?usu_id="+usu_id+"&oc_id="+oc_id;
-                                    }
-                                </script>
+                                
                                 </div>
                                 <div class="card-footer">
                                 
@@ -66,7 +64,12 @@
         </div>
     </div>
 
-
+    <script>
+        function excluir(oc_id, usu_id){
+            if(confirm("Deseja mesmo excluir esta ocorrência?")) //substituir pela modal
+                window.location.href="../admin/ExcluiOcorrencia.php?usu_id="+usu_id+"&oc_id="+oc_id;
+        }
+    </script>
 <?php 
     include("../includes/footer.php");
 ?>

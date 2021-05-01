@@ -80,7 +80,7 @@
                               <td><?= $row['emp_cnpj']?></td>
                               <!-- botoes -->
                               <td><button class="btn btn-warning center" name="alterar" onclick="redireciona('<?=$row['emp_cnpj']?>')">
-                                <i class="fas fa-user-edit"></i>
+                                <i class="fas fa-edit"></i>
                               </button></td>
                               <td><button class="btn btn-danger center" name="excluir" onclick="excluirEmpresa(this,'<?=$row['emp_razao_social']?>','<?=$row['emp_cnpj']?>')">
                                 <i class="fas fa-trash-alt"></i>

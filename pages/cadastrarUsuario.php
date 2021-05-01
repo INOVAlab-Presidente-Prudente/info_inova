@@ -69,8 +69,7 @@
                             <input type="hidden" name="idade" id="idade" value=""/>
                           </div>
                         </div>
-                        
-                        
+
                         <div class="row" id="responsavel" style="display: none;">
                           <div class="form-group col-6">
                               <label>Nome do Responsável</label>
@@ -97,6 +96,7 @@
                               <input required type="text" id="bairro" name="bairro" class="form-control" placeholder="Bairro">
                           </div>
                         </div>
+
                         <div class="row">
                           <div class="form-group col-12">
                             <label>Endereço</label>
@@ -201,24 +201,24 @@
                         </div>
                       </div>
                       <div class="form-group col-4">
-                          <label>Perfil de Usuário</label>
-                          <select required name="perfil" class="form-control">
-                            <?php
-                              $sql = "SELECT * FROM perfil_usuario";
-                              $query = mysqli_query($connect, $sql);
-                              $res2 = mysqli_fetch_array($query);    
+                        <label>Perfil de Usuário</label>
+                        <select required name="perfil" class="form-control">
+                          <?php
+                            $sql = "SELECT * FROM perfil_usuario";
+                            $query = mysqli_query($connect, $sql);
+                            $res2 = mysqli_fetch_array($query);    
 
-                              while ($res2 != null) {
-                                  if (isset($_SESSION['admin']))
-                                      echo "<option value='".$res2['pu_id']."'>". ucwords($res2['pu_descricao']) ."</option>";
-                                  else if (isset($_SESSION['coworking'])) {
-                                      if ($res2['pu_descricao'] != "administrador" && $res2['pu_descricao'] != "financeiro" && $res2['pu_descricao'] != "coworking" && $res2['pu_descricao'] != "evento")
-                                          echo "<option value='".$res2['pu_id']."'>". ucwords($res2['pu_descricao']) ."</option>";
-                                  } 
-                                  $res2 = mysqli_fetch_array($query);
-                              }
-                            ?>
-                          </select>
+                            while ($res2 != null) {
+                                if (isset($_SESSION['admin']))
+                                    echo "<option value='".$res2['pu_id']."'>". ucwords($res2['pu_descricao']) ."</option>";
+                                else if (isset($_SESSION['coworking'])) {
+                                    if ($res2['pu_descricao'] != "administrador" && $res2['pu_descricao'] != "financeiro" && $res2['pu_descricao'] != "coworking" && $res2['pu_descricao'] != "evento")
+                                        echo "<option value='".$res2['pu_id']."'>". ucwords($res2['pu_descricao']) ."</option>";
+                                } 
+                                $res2 = mysqli_fetch_array($query);
+                            }
+                          ?>
+                        </select>
                       </div>
                     </div>
                   </div>

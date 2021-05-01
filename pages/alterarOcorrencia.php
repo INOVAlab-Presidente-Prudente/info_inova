@@ -1,14 +1,18 @@
-<?php include("../includes/header.php");
-    if(!isset($_GET['usu_id']))
-        header("location: ../");
-
+<?php 
+    ob_start();
+    include("../includes/header.php");
     require_once("../admin/DB.php");
-    $sql = "SELECT usu_nome FROM usuario WHERE usu_id = '".$_GET['usu_id']."'";
+
+    $sql = "SELECT DATE(o.oc_data) AS dataOc, TIME(o.oc_data) AS hora, o.oc_descricao, u.usu_nome AS nome, u.usu_id AS id FROM ocorrencia o, usuario u 
+            WHERE oc_id = '".$_GET['oc_id']."' AND o.usu_id = u.usu_id";
     $query = mysqli_query($connect, $sql);
+    if(!$query){
+        var_dump($query);die();
+    }
+        //header("Location: ../"); //redirecionar para algum erro
     $row = mysqli_fetch_assoc($query);
-    
 ?>
-<body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Cadastrar Ocorrência'">
+<body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Alterar Ocorrência'">
     <?php include("../includes/navbar.php") ?>
     <?php include("../includes/sidebar.php") ?>
     <div class="wrapper">
@@ -17,13 +21,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Cadastrar Ocorrência</h1>
+                            <h1>Alterar Ocorrência</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
-                                <li class="breadcrumb-item "><a href="/pages/consultarUsuario.php">Consulta de Usuário</a></li>
-                                <li class="breadcrumb-item active" >Cadastrar Ocorrência</li>
+                                <li class="breadcrumb-item "><a href="/pages/ocorrencias.php?usu_id=<?=$row['id']?>">Registro de Ocorrências</a></li>
+                                <li class="breadcrumb-item active" >Alterar Ocorrência</li>
                             </ol>
                         </div>
 
@@ -37,29 +41,32 @@
                             <div class="card card-primary">
                                 <form action="" id="quickForm" method="post">
                                     <div class="card-header">
-                                        <h1 class="card-title">Cadastrar Ocorrência para <strong><?=$row['usu_nome']?></strong></h1>
+                                        <h1 class="card-title">Ocorrência de <strong><?=$row['nome']?></strong></h1>
                                         <!-- Inserir o require_once do backend -->
                                     </div>
                                     <div class="card-body">
+                                        <input type="hidden" name="oc_id" value="<?=$_GET['oc_id']?>"/>
+                                        <input type="hidden" name="usu_id" value="<?=$row['id']?>"/>
+                                        <?php var_dump($row['id'])?>
                                         <div class="form-group">
                                             <label>Data</label>
-                                            <input type="date" id="dt" name="dt" class="form-control"/>
+                                            <input type="date" id="dt" name="dt" class="form-control" value="<?=$row['dataOc']?>"/>
                                         </div>                                        
                                         <div class="form-group">
                                             <label>Hora</label>
-                                            <input type="time" id="hora" name="hora" class="form-control"/>
+                                            <input type="time" id="hora" name="hora" class="form-control" value="<?=$row['hora']?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Descreva o ocorrido</label>
-                                            <textarea id="descricao" name="descricao" class="form-control" placeholder="Insira a descrição do ocorrido aqui"></textarea>
+                                            <textarea id="descricao" name="descricao" class="form-control"><?=$row['oc_descricao']?></textarea>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" name="cadastrar" class="btn btn-primary">Cadastrar</button>
+                                        <button type="submit" name="confirmar" class="btn btn-primary">Confirmar</button>
                                     </div>
                                     <?php 
-                                        if(isset($_POST['cadastrar']))
-                                            require_once("../admin/CadastroOcorrencia.php"); 
+                                        if(isset($_POST['confirmar']))
+                                            require_once("../admin/AlteraOcorrencia.php"); 
                                     ?>
                                 </form>
                             </div>
@@ -69,14 +76,5 @@
             </section>
         </div>
     </div>
-<!-- Summernote -->
-<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
-<script>
-  $(function () {
-    // Summernote
-    $('#summernote').summernote()
-
-  })
-</script>
 
 <?php include("../includes/footer.php") ?>

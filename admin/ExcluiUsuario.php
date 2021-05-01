@@ -26,7 +26,14 @@ else {
         session_destroy();
     }
 
-    $sql = "DELETE FROM usuario WHERE usu_id = '".$usu_id."'";
-    $query = mysqli_query($connect, $sql);
-    header("location: /pages/consultarUsuario.php?usuario_excluido=true");
+    if(unlink("../images/usuarios/".hash('md5',$cpf).".png")){
+        $sql = "DELETE FROM usuario WHERE usu_id = '".$usu_id."'";
+        $query = mysqli_query($connect, $sql);
+        if($query)
+            header("location: /pages/consultarUsuario.php?usuario_excluido=true");
+        
+    }else
+        echo "erro ao excluir imagem";
+    
+        
 }
