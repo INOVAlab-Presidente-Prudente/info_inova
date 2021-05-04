@@ -69,15 +69,19 @@
                 </div>
                 <div class="col-md-12">
                     <div class="card">
-                        <div  id="relatorio">
+                         
                             <?php
                             if(isset($_POST['consultar'])){
                                 if(isset($_POST['dtInicio']) && isset($_POST['dtFim'])){
                                     require_once('../admin/DB.php');?>
-                                    <div class="card-header">
-                                        <h3 class="card-title">Relatório de Utilização pelos Usuários do Coworking </h3><br>
-                                        <h5 class="card-title">referente as datas <?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?> a <?=date_format(date_create($_POST['dtFim']),"d/m/Y")?> </h5>
-                                        <button id="btn-gerarpdf" class="btn btn-info">PDF</button>
+                                    <div id="info-1" class="card-header">
+                                        <div class="row">
+                                            <div class="col-11">
+                                                <h3 class="card-title">Relatório de Utilização pelos Usuários do Coworking </h3><br>
+                                                <h5 class="card-title">referente as datas <?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?> a <?=date_format(date_create($_POST['dtFim']),"d/m/Y")?> </h5>
+                                            </div>
+                                            <div class="col-1"> <button id="btn-gerarpdf" onclick="getPDF('relatorio_<?=$_POST['dtInicio']?>_<?=$_POST['dtFim']?>')" class="btn btn-info">PDF</button></div>
+                                        </div>
                                     </div>
                                     <div class="card-footer mid">
                                         <div class="card-body">
@@ -90,15 +94,17 @@
                                                 $query = mysqli_query($connect, $sql);
                                                 $row = mysqli_fetch_assoc($query);
                                             ?>
-                                            <div class="form-group">
+                                            <div id="info-2" class="form-group">
                                                 <label><p>Tempo médio entre todos usuários: <?=$row['tempo_total']?></p></label><br>
                                                 <label><p>Quantidade de check-in: <?=$row['cont']?></p></label>
                                             </div>
-                        </div>
+                        
                                             <table id="table-relatorio" class="table table-bordered table-hover">
                                                 
                                                 <?php
-                                                    $sql = "SELECT usu_id, usu_nome, usu_area_atuacao FROM usuario ORDER BY usu_area_atuacao";
+                                                    $sql = "SELECT DISTINCT u.usu_id, u.usu_nome, u.usu_area_atuacao FROM usuario u, check_in c 
+                                                            WHERE c.usu_id = u.usu_id AND c.che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' 
+                                                                        AND c.che_horario_saida <= '".$_POST['dtFim']." 23:59:59' ORDER BY usu_area_atuacao";
                                                     $query = mysqli_query($connect, $sql);
                                                     $row = mysqli_fetch_assoc($query);
                                                 ?>
@@ -127,7 +133,8 @@
                                                             $query3 = mysqli_query($connect, $sql3);
                                                             $row3 = mysqli_fetch_assoc($query3);
 
-                                                            if ($row2['tempo']){?>
+                                                            //if ($row2['tempo']){ 
+                                                                ?>
                                                                     <tr>
                                                                         <td><?=$row['usu_nome']?></td>
                                                                         <td><?=$row2['tempo']?></td>
@@ -135,7 +142,7 @@
                                                                         <td><?=$row3['qtdeOcorrencia']?></td>
                                                                         <td><?=$row['usu_area_atuacao']?></td>
                                                                     </tr>
-                                                            <?php }
+                                                            <?php //}
                                                             $row = mysqli_fetch_assoc($query);
                                                         }
                                                     ?>

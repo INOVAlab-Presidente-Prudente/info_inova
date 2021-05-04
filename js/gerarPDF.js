@@ -1,33 +1,6 @@
-// function createInvoice(){
-//     var specialElementHandlers = {
-//         '#editor': function (element, renderer) {
-//             return true;
-//         }
-//     };
-
-//     const doc = new jsPDF();
-//     const relatorio = $("#relatorio").html();
-//     doc.fromHTML(
-//         relatorio,
-//         15,
-//         15,
-//         {
-//         'width': 180,'elementHandlers': specialElementHandlers
-//         }
-//     );
-//     doc.autoTable({ html: '#table-relatorio' })
-//     doc.output('dataurlnewwindow');
-// }
-
-// console.log('oi')
-// const btnPdf = document.getElementById("btn-gerarpdf")
-// console.log(btnPdf)
-// btnPdf.onclick = () => createInvoice()
-
-function getPDF() {
+function getPDF(nome) {
     var doc = new jsPDF("p", "pt");
    
-    // We'll make our own renderer to skip this editor
     var specialElementHandlers = {
       '#getPDF': function(element, renderer){
         return true;
@@ -37,23 +10,28 @@ function getPDF() {
       }
     };
   
-    // All units are in the set measurement for the document
-    // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
-    doc.fromHTML($('#relatorio').html(), 15, 15, {
+    doc.fromHTML($('#info-1').html(), 15, 15, {
       'width': 270,
       'elementHandlers': specialElementHandlers
     });
-    // doc.autoTable({
-    //     html: '#table-relatorio',
-    //     columnStyles: {
-    //       0: {cellWidth: 100},
-    //       1: {cellWidth: 80},
-    //       2: {cellWidth: 80},
-    //     }
-    //   });
-  
-    doc.save('dataurlnewwindow');
+    doc.fromHTML($('#info-2').html(), 15, 50, {
+      'width': 270,
+      'elementHandlers': specialElementHandlers
+    });
+    doc.autoTable({
+        html: '#table-relatorio',
+        columnStyles: {
+          0: {cellWidth: 100},
+          1: {cellWidth: 80},
+          2: {cellWidth: 80},
+        },
+        margin: {
+          top:150
+        },
+       });
+       doc.setProperties({
+        title: nome});
+       doc.output("save", nome);
   }
 
-  const btnPdf = document.getElementById("btn-gerarpdf")
-  btnPdf.onclick = () => getPDF()
+  const btnPdf = document.getElementById("btn-gerarpdf");
