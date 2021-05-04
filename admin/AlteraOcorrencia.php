@@ -14,7 +14,9 @@ require_once("DB.php");
 $sql = "UPDATE ocorrencia SET oc_data = '".$data." ".$hora."', oc_descricao='".$descricao."'  WHERE oc_id=".$oc_id.";";
 $query = mysqli_query($connect,$sql);
 
-if($query)
-    header("location: ../pages/ocorrencias.php?usu_id=".$usu_id."");
+if($query){
+    header("location: ../pages/ocorrencias.php?usu_id=".$usu_id."&alterado=true");
+}
+    
 else
-    echo "Erro ao tentar alterar a ocorrência";
+    header("location: ../pages/ocorrencias.php?usu_id=".$usu_id."&error=true");

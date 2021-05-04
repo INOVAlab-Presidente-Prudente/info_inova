@@ -10,6 +10,13 @@
                         <div class="col-sm-6">
                             <h1>Ocorrências</h1>
                         </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">    <a href="/pages/adminPage.php">Home</a> </li>
+                                <li class="breadcrumb-item">    <a href="/pages/consultarUsuario.php">Consultar Usuário</a> </li>
+                                <li class="breadcrumb-item ">   <a href="/pages/ocorrencias.php?usu_id=<?=$_GET['usu_id']?>">Registro de Ocorrências</a>    </li>
+                            </ol>
+                        </div>
 
                     </div>
                 </div>
@@ -23,14 +30,23 @@
                                     <div class="card-title w-100">
                                         
                                         <?php
-                                            if(isset($_GET['excluido']))
-                                                $output = "Ocorrência excluída com sucesso"; //ALERT EXCLUIDO
-                                            if(isset($_GET['erroExcluir']))
-                                                $output = "Erro ao excluir ocorrência"; //ALERT
-                                            if($output != "")
+                                            if(isset($_GET['excluido'])){
+                                                $output = "Ocorrência excluída com sucesso";
                                                 echo "<div class='alert alert-success ' role='alert'>".$output."</div>";
-                                        ?>
-                                        
+                                            }
+                                            if(isset($_GET['erroExcluir'])){
+                                                $output = "Erro ao excluir ocorrência";
+                                                echo "<div class='alert alert-danger' role='alert'>".$output."</div>";
+                                            }
+                                            if(isset($_GET['alterado'])){  
+                                                $output = "Ocorrência alterada com sucesso";
+                                                echo "<div class='alert alert-success' role='alert'>".$output."</div>";
+                                            }
+                                            if(isset($_GET['error'])){  
+                                                $output = "Erro ao alterar a ocorrência";
+                                                echo "<div class='alert alert-danger' role='alert'>".$output."</div>";
+                                            }
+                                        ?> 
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -42,7 +58,7 @@
                                         if($query){
                                             $row = mysqli_fetch_assoc($query);?>
                                             <h4>Todas Ocorrências de <strong><?=$row['usu_nome']?></strong></h4>
-                                        <div class="container">
+                                        <div class="container container-fluid">
                                             <div class="row">
                                                 <?php 
                                                     $sql = "SELECT * FROM ocorrencia WHERE usu_id = '".$_GET['usu_id']."'";
@@ -53,11 +69,11 @@
                                                     
                                                     while($res != null){
                                                         $data = substr($res['oc_data'],0,-9);
-                                                        $horario = substr($res['oc_data'],-9,11);
-                                                        echo "<div class='col mb-3'>";
+                                                        $horario = substr($res['oc_data'],-9,6);
+                                                        echo "<div class='col col-sm-3 mb-3'>";
                                                             echo "<div class='card card-outline card-info' style='width:14rem;'>";
                                                             echo "<div class='card-body'>";
-                                                                echo "<div class='row'> <h5 class='card-title'> <strong>Data:</strong> ".$data."</h5></div>  <div class='row'><h6 class=' card-subtitle mb-3 text-muted mt-1'><strong>Horario:</strong>".$horario." </h6></div>  <div class='row card-text text-truncate'><div class='font-weight-bold'>Ocorrência: </div> ".$res['oc_descricao']."</div>";
+                                                                echo "<div class='row'> <h5 class='card-title'> <strong>Data:</strong> ".$data."</h5></div>  <div class='row'><h6 class=' card-subtitle mb-3 text-muted mt-1'><strong>Horario:</strong>".$horario." </h6></div>  <div class='row card-text text-justify text-truncate' style='display: block;'><div class='font-weight-bold'>Ocorrência: </div> ".$res['oc_descricao']."</div>";
                                                                     echo "<div class='mt-1 row justify-content-between'>";
                                                                         echo "<a class='col-4 btn btn-light w-25' type='link' name='alterar' onclick=\"window.location.href='alterarOcorrencia.php?oc_id=".$res['oc_id']."'\"><i class='fas fa-edit'></i></a>";
                                                                         echo "<a class='col-4 btn btn-light w-25' type='link' name='excluir' onclick=\"excluir(".$res['oc_id'].",".$_GET['usu_id'].")\"><i class='fas fa-trash'></i></a>";

@@ -23,6 +23,7 @@
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
                                 <li class="breadcrumb-item "><a href="/pages/consultarUsuario.php">Consulta de Usuário</a></li>
+                                <li class="breadcrumb-item ">   <a href="/pages/ocorrencias.php?usu_id=<?=$_GET['usu_id']?>">Registro de Ocorrências</a>    </li>
                                 <li class="breadcrumb-item active" >Cadastrar Ocorrência</li>
                             </ol>
                         </div>
@@ -37,10 +38,17 @@
                             <div class="card card-primary">
                                 <form action="" id="quickForm" method="post">
                                     <div class="card-header">
+
+                                        <?php 
+                                            if(isset($_POST['cadastrar']))
+                                            require_once("../admin/CadastroOcorrencia.php"); 
+                                        ?>
                                         <h1 class="card-title">Cadastrar Ocorrência para <strong><?=$row['usu_nome']?></strong></h1>
                                         <!-- Inserir o require_once do backend -->
                                     </div>
                                     <div class="card-body">
+                                        
+                                        
                                         <div class="form-group">
                                             <label>Data</label>
                                             <input type="date" id="dt" name="dt" class="form-control"/>
@@ -55,12 +63,9 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" name="cadastrar" class="btn btn-primary">Cadastrar</button>
+                                        <button type="submit" name="cadastrar" class="btn btn-primary toastrDefaultSucess   ">Cadastrar</button>
                                     </div>
-                                    <?php 
-                                        if(isset($_POST['cadastrar']))
-                                            require_once("../admin/CadastroOcorrencia.php"); 
-                                    ?>
+                                    
                                 </form>
                             </div>
                         </div>
