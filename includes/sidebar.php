@@ -11,8 +11,13 @@
             <!-- Sidebar user (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                <img src="../images/avatar-df.png" class="img-circle elevation-2" alt="User Image">
-                </div>
+                <?php
+                    if(in_array(hash("md5", $_SESSION['cpf']).".png", scandir("../images/usuarios")))
+                        echo '<img src="../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png" class="img-circle elevation-2" alt="User Image">';
+                    else
+                        echo '<img src="../images/avatar-df.png" class="img-circle elevation-2" alt="User Image">';
+                ?>
+                </div>  
                 <div class="info">
                 <a class="d-block" href="/"><?= $_SESSION['nome']?></a>
                 </div>

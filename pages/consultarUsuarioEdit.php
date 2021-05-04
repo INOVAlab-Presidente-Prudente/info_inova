@@ -44,7 +44,7 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form id="quickForm" method="post">
-                <?php 
+                <?php
                   if (isset($_GET['usuario_alterado']))
                       echo "<div class='alert alert-success' role='alert'>Usuário alterado com sucesso</div>";
                   if (isset($_GET['usuario_nao_alterado']))
@@ -100,29 +100,75 @@
                       </div>
 
                       <div class="row">
-                        <div class="form-group">
+                        <div class="form-group col-3">
                           <label>CEP</label>
                           <input required <?=$alterar?> pattern="[0-9]{5}-[0-9]{3}" minlength="9" maxlength="9" onpaste="consultaCEP(this.value)" onchange="consultaCEP(this.value)" type="text" id="cep" name="cep" class="form-control" <?="value='".$row['usu_cep']."'"?>>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-4">
                           <label>Município</label>
                           <input required <?=$alterar?> type="text" id="municipio" name="municipio" class="form-control" <?="value='".$row['usu_municipio']."'"?>>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-5">
                           <label>Bairro</label>
                           <input required <?=$alterar?> type="text" id="bairro" name="bairro" class="form-control" <?="value='".$row['usu_bairro']."'"?>>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="form-group">
+                        <div class="form-group col-12">
                           <label>Endereço</label>
                           <input required <?=$alterar?> type="text" id="endereco" name="endereco" class="form-control" <?="value='".$row['usu_endereco']."'"?>>
                         </div>
                       </div>
                     </div>
                     <div class="col-3 md-4 mb-2">
-                        video
+                    <?php 
+                      if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
+                          echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-fluid img-thumbnail" alt="User Image">';
+                      else
+                          echo '<img src="../images/avatar-df.png" class="img-fluid img-thumbnail" alt="User Image">';
+                    ?>
+                        <input type="hidden" id="img64" name="img64"/>
+                        <input type="button" <?=$alterar?> onclick="abrirModal()" value="Tirar Foto"></input>
+                        <section class="modal-camera" id="modal-camera">
+                          <div class="modal-content">
+                            <video id="video" autoplay></video>
+                            <button type="button" onclick="tirarFoto()">
+                              <i class="fas fa-camera-retro"></i>
+                            </button>
+                            <script>
+                                const modal = document.getElementById("modal-camera");
+                                function abrirModal(){
+                                  modal.style.display = "block";
+                                  startVideoFromCamera();
+                                }
+                                window.onclick = (e) => {
+                                    if (e.target === modal)
+                                      modal.style.display = 'none';
+                                }
+                                function startVideoFromCamera() {
+                                    navigator.mediaDevices.getUserMedia({video:{width:320, height:320}}).then(stream=>{
+                                        const videoElement = document.querySelector("#video")
+                                        videoElement.srcObject = stream
+                                    })
+                                }
+                                function tirarFoto(){
+                                  const video = document.getElementById("video");
+                                  const canvas = document.createElement("canvas");
+                                  // scale the canvas accordingly
+                                  canvas.width = video.videoWidth;
+                                  canvas.height = video.videoHeight;
+                                  // draw the video at that frame
+                                  canvas.getContext('2d')
+                                    .drawImage(video, 0, 0, canvas.width, canvas.height);
+                                  document.getElementById("imgUsuario").src = canvas.toDataURL();
+                                  document.getElementById("img64").value = canvas.toDataURL();
+                                  modal.style.display = 'none';
+                                }
+                                //window.addEventListener("DOMContentLoaded", startVideoFromCamera())
+                            </script>
+                          </div>
+                        </section>
                     </div>
                   </div><!-- fim row 1 -->
 
@@ -138,12 +184,12 @@
                   </div><!-- fim row 2 -->
 
                   <div class="row">
-                    <div class="form-group">
+                    <div class="form-group col-6">
                       <label>Área de Atuação</label>
                       <input required <?=$alterar?> type="text" name="areaAtuacao" class="form-control" <?="value='".$row['usu_area_atuacao']."'"?>>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-6">
                       <label>Área de Interesse</label>
                       <input required <?=$alterar?> type="text" name="areaInteresse" class="form-control" <?="value='".$row['usu_area_interesse']."'"?>>
                     </div>
@@ -246,23 +292,19 @@
                         header("location: consultarUsuario.php");
                     }
                 ?>
-               
               </form>
             </div>
             <!-- /.card -->
             </div>
           <!--/.col (left) -->
-          <!-- right column -->
-          <div class="col-md-6">
-
-          </div>
-          <!--/.col (right) -->
+        </div>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
+  
   <div id="modal-excluir">
     <div class="modal-content">
         <h4>Excluir Usuário</h4>

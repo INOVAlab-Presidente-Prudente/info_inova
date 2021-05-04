@@ -18,44 +18,68 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card card-primary">
+                            <div class="card">
                                 <div class="card-header">
-                                    <h1 class="card-title">Todas Ocorrências de</strong></h1>
+                                    <h2 class="card-title"><strong> </strong></h2>
                                 </div>
                                 <div class="card-body">
-                                <button type='button' class='btn btn-info w-100' onclick="window.location.href = 'cadastrarOcorrencia.php?usu_id=<?=$_GET['usu_id']?>'">Nova ocorrência</button>
-                                <?php
-                                    if(isset($_GET['excluido']))
-                                        echo "excluido"; //ALERT EXCLUIDO
-                                    if(isset($_GET['erroExcluir']))
-                                        echo "erro ao excluir"; //ALERT
-                                    require_once("../admin/DB.php");
-                                    $sql = "SELECT usu_nome FROM usuario WHERE usu_id = '".$_GET['usu_id']."'";
-                                    $query = mysqli_query($connect, $sql);
-                                    if($query){
-                                        $row = mysqli_fetch_assoc($query);
-                                        echo "<h2>".$row['usu_nome']."</h2><br><br>";
-
-                                        $sql = "SELECT * FROM ocorrencia WHERE usu_id = '".$_GET['usu_id']."'";
-                                        $query = mysqli_query($connect, $sql);
-                                        $res = mysqli_fetch_array($query);
-                                        if($res == null)
-                                            echo "".$row['usu_nome']." não possui ocorrência";
-                                        while($res != null){
-                                            echo "".$res['oc_data']."<br> Ocorrência: ".$res['oc_descricao']."<br>\n";
-                                            echo "<button name='alterar' onclick=\"window.location.href='alterarOcorrencia.php?oc_id=".$res['oc_id']."'\">Alterar</button>";
-                                            echo "<button name='excluir' onclick=\"excluir(".$res['oc_id'].",".$_GET['usu_id'].")\">
-                                                    Excluir
-                                                  </button><br><br>";
-                                            $res = mysqli_fetch_array($query);
-                                        }
-                                    }else echo "Usuario não encontrado";
-                                ?>
-                                
+                                    <button type='button' class='btn btn-info w-100 mb-4' onclick="window.location.href = 'cadastrarOcorrencia.php?usu_id=<?=$_GET['usu_id']?>'">Nova ocorrência</button>
+                                    
+                                    <div class="container">
+                                        <?php
+                                            if(isset($_GET['excluido']))
+                                                echo "excluido"; //ALERT EXCLUIDO
+                                            if(isset($_GET['erroExcluir']))
+                                                echo "erro ao excluir"; //ALERT
+                                            require_once("../admin/DB.php");
+                                            $sql = "SELECT usu_nome FROM usuario WHERE usu_id = '".$_GET['usu_id']."'";
+                                            $query = mysqli_query($connect, $sql);
+                                            if($query){
+                                                $row = mysqli_fetch_assoc($query);
+                                                echo "<h4 class='mb-4'>Todas Ocorrências de <strong>".$row['usu_nome']."</strong></h4>";
+                                                
+                                                $sql = "SELECT * FROM ocorrencia WHERE usu_id = '".$_GET['usu_id']."'";
+                                                $query = mysqli_query($connect, $sql);
+                                                $res = mysqli_fetch_array($query);
+                                                if($res == null)
+                                                    echo " O usuário não possui ocorrência!";//".$row['usu_nome']."
+                                                $cont = 0;
+                                                echo "<div class='row'>";
+                                                while($res != null){
+                                                    if($cont < 4){
+                                                        echo "<div class='col-md-3 ml-1 mb-2'>";
+                                                            echo "<div class='card card-outline card-info' style='width:14rem;'>";
+                                                            echo "<div class='card-body'>";
+                                                                echo "<div class='card-title'>Data:".$res['oc_data']."</div><br><div class='card-subtitle mb-2 text-muted'><strong>Ocorrência: </strong>".$res['oc_descricao']."</div>";
+                                                                    echo "<div class='card-tools'";
+                                                                        echo "<a style='cursor: pointer;' type='link' name='alterar' onclick=\"window.location.href='alterarOcorrencia.php?oc_id=".$res['oc_id']."'\"><i class='fas fa-edit mr-4'></i></a>";
+                                                                        echo "<a style='cursor: pointer;' type='link' name='excluir' onclick=\"excluir(".$res['oc_id'].",".$_GET['usu_id'].")\"><i class='fas fa-trash'></i></a>";
+                                                                    echo "</div>";
+                                                                echo "</div>";
+                                                            echo "</div>";
+                                                        echo "</div>";
+                                                        if($cont == 3)
+                                                            echo "</div>";
+                                                        $cont++;
+                                                    }
+                                                    else{
+                                                        $cont = 0;
+                                                        echo "<div class='row'>";
+                                                    }
+                                                    
+                                                    
+                                                    
+                                                    $res = mysqli_fetch_array($query);
+                                                    if($res == null)
+                                                        echo "</div>";
+                                                }
+                                            }else echo "Usuario não encontrado";
+                                        ?>
+                                    </div>
                                 </div>
-                                <div class="card-footer">
+                                <!-- <div class="card-footer">
                                 
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

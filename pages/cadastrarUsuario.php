@@ -127,7 +127,7 @@
                                       modal.style.display = 'none';
                                 }
                                 function startVideoFromCamera() {
-                                    navigator.mediaDevices.getUserMedia({video:{width:320}}).then(stream=>{
+                                    navigator.mediaDevices.getUserMedia({video:{width:320, height:320}}).then(stream=>{
                                         const videoElement = document.querySelector("#video")
                                         videoElement.srcObject = stream
                                     })
@@ -225,20 +225,6 @@
                   <!-- /.card-body -->
                   <div class="card-footer">
                     <button type="submit" name="cadastrar" class="btn btn-primary">Cadastrar</button>
-                    <!-- onclick="cadastrar()" -->
-                    <script>
-                      function cadastrar(){
-                        const form = document.getElementByID('quickForm');
-                        var FormData = FormData(form);
-                        var canvas = document.getElementById('canvas');
-                        if(canvas){
-                          FormData.append('imagem', canvas.toDataURL());
-                          var request = new XMLHttpRequest();
-                          request.open("POST", "../admin/CadastroUsuario.php");
-                          request.send(FormData);
-                        }
-                      }
-                    </script>
                   </div>
                 </form>
               </div>

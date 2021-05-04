@@ -70,7 +70,6 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                 echo "<div class='alert alert-success' role='alert'> Usuario cadastrado</div>";
                 // upload imagem
                     $img = $_POST['img64'];
-                    //write_log($img);
                     if($img!=""){
                         $img = str_replace('data:image/png;base64,', '', $img);
                         $img = str_replace(' ', '+', $img);
