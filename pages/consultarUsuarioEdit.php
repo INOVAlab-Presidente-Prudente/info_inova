@@ -124,9 +124,9 @@
                     <div class="col-3 md-4 mb-2">
                     <?php 
                       if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
-                          echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-fluid img-thumbnail" alt="User Image">';
+                          echo '<img id="imgUsuario" src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-fluid img-thumbnail" alt="User Image">';
                       else
-                          echo '<img src="../images/avatar-df.png" class="img-fluid img-thumbnail" alt="User Image">';
+                          echo '<img id="imgUsuario" src="../images/avatar-df.png" class="img-fluid img-thumbnail" alt="User Image">';
                     ?>
                         <input type="hidden" id="img64" name="img64"/>
                         <input type="button" <?=$alterar?> onclick="abrirModal()" value="Tirar Foto"></input>
@@ -137,14 +137,14 @@
                               <i class="fas fa-camera-retro"></i>
                             </button>
                             <script>
-                                const modal = document.getElementById("modal-camera");
+                                const modalCamera = document.getElementById("modal-camera");
                                 function abrirModal(){
-                                  modal.style.display = "block";
+                                  modalCamera.style.display = "block";
                                   startVideoFromCamera();
                                 }
                                 window.onclick = (e) => {
-                                    if (e.target === modal)
-                                      modal.style.display = 'none';
+                                    if (e.target === modalCamera)
+                                      modalCamera.style.display = 'none';
                                 }
                                 function startVideoFromCamera() {
                                     navigator.mediaDevices.getUserMedia({video:{width:320, height:320}}).then(stream=>{
@@ -163,7 +163,7 @@
                                     .drawImage(video, 0, 0, canvas.width, canvas.height);
                                   document.getElementById("imgUsuario").src = canvas.toDataURL();
                                   document.getElementById("img64").value = canvas.toDataURL();
-                                  modal.style.display = 'none';
+                                  modalCamera.style.display = 'none';
                                 }
                                 //window.addEventListener("DOMContentLoaded", startVideoFromCamera())
                             </script>
