@@ -1,7 +1,4 @@
 <?php include('../includes/header.php'); ?>
-
-
-
 <body class="hold-transition sidebar-mini" onload="document.title='Relatório de Utilização pelos Usuários do Coworking'">
     <?php include("../includes/navbar.php")?>
     <?php include("../includes/sidebar.php")?>

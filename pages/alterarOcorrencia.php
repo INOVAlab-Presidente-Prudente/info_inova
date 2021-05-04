@@ -6,10 +6,7 @@
     $sql = "SELECT DATE(o.oc_data) AS dataOc, TIME(o.oc_data) AS hora, o.oc_descricao, u.usu_nome AS nome, u.usu_id AS id FROM ocorrencia o, usuario u 
             WHERE oc_id = '".$_GET['oc_id']."' AND o.usu_id = u.usu_id";
     $query = mysqli_query($connect, $sql);
-    if(!$query){
-        var_dump($query);die();
-    }
-        //header("Location: ../"); //redirecionar para algum erro
+     
     $row = mysqli_fetch_assoc($query);
 ?>
 <body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Alterar Ocorrência'">
@@ -26,6 +23,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
+                                <li class="breadcrumb-item "><a href="/pages/consultarUsuario.php">Consultar Usuário</a></li>
                                 <li class="breadcrumb-item "><a href="/pages/ocorrencias.php?usu_id=<?=$row['id']?>">Registro de Ocorrências</a></li>
                                 <li class="breadcrumb-item active" >Alterar Ocorrência</li>
                             </ol>
@@ -42,12 +40,13 @@
                                 <form action="" id="quickForm" method="post">
                                     <div class="card-header">
                                         <h1 class="card-title">Ocorrência de <strong><?=$row['nome']?></strong></h1>
+                                       
                                         <!-- Inserir o require_once do backend -->
                                     </div>
                                     <div class="card-body">
                                         <input type="hidden" name="oc_id" value="<?=$_GET['oc_id']?>"/>
                                         <input type="hidden" name="usu_id" value="<?=$row['id']?>"/>
-                                        <?php var_dump($row['id'])?>
+                                        
                                         <div class="form-group">
                                             <label>Data</label>
                                             <input type="date" id="dt" name="dt" class="form-control" value="<?=$row['dataOc']?>"/>
@@ -62,12 +61,26 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" name="confirmar" class="btn btn-primary">Confirmar</button>
+                                        <div class="row justify-content-center">
+                                            <div class="col-2">
+                                                <button type="submit" name="confirmar" class="btn btn-primary w-100">Confirmar</button>
+                                            </div>
+                                            
+                                            <div class="col-2">
+                                                <button type="submit" name="cancelar" class="btn btn-light w-100">Cancelar</button>
+                                            </div>
+                                        </div>
+
                                     </div>
+
+                                    
                                     <?php 
                                         if(isset($_POST['confirmar']))
-                                            require_once("../admin/AlteraOcorrencia.php"); 
+                                            require_once("../admin/AlteraOcorrencia.php");
+                                        else if(isset($_POST['cancelar']))
+                                            header("location: ocorrencias.php?usu_id=".$row['id']);
                                     ?>
+                                    
                                 </form>
                             </div>
                         </div>
