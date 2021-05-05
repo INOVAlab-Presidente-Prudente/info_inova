@@ -31,7 +31,8 @@ function getPDF(nome) {
        });
        doc.setProperties({
         title: nome});
-       doc.output("save", nome);
+      //  doc.output("save", nome);
+      window.open(doc.output("bloburl"));
   }
 
   const btnPdf = document.getElementById("btn-gerarpdf");

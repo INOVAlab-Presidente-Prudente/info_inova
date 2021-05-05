@@ -50,6 +50,15 @@ if ($fetch != null) {
         }else{
             header("location: ../pages/adminPage.php");}
     } else  
-        echo "<small style='font-color: red'>E-mail ou senha invalidos.</small>";
-} else
-    echo "<small style='font-color: red'>E-mail ou senha invalidos.</small>";
+        echo "<div class='alert alert-danger alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='icon fas fa-ban'></i> Dados Incorretos!</h5>
+                    <p>Senha ou email incorretos, verifique o que você digitou e tente novamente.</p>
+              </div>";
+} else{
+    echo "<div class='alert alert-warning alert-dismissible'>
+            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            <h5><i class='icon fas fa-exclamation-triangle'></i> Dados Inexistentes!</h5>
+                <p>Dados não encontrados no sistema, entre em contato com o administrador do sistema para se cadastrar.</p>
+          </div>";
+}

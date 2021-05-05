@@ -10,7 +10,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin</title>
+  <title>InfoInova - Login</title>
   <link rel="sortcut icon" href="images/logo_page.png" type="image/x-icon" />
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -28,7 +28,16 @@
   </div>
   <!-- /.login-logo -->
   <div class="card">
+  
     <div class="card-body login-card-body">
+      <div class="mb-2">
+        <?php 
+          if (isset($_POST['entrar'])) {
+              require_once("admin/Login.php");
+          }
+        ?>
+      </div>
+      
       <p class="login-box-msg">Faça login para iniciar sua sessão</p>
 
       <form method="post">
@@ -66,11 +75,7 @@
           <!-- /.col -->
         </div>
       </form>
-      <?php 
-          if (isset($_POST['entrar'])) {
-              require_once("admin/Login.php");
-          }
-      ?>
+      
 </div>
 </div>
 <!-- /.login-box -->

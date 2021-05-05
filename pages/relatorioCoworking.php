@@ -31,34 +31,25 @@
                                     //mostrar o retorno caso ocorra um erro
                                 ?>
                             </div> -->
-                            <div class="card-body">
+                            <div class="card-body pb-0">
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col"></div>
-                                        <div class="col-8">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-3">
                                             <label>Data inicial:</label>
                                             <input class="form-control" type="date" id="dtInicio" name="dtInicio"/><br>
                                         </div>
-                                        <div class="col"></div>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col"></div>
-                                        <div class="col-8">
+                                        <div class="col-md-3">
                                             <label>Data final:</label>
                                             <input class="form-control" type="date" id="dtFim" name="dtFim"/> <br>
-                                        </div>
-                                        <div class="col"></div>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer mid">
-                                <div class="row">
-                                    <div class="col"></div>
-                                        <div class="col-5">
-                                            <button class="btn btn-primary w-100" name="consultar">Consultar</button>
-                                        </div>
-                                    <div class="col"></div>
+                            <div class="card-footer">
+                                <div class="row justify-content-center">
+                                    <div class="col-3">
+                                        <button class="btn btn-primary w-100" name="consultar">Consultar</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>

@@ -43,12 +43,12 @@
                     </div>
                       <div class="card-body">
                           <div class="form-group">
-                              <label>Razão Social</label>
-                              <input required type="text" name="razaoSocial" id="razaoSocial" class="form-control" >
+                              <label>CNPJ</label>
+                              <input required pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" minlength="18" maxlength="18" onpaste="consultaCNPJ(this.value)" oninput="consultaCNPJ(this.value)" type="text" id="cnpj" name="cnpj" class="form-control" placeholder="xx.xxx.xxx/0001-xx">
                           </div>
                           <div class="form-group">
-                              <label>CNPJ</label>
-                              <input required pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" minlength="18" maxlength="18" onpaste="consultaCNPJ(this.value)" onchange="consultaCNPJ(this.value)" type="text" id="cnpj" name="cnpj" class="form-control" placeholder="xx.xxx.xxx/0001-xx">
+                              <label>Razão Social</label>
+                              <input required type="text" name="razaoSocial" id="razaoSocial" class="form-control" >
                           </div>
                           <div class="form-group">
                               <label>Telefone</label>
@@ -57,6 +57,23 @@
                           <div class="form-group">
                               <label>Ramo de atuação</label>
                               <input required type="text" name="areaAtuacao" id="ramo" class="form-control" >
+                          </div>
+                          <div class="form-group">
+                              <label>Modalidade</label>
+                              <select required name="modalidade" class="form-control">
+                              <?php
+                                require_once("../admin/DB.php");
+                                  $sql = "SELECT * FROM modalidade";
+                                  $query = mysqli_query($connect, $sql);
+                                  $res = mysqli_fetch_array($query);    
+
+                                  while ($res != null) {
+                                      if (isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro']))
+                                          echo "<option value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
+                                      $res = mysqli_fetch_array($query);
+                                  }
+                                ?>
+                              </select>
                           </div>
                       </div>
                       <!-- /.card-body -->
@@ -92,9 +109,10 @@
         }
         function meuCallback(conteudo){
           document.getElementById('razaoSocial').value=(conteudo.nome);
-          document.getElementById('telefone').value=(conteudo.telefone).replace(" ", "");
+          if (conteudo.telefone.length > 14)
+              conteudo.telefone = conteudo.telefone.split("/")[0]
+          document.getElementById('telefone').value=(conteudo.telefone.replace(" ", ""));
           document.getElementById('ramo').value= (conteudo.atividade_principal[0].text);
-          console.log(conteudo.atividade_principal[0].text);
         }
       </script>
 <?php include("../includes/footer.php")?>

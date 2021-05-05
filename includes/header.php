@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    if (!isset($_SESSION['logado']) && (!isset($_SESSION['coworking']) || !isset($_SESSION['admin']))) 
+    if (!isset($_SESSION['logado'])) 
     {
         header("location: ../");
     }

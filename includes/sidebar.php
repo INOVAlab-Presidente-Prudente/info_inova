@@ -19,7 +19,7 @@
                 ?>
                 </div>  
                 <div class="info">
-                <a class="d-block" href="/"><?= $_SESSION['nome']?></a>
+                <a class="d-block" href="../pages/consultarUsuarioEdit.php?cpf=<?=$_SESSION['cpf']?>&alterar=true"><?= $_SESSION['nome']?></a>
                 </div>
             </div>
 
@@ -155,7 +155,32 @@
                         </li>
                     </ul>
                 </li>
+                <?php if(isset($_SESSION['admin']) || isset($_SESSION['financeiro'])) { ?>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-briefcase"></i>
+                    <p>
+                        Gerenciar Modalidades
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="../pages/cadastrarModalidade.php" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Cadastrar Modalidade</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../pages/consultarModalidade.php" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Consultar Modalidade</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <?php 
+                }
                 if(isset($_SESSION['admin'])){
                 ?>
                 <li class="nav-item">

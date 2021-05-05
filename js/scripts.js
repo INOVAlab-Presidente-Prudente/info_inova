@@ -8,4 +8,3 @@ function activeElemts(){
         optElem.className += " active";
 
 }
-

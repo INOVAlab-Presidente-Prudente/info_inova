@@ -43,7 +43,7 @@
               
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" method="post">
+              <form id="quickForm" method="post" enctype="multipart/form-data">
                 <?php
                   if (isset($_GET['usuario_alterado']))
                       echo "<div class='alert alert-success' role='alert'>Usuário alterado com sucesso</div>";
@@ -88,12 +88,12 @@
                       </div>
                     
                       <div class="row" id="responsavel" style="display: none;">
-                        <div class="form-group">
+                        <div class="form-group col-6">
                             <label>Nome do Responsável</label>
                             <input <?=$alterar?> type="text"  id="nomeResponsavel" name="responsavel" class="form-control" <?="value='".$row['usu_responsavel']."'"?>>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-6">
                             <label>Telefone do Responsável</label>
                             <input <?=$alterar?> type="phone" id="telResponsavel" pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" name="telResponsavel" class="form-control" <?="value='".$row['usu_tel_responsavel']."'"?>>
                         </div>
@@ -130,6 +130,10 @@
                     ?>
                         <input type="hidden" id="img64" name="img64"/>
                         <input type="button" <?=$alterar?> onclick="abrirModal()" value="Tirar Foto"></input>
+                        <input type="file" id="uploadFoto" name="uploadFoto" <?=$alterar?>></input>
+                        <script>
+                            
+                        </script>
                         <section class="modal-camera" id="modal-camera">
                           <div class="modal-content">
                             <video id="video" autoplay></video>
