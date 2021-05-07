@@ -62,7 +62,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../layout/top-nav.html" class="nav-link">
+                            <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Agendamento de Salas</p>
                             </a>
@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../layout/fixed-sidebar.html" class="nav-link">
+                            <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Eventos</p>
                             </a>
@@ -211,7 +211,7 @@
                         </li>
                     </ul>
                 </li>
-                
+<!--                 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-dice-d6"></i>
@@ -240,7 +240,7 @@
                         </a>
                     </li>
                     </ul>
-                </li>
+                </li> -->
                 <?php
                 }
                 ?>

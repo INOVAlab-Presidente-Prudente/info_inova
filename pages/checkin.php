@@ -1,7 +1,7 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/permissoes.php'); ?>
 
-<body onload="document.title='Admin Page | Check In'" class="hold-transition sidebar-mini">
+<body onload="document.title=' Check In'" class="hold-transition sidebar-mini">
 
   <?php include('../includes/navbar.php'); ?>
 

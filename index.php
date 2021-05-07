@@ -58,27 +58,16 @@
           </div>
         </div>
 
-        <!-- Fazer validação de Sessão -->
         <div class="row">
-          <!-- <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Lembre me
-              </label>
-            </div>
-          </div> -->
-          <!-- /.col -->
           <div class="col w-100">
             <button type="submit" name="entrar" class="btn btn-warning btn-block fo">Login</button>
           </div>
-          <!-- /.col -->
+          
         </div>
       </form>
       
 </div>
 </div>
-<!-- /.login-box -->
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

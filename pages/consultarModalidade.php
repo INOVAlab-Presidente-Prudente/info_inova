@@ -3,7 +3,7 @@
     if (!isset($_SESSION['admin']) && !isset($_SESSION['financeiro']))
         header("location: ../");
 ?>
-<body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Consultar Empresa'">
+<body class="hold-transition sidebar-mini" onload="document.title='Consultar Modalidade'">
     <?php include("../includes/navbar.php") ?>
     <?php include("../includes/sidebar.php") ?>
   <div class="wrapper"> 

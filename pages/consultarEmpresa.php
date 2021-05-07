@@ -1,6 +1,6 @@
 <?php include("../includes/header.php")?>
 <?php include('../includes/permissoes.php')?>
-<body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Consultar Empresa'">
+<body class="hold-transition sidebar-mini" onload="document.title=' Consultar Empresa'">
     <?php include("../includes/navbar.php") ?>
     <?php include("../includes/sidebar.php") ?>
   <div class="wrapper"> 
@@ -99,15 +99,23 @@
         </div>
       </section>
       </div>
+
       <section id="modal-excluir">
-        <div class="modal-content">
-            <h4>Excluir Empresa</h4>
-            <p id="mensagem"></p>
-            <div class="d-flex justify-content-center">
-              <button id="btn-sim" class='btn btn-danger'>Sim</button>
-              <button id="btn-nao" class='btn btn-light'>Não</button>
-            </div>
-        </div>     
+        <div class="modal-content"> 
+            <div class="container-fluid"> 
+                <div class="row align-itens-center justify-content-center">
+                <div class="text-center"> 
+                    <h4>Excluir Empresa</h4> 
+                    <p id="mensagem"></p>
+                </div>
+                <div class="d-flex">
+                <button id="btn-sim" class='btn btn-danger'>Sim</button>
+                    <div class="col-1"></div>
+                    <button id="btn-nao" class='btn btn-light'>Não</button>
+                </div>
+                </div>
+            </div>  
+        </div>  
       </section>
     </div>
   </div>

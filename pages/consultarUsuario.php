@@ -1,6 +1,6 @@
 <?php include("../includes/header.php") ?>
 <?php include("../includes/permissoes.php") ?>
-<body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Consulta de Usuario'">
+<body class="hold-transition sidebar-mini" onload="document.title=' Consulta de Usuario'">
   <?php include("../includes/navbar.php") ?>
   <?php include("../includes/sidebar.php") ?>
   <div class="wrapper">
@@ -103,16 +103,23 @@
         </div>
       </div>
       </section>
-      </div>   
+      </div>
       <div id="modal-excluir">
-        <div class="modal-content">
-            <h4>Excluir Usuário</h4>
-            <p id="mensagem"></p>
-            <div class="d-flex justify-content-center">
-              <button id="btn-sim" class='btn btn-danger'>Sim</button>
-              <button id="btn-nao" class='btn btn-light'>Não</button>
-            </div>
-        </div>     
+        <div class="modal-content"> 
+            <div class="container-fluid"> 
+                <div class="row align-itens-center justify-content-center">
+                <div class="text-center"> 
+                    <h4>Excluir Usuário</h4> 
+                    <p id="mensagem"></p>
+                </div>
+                <div class="d-flex">
+                    <button id="btn-sim" class='btn btn-danger'>Sim</button>
+                    <div class="col-1"></div>
+                    <button id="btn-nao" class='btn btn-light'>Não</button>
+                </div>
+                </div>
+            </div>  
+        </div> 
       </div>
     </div>      
     <script>
@@ -131,7 +138,7 @@
         function excluirUsuario(e, nome, cpf) {
             if (e.target == document.getElementById("btn-excluir")) {
               modal.style.display = "block";
-              document.getElementById("mensagem").innerText = `Deseja excluir o usuário ${nome} cpf ${cpf}?`;
+              document.getElementById("mensagem").innerText = `Deseja excluir o usuário ${nome} CPF ${cpf}?`;
             }
             btnSim.onclick = () => {
               window.location.href="../admin/ExcluiUsuario.php?cpf="+cpf;

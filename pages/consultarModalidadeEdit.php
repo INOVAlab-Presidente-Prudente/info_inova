@@ -4,10 +4,11 @@
     if (!isset($_SESSION['admin']) && !isset($_SESSION['financeiro']))
         header("location: ../");
 ?>
-<body class="hold-transition sidebar-mini" onload="document.title='Cadastrar Modalidade'">
+<body class="hold-transition sidebar-mini" onload="document.title='Consultar Modalidade'">
     <?php 
-    include("../includes/sidebar.php");
-    include("../includes/navbar.php"); ?>
+        include("../includes/sidebar.php");
+        include("../includes/navbar.php"); 
+    ?>
     <?php
         require_once('../admin/DB.php');
         $sql="SELECT * FROM modalidade WHERE mod_id =".$_GET['mod_id'];
@@ -65,13 +66,13 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Valor Mensal</label>
-                                                <input <?=$alterar." value='".$row['mod_valMensal']."'"?> required type="text" name="valorMensal" class="form-control">
+                                                <input <?=$alterar." value='".$row['mod_valMensal']."'"?> pattern="[0-9\.]+" required type="text" name="valorMensal" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Valor Anual</label>
-                                                <input <?=$alterar." value='".$row['mod_valAnual']."'"?> required type="text" name="valorAnual" class="form-control">
+                                                <input <?=$alterar." value='".$row['mod_valAnual']."'"?> pattern="[0-9\.]+" required type="text" name="valorAnual" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -117,15 +118,23 @@
                 </div> <!-- /.container-fluid -->       
             </section>
         </div>
+        
         <div id="modal-excluir">
-            <div class="modal-content">
-                <h4>Excluir Modalidade</h4>
-                <p>Deseja excluir a modalidade <?=$row['mod_nome']?>?</p>
-                <div class="d-flex justify-content-center">
-                <button onclick="excluirModalidade('<?=$row['mod_id']?>')" class='btn btn-danger'>Sim</button>
-                <button id="btn-nao" class='btn btn-light'>Não</button>
-                </div>
-            </div>     
+            <div class="modal-content"> 
+                <div class="container-fluid"> 
+                    <div class="row align-itens-center justify-content-center">
+                    <div class="text-center"> 
+                        <h4>Excluir Modalidade</h4> 
+                        <p>Deseja excluir a modalidade <?=$row['mod_nome']?>?</p>
+                    </div>
+                    <div class="d-flex">
+                        <button onclick=onclick="excluirModalidade('<?=$row['mod_id']?>')" class='btn btn-danger'>Sim</button>
+                        <div class="col-1"></div>
+                        <button id="btn-nao" class='btn btn-light'>Não</button>
+                    </div>
+                    </div>
+                </div>  
+            </div> 
         </div>
     </div>
     <script>

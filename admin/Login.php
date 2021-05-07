@@ -44,7 +44,11 @@ if ($fetch != null) {
 
         if (isset($_SESSION['logado']) && !isset($_SESSION['admin']) && !isset($_SESSION['coworking']) && !isset($_SESSION['financeiro'])){
             session_destroy();
-            echo "<small style='font-color: red'>Acesso negado.</small>";
+            echo "<div class='alert alert-danger alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='fas fa-skull-crossbones'></i>&nbspAcesso Negado!</h5>
+                    <p>Você não tem acesso ao sistema, você é um usuário comum, por favor se retire, ou poderá sofrer com as concequências!.</p>
+              </div>";
         }else if ($fetch['usu_primeiro_login']){
             header("location: ../pages/alterarSenha.php");
         }else{

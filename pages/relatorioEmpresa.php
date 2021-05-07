@@ -64,11 +64,26 @@
                                 <div id="info-1" class="card-header">
                                     <div class="row">
                                         <div class="col-11">
-                                            <h3 class="card-title">Relatório de Utilização Empresa
-                                            referente as datas <?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?> a <?=date_format(date_create($_POST['dtFim']),"d/m/Y")?> </h3>
+                                            <h3 class='card-title'>
+                                                <?php 
+                                                    $dif = date_diff(date_create($_POST['dtInicio']), date_create($_POST['dtFim']))->format('%d');
+                                                    if($dif != 0)
+                                                        echo "Relatório de Utilização Empresa referente as datas ".date_format(date_create($_POST['dtInicio']),"d/m/Y")." a ".date_format(date_create($_POST['dtFim']),"d/m/Y");
+                                                    else
+                                                        echo "Relatorio do dia ".date_format(date_create($_POST['dtInicio']),"d/m/Y");
+                                                ?>
+                                            </h3>
                                         </div>
-                                        <br>Periodo escolhido de <?= date_diff(date_create($_POST['dtInicio']), date_create($_POST['dtFim']))->format('%d');?> dias;
                                         <div class="col-1"> <button id="btn-gerarpdf" onclick="getPDF('relatorio_<?=$_POST['dtInicio']?>_<?=$_POST['dtFim']?>')" class="btn btn-info">PDF</button></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                        <?php 
+                                            if($dif != 0)
+                                                echo "Periodo escolhido de ".($dif + 1)." dias";
+                                        
+                                        ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Nome da empresa | Qtde presenca | Aluguel atrasado???? | Numero de funcionarios que compareceram nesses dias | Numero de funcionarios que a empresa possui |Tempo restante do contrato -->
@@ -76,15 +91,16 @@
                                     O sistema deve permitir a geração de relatórios de frequência das empresas residentes.
                                     Para a criação do relatório deve ser informado o período (em dias) desejado. 
                                     No relatório devem constar informações que permitam gerar conhecimento de informações sobre utilização dos espaços (se o aluguel está em dia, se a empresa está frequentando corretamente o espaço, quantidade de funcionários que utilizam o espaço da empresa, se o contrato está para vencer, entre outros).
- -->
+ -->                            
+                                
                                 <table id="table-relatorio" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>Empresa</th>
-                                            <th>Presença</th>
-                                            <th>Aluguel Atrasado</th>
+                                            <th>Nº de dias que a empresa compareceu</th>
                                             <th>Nº de funcionarios que compareceram</th>
                                             <th>Quantidade de funcionarios total</th>
+                                            <th>Aluguel Atrasado</th>
                                             <th>Tempo restante de contrato</th>
                                         </tr>
                                     </thead>
@@ -95,7 +111,7 @@
                                             $query = mysqli_query($connect, $sql);
                                             $empresas = mysqli_fetch_assoc($query);
 
-
+                                            
 
                                             while($empresas!=null){
                                             
@@ -108,14 +124,33 @@
                                                 $query3 = mysqli_query($connect, $sql3);
                                                 $row3 = mysqli_fetch_assoc($query3);  
                                                 
+                                                $presenca = 0;
+                                                if($row3 != null && $row3['qtde'] > 0 ){
+                                                    $date = date_create($_POST['dtInicio']);
+                                                    $dateStr = $_POST['dtInicio'];
+                                                    while($dateStr <= $_POST['dtFim']){
+                                                        $sql = "SELECT u.usu_id FROM check_in c, usuario u WHERE DATE(c.che_horario_entrada) = '".$dateStr."' AND c.usu_id = u.usu_id AND u.emp_id = ".$empresas['emp_id']." LIMIT 1";
+                                                        $query4 = mysqli_query($connect,$sql);
+                                                        if($query4){
+                                                            $row4 = mysqli_fetch_assoc($query4);
+                                                            if($row4)
+                                                                $presenca++;
+                                                        }
+                                                            
+                                                        $date->add(new DateInterval('P1D'));
+                                                        $dateStr = date_format($date, 'Y-m-d');
+                                                    }
+
+
+                                                }
 
                                             ?>
                                                 <tr>
                                                     <td><?=$empresas['emp_razao_social']?></td>
-                                                    <td></td>
-                                                    <td>?</td>
+                                                    <td><?=$presenca?></td>
                                                     <td><?=$row3['qtde']?></td>
                                                     <td><?=$row['qtde']?></td>
+                                                    <td>?</td>
                                                     <td>?</td>
                                                 </tr>
                                             <?php
@@ -137,7 +172,7 @@
      </div>
     </div>
     <!-- DataTables  & Plugins -->
-    <!-- <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
@@ -154,6 +189,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
-    <script src="../js/gerarPDF.js"></script> -->
+    <script src="../js/gerarPDF.js"></script>
 
 <?php include('../includes/footer.php'); ?>

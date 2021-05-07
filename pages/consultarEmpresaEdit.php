@@ -3,7 +3,7 @@
     include("../includes/header.php");
     include('../includes/permissoes.php');
 ?>
-<body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Consultar Empresa'">
+<body class="hold-transition sidebar-mini" onload="document.title=' Consultar Empresa'">
     <?php include("../includes/navbar.php") ?>
     <?php include("../includes/sidebar.php") ?>
     <?php 
@@ -54,11 +54,11 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Razão social</label>
-                                        <input <?=$alterar." value='".$row['emp_razao_social']."'"?> name="razaoSocial" class="form-control">
+                                        <input <?=$alterar." value='".$row['emp_razao_social']."'"?> name="razaoSocial" id="razaoSocial" class="form-control">
                                     </div>  
                                     <div class="form-group">
                                         <label>CNPJ</label>
-                                        <input <?=$alterar." value='".$row['emp_cnpj']."'"?> pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" name="cnpj" class="form-control">
+                                        <input <?=$alterar." value='".$row['emp_cnpj']."'"?> pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" onpaste="consultaCNPJ(this.value)" oninput="consultaCNPJ(this.value)" name="cnpj" id="cnpj" class="form-control">
                                     </div>    
                                     <div class="form-group">
                                         <label>Telefone</label>
@@ -66,7 +66,7 @@
                                     </div>    
                                     <div class="form-group">
                                         <label>Ramo de atuação</label>
-                                        <input <?=$alterar." value='".$row['emp_area_atuacao']."'"?> name="areaAtuacao" class="form-control">
+                                        <input <?=$alterar." value='".$row['emp_area_atuacao']."'"?> name="areaAtuacao" id="ramo" class="form-control">
                                     </div>  
                                     
                                     <label>Sócios:</label>
@@ -122,15 +122,23 @@
             </div>
         </section>
         </div>
+        
         <div id="modal-excluir">
-            <div class="modal-content">
-                <h4>Excluir Empresa</h4>
-                <p>Deseja excluir a empresa <?=$row['emp_razao_social']?> cnpj <?=$row['emp_cnpj']?>?</p>
-                <div class="d-flex justify-content-center">
-                <button onclick="excluirEmpresa('<?=$row['emp_cnpj']?>')" class='btn btn-danger'>Sim</button>
-                <button id="btn-nao" class='btn btn-light'>Não</button>
-                </div>
-            </div>     
+            <div class="modal-content"> 
+                <div class="container-fluid"> 
+                    <div class="row align-itens-center justify-content-center">
+                    <div class="text-center"> 
+                        <h4>Excluir Empresa</h4> 
+                        <p>Deseja excluir a empresa: <?=$row['emp_razao_social']?> &nbspCNPJ: <?=$row['emp_cnpj']?>?</p>
+                    </div>
+                    <div class="d-flex">
+                        <button onclick="excluirEmpresa('<?=$row['emp_cnpj']?>')" class='btn btn-danger'>Sim</button>
+                        <div class="col-1"></div>
+                        <button id="btn-nao" class='btn btn-light'>Não</button>
+                    </div>
+                    </div>
+                </div>  
+            </div> 
         </div>
     
     </div>
@@ -150,6 +158,23 @@
         }
         function excluirEmpresa(cnpj) {
             window.location.href="../admin/ExcluiEmpresa.php?cnpj="+cnpj;
+        }
+
+        function consultaCNPJ(CNPJ){
+          CNPJ = CNPJ.replace(/[./-]/g, "")
+          if(CNPJ.length==14){
+            var script = document.createElement('script');
+            script.src = "https://www.receitaws.com.br/v1/cnpj/"+CNPJ+"?callback=meuCallback";
+            document.body.appendChild(script);
+
+          }
+        }
+        function meuCallback(conteudo){
+          document.getElementById('razaoSocial').value=(conteudo.nome);
+          if (conteudo.telefone.length > 14)
+              conteudo.telefone = conteudo.telefone.split("/")[0]
+          document.getElementById('telefone').value=(conteudo.telefone.replace(" ", ""));
+          document.getElementById('ramo').value= (conteudo.atividade_principal[0].text);
         }
     </script>
     <?php include('../includes/footer.php');

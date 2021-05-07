@@ -3,7 +3,7 @@
     include("../includes/header.php");
     include("../includes/permissoes.php");
 ?>
-<body class="hold-transition sidebar-mini" onload="verificaIdade(dataNascimento); document.title='Admin Page | Consulta de Usuario'">
+<body class="hold-transition sidebar-mini" onload="verificaIdade(dataNascimento); document.title=' Consulta de Usuario'">
     <?php
         include("../includes/navbar.php");
         include("../includes/sidebar.php");
@@ -176,9 +176,9 @@
                         <div class="input-group row justify-content-center m-2">
                           <div class="input-wrapper">
                             <input type="hidden" id="img64" name="img64"/>
-                            <input class="btn btn-secondary text-weight" type="button" <?=$alterar?> onclick="abrirModal()" value="Tirar Foto"></input>
-                            <input class="" type="file" name="uploadFoto" id="uploadFoto" <?=$alterar?> >
-                            <label class="">Escolha Foto</label>
+                            <button class="btn btn-secondary text-weight" type="button" <?=$alterar?> onclick="abrirModal()">Tirar Foto</button>
+                            <input type="file" name="uploadFoto" id="uploadFoto" <?=$alterar?> >
+                            <button class="btn btn-secondary text-weight" <?=$alterar?> type="button" onclick="document.getElementById('uploadFoto').click()">Escolha Foto</button>
                           </div>
                         </div>
                         <script>
@@ -330,14 +330,21 @@
   </div>
   
   <div id="modal-excluir">
-    <div class="modal-content">
-        <h4>Excluir Usuário</h4>
-        <p>Deseja excluir o usuário <?=$row['usu_nome']?> cpf <?=$row['usu_cpf']?>?</p>
-        <div class="d-flex justify-content-center">
-          <button onclick="excluirUsuario('<?=$row['usu_cpf']?>')" class='btn btn-danger'>Sim</button>
-          <button id="btn-nao" class='btn btn-light'>Não</button>
+    <div class="modal-content"> 
+      <div class="container-fluid"> 
+        <div class="row align-itens-center justify-content-center">
+          <div class="text-center"> 
+            <h4>Excluir Usuário</h4> 
+            <p>Deseja excluir o usuário <?=$row['usu_nome']?> cpf <?=$row['usu_cpf']?>?</p>
+          </div>
+          <div class="d-flex">
+            <button onclick="excluirUsuario('<?=$row['usu_cpf']?>')" class='btn btn-danger'>Sim</button>
+            <div class="col-1"></div>
+            <button id="btn-nao" class='btn btn-light'>Não</button>
+          </div>
         </div>
-    </div>     
+      </div>  
+    </div> 
   </div>
   
   <script> 

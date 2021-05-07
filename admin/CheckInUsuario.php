@@ -11,7 +11,7 @@ if (isset($cpf)) {
     $query = mysqli_query($connect, $sql);
     $usu_id = mysqli_fetch_assoc($query)['usu_id'];
     if ($usu_id != null) {
-        $sql = "SELECT che_horario_entrada, che_id FROM check_in WHERE usu_id = '".$usu_id."' AND che_horario_entrada LIKE '".date('Y-m-d')."%' AND che_horario_saida is null";
+        $sql = "SELECT che_horario_entrada, che_id FROM check_in WHERE usu_id = '".$usu_id."' AND che_horario_saida is null";
         $query = mysqli_query($connect, $sql);
         $fetch = mysqli_fetch_assoc($query);
         $horarioEntrada = $fetch['che_horario_entrada'];

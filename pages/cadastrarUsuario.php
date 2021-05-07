@@ -1,7 +1,7 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/permissoes.php'); ?>
 
-<body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Cadastrar Usuario'">
+<body class="hold-transition sidebar-mini" onload="document.title=' Cadastrar Usuario'">
 
   <?php include('../includes/navbar.php'); ?>
 
@@ -110,7 +110,6 @@
                       <div class="col-3 md-4 mb-2">
                         <img src="../images/avatar-df.png" class="img-fluid img-thumbnail" id="imgUsuario" alt="">
                         <input type="hidden" id="img64" name="img64"/>
-                        <input type="button" onclick="abrirModal()" value="Tirar Foto"></input>
                         <section class="modal-camera" id="modal-camera">
                           <div class="modal-content">
                             <video id="video" autoplay></video>
@@ -150,7 +149,14 @@
                             </script>
                           </div>
                         </section>
-                        <input type="file" name="uploadFoto" id="uploadFoto">
+                        <div class="input-group row justify-content-center m-2">
+                          <div class="input-wrapper">
+                            <input type="hidden" id="img64" name="img64"/>
+                            <button class="btn btn-secondary text-weight" type="button" onclick="abrirModal()">Tirar Foto</button>
+                            <input type="file" name="uploadFoto" id="uploadFoto">
+                            <button class="btn btn-secondary" type="button" onclick="document.getElementById('uploadFoto').click()">Escolha Foto</button>
+                          </div>
+                        </div>
                         <script>
                           var fileInput1 = document.getElementById('uploadFoto');
                           fileInput1.onchange = function(e){

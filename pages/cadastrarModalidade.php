@@ -45,13 +45,13 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Valor Mensal</label>
-                                                <input required type="text" name="valorMensal" class="form-control">
+                                                <input required type="text" pattern="[0-9\.]+" name="valorMensal" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Valor Anual</label>
-                                                <input required type="text" name="valorAnual" class="form-control">
+                                                <input required type="text" pattern="[0-9\.]+" name="valorAnual" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                         <label>Edital</label>
                                         <input required type="text" name="edital" class="form-control">
                                     </div> 
-                                    <button class="btn btn-primary w-100" name="cadastrar">Cadastrar</button>
+                                    <button class="btn btn-primary" name="cadastrar">Cadastrar</button>
                                     
                                 </div><!-- /.card-body -->
                             </form>

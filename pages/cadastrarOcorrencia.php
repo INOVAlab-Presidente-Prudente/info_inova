@@ -10,7 +10,7 @@
     $row = mysqli_fetch_assoc($query);
     
 ?>
-<body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Cadastrar Ocorrência'">
+<body class="hold-transition sidebar-mini" onload="document.title=' Cadastrar Ocorrência'">
     <?php include("../includes/navbar.php") ?>
     <?php include("../includes/sidebar.php") ?>
     <div class="wrapper">

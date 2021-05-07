@@ -10,7 +10,7 @@ $edital = $_POST['edital'];
 //var_dump($id, $nome, $desc, $valorMensal, $valorAnual, $edital);
 //var_dump(!empty($valorAnual));
 
-if(!empty($id) && !empty($nome) && !empty($desc) && !empty($valorAnual)   && !empty($valorMensal) && !empty($edital) ){
+if(!empty($id) && !empty($nome) && !empty($desc) && (!empty($valorAnual) || $valorAnual == "0") && (!empty($valorMensal) || $valorMensal == "0") && !empty($edital) ){
 
     require_once('DB.php');
 
