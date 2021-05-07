@@ -102,3 +102,22 @@ button:hover {
     padding: 10px;
     color:rgb(59, 59, 59)
 }
+
+
+/* Esconde o input */
+input[type='file'] {
+    display: none
+}
+  
+.input-wrapper label {
+    background-color: #869199;
+    border-radius: 5px;
+    color: #fff;
+    margin: 8px;
+    padding: 6px 20px;
+    cursor: pointer;
+}
+
+.input-wrapper label:hover {
+    background-color: #869199
+}

@@ -1,4 +1,5 @@
 <?php include('../includes/header.php'); ?>
+<?php include('../includes/permissoes.php'); ?>
 
 <body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Cadastrar Usuario'">
 
@@ -36,7 +37,7 @@
                 
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="" id="quickForm" method='post'>
+                <form action="" id="quickForm" method='post' enctype="multipart/form-data">
                 <div class="card-header">
                   <?php 
                     if (isset($_POST['cadastrar'])) {
@@ -149,6 +150,19 @@
                             </script>
                           </div>
                         </section>
+                        <input type="file" name="uploadFoto" id="uploadFoto">
+                        <script>
+                          var fileInput1 = document.getElementById('uploadFoto');
+                          fileInput1.onchange = function(e){
+                            if (fileInput1.files && fileInput1.files[0]) {
+                                  var reader = new FileReader();
+                                  reader.onload = function(e) {
+                                      $('#imgUsuario').attr('src', e.target.result);
+                                  }
+                                  reader.readAsDataURL(fileInput1.files[0]); // convert to base64 string
+                            }
+                          }
+                        </script>
                       </div>
                     </div>
 

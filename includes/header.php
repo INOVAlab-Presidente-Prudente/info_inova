@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
     <!-- DatapickerRange style -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- CSS style -->
+    <link rel="stylesheet" href="../css/style.css">
     <!-- Modal style -->
     <link rel="stylesheet" href="../css/modal.css">
      <!-- SweetAlert2 -->   

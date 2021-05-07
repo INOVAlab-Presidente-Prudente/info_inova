@@ -78,6 +78,10 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                         // print $success ? $file : 'Unable to save the file.';
                     }
                     
+                    if ($_FILES['uploadFoto']) {
+                        $uploadfile = "../images/usuarios/" . hash("md5", $cpf) . ".png";
+                        move_uploaded_file($_FILES['uploadFoto']['tmp_name'], $uploadfile);
+                    }
                 //fim upload
             }
             else

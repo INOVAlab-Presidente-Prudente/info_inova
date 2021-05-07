@@ -1,6 +1,7 @@
 <?php 
     ob_start();
     include("../includes/header.php");
+    include('../includes/permissoes.php');
 ?>
 <body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Consultar Empresa'">
     <?php include("../includes/navbar.php") ?>

@@ -27,6 +27,9 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%,-75%);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 1rem;
   }
 
   .modal-content p {

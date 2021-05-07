@@ -65,8 +65,8 @@
                                     <div id="info-1" class="card-header">
                                         <div class="row">
                                             <div class="col-11">
-                                                <h3 class="card-title">Relatório de Utilização pelos Usuários do Coworking </h3><br>
-                                                <h5 class="card-title">referente as datas <?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?> a <?=date_format(date_create($_POST['dtFim']),"d/m/Y")?> </h5>
+                                                <h3 class="card-title">Relatório de Utilização pelos Usuários do Coworking
+                                                referente as datas <?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?> a <?=date_format(date_create($_POST['dtFim']),"d/m/Y")?> </h3>
                                             </div>
                                             <div class="col-1"> <button id="btn-gerarpdf" onclick="getPDF('relatorio_<?=$_POST['dtInicio']?>_<?=$_POST['dtFim']?>')" class="btn btn-info">PDF</button></div>
                                         </div>
@@ -83,7 +83,10 @@
                                                 $row = mysqli_fetch_assoc($query);
                                             ?>
                                             <div id="info-2" class="form-group">
-                                                <label><p>Tempo médio entre todos usuários: <?=$row['tempo_total']?></p></label><br>
+                                                <?php 
+                                                    $tmpMedio = explode(".",$row['tempo_total'])[0];
+                                                ?>
+                                                <label><p>Tempo médio entre todos usuários: <?=$tmpMedio?> hrs.</p></label><br>
                                                 <label><p>Quantidade de check-in: <?=$row['cont']?></p></label>
                                             </div>
                         

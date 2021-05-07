@@ -1,6 +1,7 @@
 <?php 
     ob_start();
     include("../includes/header.php");
+    include("../includes/permissoes.php");
 ?>
 <body class="hold-transition sidebar-mini" onload="verificaIdade(dataNascimento); document.title='Admin Page | Consulta de Usuario'">
     <?php
@@ -124,19 +125,18 @@
                     <div class="col-3 md-4 mb-2">
                     <?php 
                       if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
-                          echo '<img id="imgUsuario" src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-fluid img-thumbnail" alt="User Image">';
+                          echo '<img id="imgUsuario" src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-fluid mx-auto" alt="User Image">';
                       else
                           echo '<img id="imgUsuario" src="../images/avatar-df.png" class="img-fluid img-thumbnail" alt="User Image">';
                     ?>
-                        <input type="hidden" id="img64" name="img64"/>
-                        <input type="button" <?=$alterar?> onclick="abrirModal()" value="Tirar Foto"></input>
-                        <input type="file" id="uploadFoto" name="uploadFoto" <?=$alterar?>></input>
+                        
                         <script>
                             
                         </script>
                         <section class="modal-camera" id="modal-camera">
                           <div class="modal-content">
                             <video id="video" autoplay></video>
+
                             <button type="button" onclick="tirarFoto()">
                               <i class="fas fa-camera-retro"></i>
                             </button>
@@ -173,6 +173,26 @@
                             </script>
                           </div>
                         </section>
+                        <div class="input-group row justify-content-center m-2">
+                          <div class="input-wrapper">
+                            <input type="hidden" id="img64" name="img64"/>
+                            <input class="btn btn-secondary text-weight" type="button" <?=$alterar?> onclick="abrirModal()" value="Tirar Foto"></input>
+                            <input class="" type="file" name="uploadFoto" id="uploadFoto" <?=$alterar?> >
+                            <label class="">Escolha Foto</label>
+                          </div>
+                        </div>
+                        <script>
+                          var fileInput1 = document.getElementById('uploadFoto');
+                          fileInput1.onchange = function(e){
+                            if (fileInput1.files && fileInput1.files[0]) {
+                                  var reader = new FileReader();
+                                  reader.onload = function(e) {
+                                      $('#imgUsuario').attr('src', e.target.result);
+                                  }
+                                  reader.readAsDataURL(fileInput1.files[0]); // convert to base64 string
+                            }
+                          }
+                        </script>
                     </div>
                   </div><!-- fim row 1 -->
 

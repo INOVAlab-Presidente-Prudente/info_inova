@@ -1,6 +1,7 @@
 <?php 
     ob_start();
     include("../includes/header.php");
+    include('../includes/permissoes.php');
     require_once("../admin/DB.php");
 
     $sql = "SELECT DATE(o.oc_data) AS dataOc, TIME(o.oc_data) AS hora, o.oc_descricao, u.usu_nome AS nome, u.usu_id AS id FROM ocorrencia o, usuario u 

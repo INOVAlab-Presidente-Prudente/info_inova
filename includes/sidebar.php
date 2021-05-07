@@ -13,9 +13,9 @@
                 <div class="image">
                 <?php
                     if(in_array(hash("md5", $_SESSION['cpf']).".png", scandir("../images/usuarios")))
-                        echo '<img src="../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png" class="img-circle elevation-2" alt="User Image">';
+                        echo '<img src="../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png" class="img-circle elevation-2" style="width: 35px; height: 35px" alt="User Image">';
                     else
-                        echo '<img src="../images/avatar-df.png" class="img-circle elevation-2" alt="User Image">';
+                        echo '<img src="../images/avatar-df.png" class="img-circle elevation-2" style="width: 35px; height: 35px;" alt="User Image">';
                 ?>
                 </div>  
                 <div class="info">
@@ -40,6 +40,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->
+                <?php if((isset($_SESSION['admin']) || isset($_SESSION['coworking']))):?>
                 <li class="nav-item">
                     <a href="/pages/checkin.php" class="nav-link">
                         <i class="nav-icon fas fa-calendar-check"></i>
@@ -50,6 +51,7 @@
                         
                     </a>
                 </li>
+                <?php endif;?>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
@@ -72,7 +74,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../layout/boxed.html" class="nav-link">
+                            <a href="../pages/relatorioEmpresa.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Utilização - Empresas</p>
                             </a>
@@ -86,6 +88,7 @@
                     
                     </ul>
                 </li>
+                <?php if((isset($_SESSION['admin']) || isset($_SESSION['coworking']))):?>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
@@ -155,10 +158,11 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
                 <?php if(isset($_SESSION['admin']) || isset($_SESSION['financeiro'])) { ?>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-briefcase"></i>
+                    <i class="nav-icon fas fa-handshake"></i> 
                     <p>
                         Gerenciar Modalidades
                         <i class="right fas fa-angle-left"></i>

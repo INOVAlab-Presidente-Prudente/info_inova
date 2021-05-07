@@ -75,6 +75,12 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                 $success = file_put_contents($file, $data);
                 // print $success ? $file : 'Unable to save the file.';
             }
+
+            if ($_FILES['uploadFoto']) {
+                $uploadfile = "../images/usuarios/" . hash("md5", $cpf) . ".png";
+                move_uploaded_file($_FILES['uploadFoto']['tmp_name'], $uploadfile);
+            }
+            
             header("location: ?cpf=".$cpf."&usuario_alterado=true");
         }
             

@@ -1,5 +1,4 @@
-    
-    <footer class="main-footer">
+     <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
         <b>Fundação Inova Prudente
         </div>

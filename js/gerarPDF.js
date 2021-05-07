@@ -10,11 +10,11 @@ function getPDF(nome) {
       }
     };
   
-    doc.fromHTML($('#info-1').html(), 15, 15, {
-      'width': 270,
+    doc.fromHTML($('#info-1').html(), 15, 0, {
+      'width': 600,
       'elementHandlers': specialElementHandlers
     });
-    doc.fromHTML($('#info-2').html(), 15, 50, {
+    doc.fromHTML($('#info-2').html(), 15, 30, {
       'width': 270,
       'elementHandlers': specialElementHandlers
     });
@@ -26,7 +26,7 @@ function getPDF(nome) {
           2: {cellWidth: 80},
         },
         margin: {
-          top:150
+          top:100
         },
        });
        doc.setProperties({

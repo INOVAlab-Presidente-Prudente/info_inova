@@ -1,11 +1,13 @@
 <?php 
     ob_start();
     include("../includes/header.php");
+    if (!isset($_SESSION['admin']) && !isset($_SESSION['financeiro']))
+        header("location: ../");
 ?>
 <body class="hold-transition sidebar-mini" onload="document.title='Cadastrar Modalidade'">
     <?php 
     include("../includes/sidebar.php");
-    include("../includes/navbar.php") ?>
+    include("../includes/navbar.php"); ?>
     <?php
         require_once('../admin/DB.php');
         $sql="SELECT * FROM modalidade WHERE mod_id =".$_GET['mod_id'];
@@ -41,12 +43,16 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <?php 
-                                if(isset($_POST['modalidade_alterada']))
-                                    echo "<div class='alert alert-success' role='alert'>Modalidade foi alterada</div>";
+                                if(isset($_GET['modalidade-alterada']))
+                                    echo "<div class='alert alert-success' role='alert' >Modalidade alterada </div>"; 
+                                
+                                if(isset($_GET['erro-alterar']))
+                                    echo "<div class='alert alert-info' role='alert' >Nao foi possivel alterar modalidade </div>"
                                 
                             ?>
                             <form id="quickForm" method="post">
                                 <div class="card-body">
+                                    <input type="hidden" name="id" value="<?=$row['mod_id']?>">
                                     <div class="form-group">
                                         <label>Nome</label>
                                         <input <?=$alterar." value='".$row['mod_nome']."'"?> required type="text" name="nome" class="form-control">
@@ -91,7 +97,7 @@
                                             require_once("../admin/ExcluiModalide.php");
                                         }
                                         if (isset($_POST['nao']))
-                                            header("location: ?id=".$row['mod_id']."");
+                                            header("location: ?mod_id=".$row['mod_id']."");
                                         
                                     }
                                     else {
@@ -114,7 +120,7 @@
         <div id="modal-excluir">
             <div class="modal-content">
                 <h4>Excluir Modalidade</h4>
-                <p>Deseja excluir a modalidade ?</p>
+                <p>Deseja excluir a modalidade <?=$row['mod_nome']?>?</p>
                 <div class="d-flex justify-content-center">
                 <button onclick="excluirModalidade('<?=$row['mod_id']?>')" class='btn btn-danger'>Sim</button>
                 <button id="btn-nao" class='btn btn-light'>Não</button>
@@ -134,8 +140,8 @@
             if (e.target === modal || e.target === btnNao)
             modal.style.display = 'none';
         }
-        function excluirModalidade(cnpj) {
-            window.location.href="../admin/ExcluiModalidade.php?id="+$row['mod_id'];
+        function excluirModalidade(id) {
+            window.location.href="../admin/ExcluiModalidade.php?mod_id="+id;
         }    
     </script>
 <?php 
@@ -144,4 +150,4 @@
      
     }
     else
-        header("location: /consultarModalidade.php");?>
+        header("location: /pages/consultarModalidade.php");?>

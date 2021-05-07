@@ -1,4 +1,5 @@
 <?php include("../includes/header.php") ?>
+<?php include("../includes/permissoes.php") ?>
 <body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Consulta de Usuario'">
   <?php include("../includes/navbar.php") ?>
   <?php include("../includes/sidebar.php") ?>

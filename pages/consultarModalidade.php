@@ -50,6 +50,8 @@
                           <tr>
                               <th>Modalidade</th>
                               <th>Edital</th>
+                              <th>Alterar</th>
+                              <th>Excluir</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -78,13 +80,21 @@
       </section>
       </div>
       <section id="modal-excluir">
-        <div class="modal-content">
-            <h4>Excluir Modalidade</h4>
-            <p id="mensagem"></p>
-            <div class="d-flex justify-content-center">
-              <button id="btn-sim" class='btn btn-danger'>Sim</button>
-              <button id="btn-nao" class='btn btn-light'>Não</button>
-            </div>
+        <div class="modal-content"> 
+          <div class="container-fluid"> 
+            <div class="row align-itens-center justify-content-center">
+            <div class="text-center"> 
+                <h4>Excluir Modalidade</h4> 
+                <p id="mensagem"></p>
+              </div>
+              
+              <div class="d-flex">
+                <button id="btn-sim" class='btn btn-danger'>Sim</button>
+                <div class="col-1"></div>
+                <button id="btn-nao" class='btn btn-light'>Não</button>
+              </div>
+            </div>  
+          </div>
         </div>     
       </section>
     </div>
@@ -95,7 +105,7 @@
           const btnNao = document.getElementById("btn-nao");
 
         function redireciona(id){
-            window.location.href="consultarModalidadeEdit.php?id="+id+"&alterar=enabled";
+            window.location.href="consultarModalidadeEdit.php?mod_id="+id+"&alterar=enabled";
         }
 
         function excluirModalidade(e, id, modalidade){
