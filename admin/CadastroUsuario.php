@@ -63,11 +63,22 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     if (!mysqli_num_rows($query)) {
         $sql = "INSERT INTO usuario (usu_id, pu_id, emp_id, usu_nome, usu_rg, usu_cpf, usu_data_nascimento, usu_responsavel, usu_tel_responsavel, usu_endereco, usu_cep, usu_bairro, usu_municipio, usu_area_atuacao, usu_area_interesse, usu_telefone, usu_email, usu_senha, usu_socio, usu_primeiro_login) VALUES (null, ".$perfilUsuario.", ".$empresa.", '".$nome."', '".$rg."', '".$cpf."', '".$dataNascimento."',".$responsavel.",".$telResponsavel.", '".$endereco."', '".$cep."', '".$bairro."', '".$municipio."', '".$areaAtuacao."', '".$areaInteresse."', '".$telefone."', '".$email."', '".$senhaHash."', ".$socio.", ".$primeiroLogin.")";
         $query = mysqli_query($connect, $sql);
-        if (!$perfilUsuario)
-            echo "<div class='alert alert-info' role='alert'>Você nao tem permissão para cadastrar um usuário com esse perfil.</div>";
+        if (!$perfilUsuario){
+            echo "<div class='alert alert-warning alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
+                    <p>Você nao tem permissão para cadastrar um usuário com esse perfil.</p>
+                  </div>";
+        }
+        
         else {
             if ($query){
-                echo "<div class='alert alert-success' role='alert'> Usuario cadastrado</div>";
+                echo "<div class='alert alert-success alert-dismissible'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                        <h5><i class='fas fa-check'></i>&nbspUsuário Cadastrada!</h5>
+                            <p>O(A) usuário(a) foi cadastrada com sucesso!.</p>
+                      </div>";
+
                 // upload imagem
                     $img = $_POST['img64'];
                     if($img!=""){
@@ -84,11 +95,29 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                     }
                 //fim upload
             }
-            else
-                echo "<div class='alert alert-info' role='alert'>Nao foi possivel cadastar usuario</div>";
+            else{
+                echo "<div class='alert alert-info alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='fas fa-info'></i>&nbspUsuário(a) não Cadastrado(a)!</h5>
+                    <p>Não foi possível cadastrar o(a) usuário(a), tente novamente!.</p>
+                </div>";
+            }
         }
-    } else
-        echo "<div class='alert alert-info' role='alert'>Email ja cadastrado</div>";
-} else {
-    echo "<div class='alert alert-warning' role='alert'>Preencha todos os campos</div>";
+    }
+    else{
+        echo "<div class='alert alert-info alert-dismissible'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <h5><i class='fas fa-info'></i>&nbspEmail em uso!</h5>
+            <p>Não foi possível cadastrar o(a) usuário(a) pois este e-mail já está em uso, tente novamente!.</p>
+        </div>";
+    }
+} 
+else {
+    echo "<div class='alert alert-warning alert-dismissible'>
+    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+    <h5><i class='fas fa-exclamation-triangle'></i>&nbspNão foi possível cadastar o(a) usuário!</h5>
+        <p>Preencha todos os campos!.</p>
+    </div>";
 }
+
+

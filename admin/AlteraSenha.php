@@ -14,5 +14,9 @@ if ($novaSenha == $confirmaSenha) {
     if($query)
         header("location: ../pages/adminPage.php?senha_alterada=true");
 } else{
-    echo "<p class='text-danger'>Senhas nao coincidem.</p>";
+    echo "<div class='alert alert-danger alert-dismissible'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <h5><i class='icon fas fa-ban'></i>Senhas não coincidem!</h5>
+            <p>As senhas não se coicidem, digite novamente.</p>
+      </div>"; 
 }

@@ -27,11 +27,13 @@
                 <div class="container-fluid">
                     <div class="col-md-12">
                         <div class="card card-primary">
-                            <?php 
-                                if(isset($_POST['cadastrar']))
-                                    require_once('../admin/CadastroModalidade.php');
-                            ?>
                             <form id="quickForm" method="post">
+                                <div class="card-header">
+                                    <?php 
+                                        if(isset($_POST['cadastrar']))
+                                            require_once('../admin/CadastroModalidade.php');
+                                    ?>
+                                </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Nome</label>

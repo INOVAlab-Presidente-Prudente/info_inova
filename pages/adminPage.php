@@ -16,7 +16,11 @@
         <section class="content">
           <?php 
             if (isset($_GET['senha_alterada']))
-                echo "<div class='alert alert-success' role='alert' >Senha alterada</div>";
+                echo "<div class='alert alert-success alert-dismissible'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                        <h5><i class='fas fa-check'></i>&nbspSenha Alterada!</h5>
+                            <p>Senha com sucesso!.</p>
+                      </div>";
           ?>
           <div class="card">
             <div class="card-header">

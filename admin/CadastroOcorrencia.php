@@ -13,11 +13,27 @@ if(!empty($data) && !empty($hora) && !empty($descricao)){
     $sql = "INSERT INTO ocorrencia VALUES (null, ".$usu_id.", '".$data." ".$hora."', '".$descricao."');"; 
     $query = mysqli_query($connect, $sql);
 
-    if($query)
-        echo "<div class='alert alert-success' role='alert'>Ocorrência cadastrada</div>"; //lembrar de colocar o alert
-    else
-        echo "<div class='alert alert-info' role='alert'> Não foi possivel cadastrar ocorrência</div>"; //lembrar de colocar o alert
+    if ($query) {
+        echo "<div class='alert alert-success alert-dismissible'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <h5><i class='fas fa-check'></i>&nbspOcorrência Cadastrada!</h5>
+            <p>A ocorrência foi cadastrada com sucesso!.</p>
+        </div>";
+    } else {
+        echo "<div class='alert alert-info alert-dismissible'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <h5><i class='fas fa-info'></i>&nbspOcorrência não Cadastrada!</h5>
+            <p>Não foi possível cadastrar a ocorrência, tente novamente!.</p>
+        </div>";
+    }
+} else{
+    echo "<div class='alert alert-warning alert-dismissible'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <h5><i class='fas fa-exclamation-triangle'></i>&nbspNão foi possível cadastar a ocorrência!</h5>
+            <p>Preencha todos os campos!.</p>
+        </div>";
+}
+
+
+
     
-    
-} else
-    echo "<div class='alert alert-waning' role='alert'>Preencha todos os campos</div>"; //lembrar de colocar o alert

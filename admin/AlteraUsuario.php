@@ -53,20 +53,20 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     $upload_dir = "../images/usuarios//";
     $file = $upload_dir . hash("md5", $cpf) . ".png";
 
-    if($_GET['cpf'] == $_SESSION['cpf']) {
-        $primeiroNome = explode(" ", $nome)[0];
-        $sobrenome = explode(" ", $nome)[count(explode(" ", $nome))-1];
-        $_SESSION['nome'] =  $primeiroNome . " " . $sobrenome;
-        $_SESSION['cpf'] = $_POST['cpf'];
-        rename('../images/usuarios/'.hash("md5", $_GET['cpf']).'.png', '../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png');
-    }   
-
     $sql = "UPDATE usuario SET pu_id = ".$perfilUsuario.", emp_id = ".$empresa.", usu_nome = '".$nome."', usu_rg = '".$rg."', usu_cpf = '".$cpf."', usu_data_nascimento = '".$dataNascimento."', usu_responsavel = ".$responsavel.", usu_tel_responsavel = ".$telResponsavel.", usu_endereco = '".$endereco."', usu_cep = '".$cep."', usu_bairro = '".$bairro."', usu_municipio = '".$municipio."', usu_area_atuacao = '".$areaAtuacao."', usu_area_interesse = '".$areaInteresse."', usu_telefone = '".$telefone."', usu_email = '".$email."', usu_senha = '".$senha."', usu_socio = ".$socio." WHERE usu_cpf = '".$_GET['cpf']."'";
     $query = mysqli_query($connect, $sql);
     if (!$perfilUsuario)
             header("location: ?cpf=".$_GET['cpf']."&erro=permissao_negada");
     else {
         if ($query){
+            if($_GET['cpf'] == $_SESSION['cpf']) {
+                $primeiroNome = explode(" ", $nome)[0];
+                $sobrenome = explode(" ", $nome)[count(explode(" ", $nome))-1];
+                $_SESSION['nome'] =  $primeiroNome . " " . $sobrenome;
+                $_SESSION['cpf'] = $_POST['cpf'];
+                rename('../images/usuarios/'.hash("md5", $_GET['cpf']).'.png', '../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png');
+            }   
+
             $img = $_POST['img64'];
             if($img!=""){
                 $img = str_replace('data:image/png;base64,', '', $img);

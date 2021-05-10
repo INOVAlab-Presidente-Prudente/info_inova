@@ -44,12 +44,20 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <?php 
-                                if(isset($_GET['modalidade-alterada']))
-                                    echo "<div class='alert alert-success' role='alert' >Modalidade alterada </div>"; 
-                                
-                                if(isset($_GET['erro-alterar']))
-                                    echo "<div class='alert alert-info' role='alert' >Nao foi possivel alterar modalidade </div>"
-                                
+                                if(isset($_GET['modalidade-alterada'])){
+                                    echo "<div class='alert alert-success alert-dismissible'>
+                                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                                            <h5><i class='fas fa-check'></i>&nbspModalidade alterada!</h5>
+                                                <p>A Modalidade com alterada com sucesso!.</p>
+                                        </div>";
+                                }
+                                if(isset($_GET['erro-alterar'])){
+                                    echo "<div class='alert alert-info alert-dismissible'>
+                                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                                            <h5><i class='fas fa-info'></i>&nbspModalidade não alterada!</h5>
+                                                <p>Não foi possível alterar a modalidade, tente novamente!.</p>
+                                          </div>";
+                                }
                             ?>
                             <form id="quickForm" method="post">
                                 <div class="card-body">
@@ -128,7 +136,7 @@
                         <p>Deseja excluir a modalidade <?=$row['mod_nome']?>?</p>
                     </div>
                     <div class="d-flex">
-                        <button onclick=onclick="excluirModalidade('<?=$row['mod_id']?>')" class='btn btn-danger'>Sim</button>
+                        <button onclick="excluirModalidade('<?=$row['mod_id']?>')" class='btn btn-danger'>Sim</button>
                         <div class="col-1"></div>
                         <button id="btn-nao" class='btn btn-light'>Não</button>
                     </div>

@@ -27,9 +27,7 @@
       <section class="content">
         <div class="container-fluid">
           <div class="row">
-            <!-- left column -->
             <div class="col-md-12">
-              <!-- jquery validation -->
               <div class="card card-primary">
                 <form action="../admin/PesquisaUsuario.php"id="quickForm" method="post">
                   <?php if (isset($_GET['usuario_nao_existe'])) {?>
@@ -55,11 +53,21 @@
                 </div>
                 <div class="card-footer mid">
                   <?php
-                      if (isset($_GET['usuario_excluido']))
+                      if (isset($_GET['usuario_excluido'])){
                           echo "<div class='alert alert-success' role='alert'>Usuario foi excluido</div>"; 
-                      if (isset($_GET['erro']))
-                          echo "<div class='alert alert-warning' role='alert'>Você nao tem permissao para excluir esse usuario</div>";
-
+                          echo "<div class='alert alert-success alert-dismissible'>
+                                  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                                  <h5><i class='fas fa-check'></i>&nbspUsuario excluído!</h5>
+                                      <p>O(A) usuário(a) foi excluído(a) com sucesso!.</p>
+                                </div>";
+                      }
+                      if (isset($_GET['erro'])){
+                          echo "<div class='alert alert-warning alert-dismissible'>
+                                  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                                  <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
+                                  <p>Você nao tem permissão para excluir um(a) usuário(a) com esse perfil.</p>
+                                </div>";
+                      }
                       require_once("../admin/DB.php");
                       $sql = 'SELECT * FROM usuario ORDER BY usu_nome';
                       $query = mysqli_query($connect, $sql);

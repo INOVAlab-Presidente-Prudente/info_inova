@@ -59,7 +59,7 @@
                                                 $title = "Erro!";
                                                 $alertSetted = true;
                                             }
-                                            if($alertSetted)
+                                            if(isset($alertSetted))
                                             {
                                                 echo "<div class='alert alert-".$typeAlert." alert-dismissible'>
                                                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>

@@ -11,13 +11,26 @@ $modalidade = $_POST['modalidade'];
 
 if (!empty($razaoSocial) && !empty($cnpj) && !empty($telefone) && !empty($areaAtuacao) && !empty($modalidade)) {
     require_once("DB.php");
-    $sql = "INSERT INTO empresa VALUES (null, '".$razaoSocial."', '".$cnpj."', '".$telefone."', '".$areaAtuacao."', ".$modalidade.")";
+    $sql = "INSERT INTO empresa VALUES (null, '".$razaoSocial."', '".$cnpj."', '".$telefone."', '".$areaAtuacao."', ".$modalidade.", 0)";
     $query = mysqli_query($connect, $sql);
     if ($query) {
-        echo "<div class='alert alert-success' role='alert' >Empresa cadastrada </div>"; 
+        echo "<div class='alert alert-success alert-dismissible'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <h5><i class='fas fa-check'></i>&nbspEmpresa Cadastrada!</h5>
+            <p>A empresa foi cadastrada com sucesso!.</p>
+        </div>";
     } else {
-        echo "<div class='alert alert-info' role='alert' >Nao foi possivel cadastrar empresa </div>";
+        echo "<div class='alert alert-info alert-dismissible'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <h5><i class='fas fa-info'></i>&nbspEmpresa não Cadastrada!</h5>
+            <p>Não foi possível cadastrar a empresa, tente novamente!.</p>
+        </div>";
     }
 } else {
-    echo "<div class='alert alert-warning' role='alert'> Preencha todos os campos </div>";
+    echo "<div class='alert alert-warning alert-dismissible'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+        <h5><i class='fas fa-exclamation-triangle'></i>&nbspNão foi possível cadastar a empresa!</h5>
+            <p>Preencha todos os campos!.</p>
+         </div>";
 }
+

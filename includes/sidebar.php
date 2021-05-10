@@ -61,6 +61,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                <?php if(isset($_SESSION['admin']) || isset($_SESSION['coworking'])):?>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -73,19 +74,23 @@
                             <p>Utilização - Coworking</p>
                             </a>
                         </li>
+                <?php endif?>
+                <?php if(isset($_SESSION['admin']) || isset($_SESSION['coworking']) ||isset($_SESSION['financeiro'])):?>
                         <li class="nav-item">
                             <a href="../pages/relatorioEmpresa.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Utilização - Empresas</p>
                             </a>
                         </li>
+                <?php endif?>
+                <?php if(isset($_SESSION['admin']) || isset($_SESSION['coworking'])):?>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Eventos</p>
                             </a>
-                        </li>
-                    
+                        </li>    
+                <?php endif?>
                     </ul>
                 </li>
                 <?php if((isset($_SESSION['admin']) || isset($_SESSION['coworking']))):?>
@@ -121,6 +126,7 @@
                     
                     </ul>
                 </li>
+                <?php endif?>
                 
                 
                 <!--
@@ -134,7 +140,7 @@
                     </p>
                     </a>
                 </li>-->
-                
+                <?php if(isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro'])):?>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-briefcase"></i>
@@ -144,6 +150,7 @@
                     </p>
                     </a>
                     <ul class="nav nav-treeview">
+                    <?php if(isset($_SESSION['admin']) || isset($_SESSION['coworking'])):?>
                         <li class="nav-item">
                             <a href="../pages/cadastrarEmpresa.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -156,9 +163,18 @@
                             <p>Consultar Empresa</p>
                             </a>
                         </li>
+                        <?php endif?>
+                        <?php if (isset($_SESSION['admin']) || isset($_SESSION['financeiro'])): ?>
+                        <li class="nav-item">
+                            <a href="../pages/gerenciarPendencia.php" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Gerenciar Pendência</p>
+                            </a>
+                        </li>
+                        <?php endif?>
                     </ul>
                 </li>
-                <?php endif; ?>
+                <?php endif?>
                 <?php if(isset($_SESSION['admin']) || isset($_SESSION['financeiro'])) { ?>
                 <li class="nav-item">
                     <a href="#" class="nav-link">

@@ -1,7 +1,7 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/permissoes.php'); ?>
 
-<body onload="document.title=' Check In'" class="hold-transition sidebar-mini">
+<body onload="document.title='Check-in | Check-out'" class="hold-transition sidebar-mini">
 
   <?php include('../includes/navbar.php'); ?>
 
@@ -13,12 +13,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Check-in Usuário</h1>
+              <h1>Check-in/Check-out Usuário</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
-                <li class="breadcrumb-item active">Check-in</li>
+                <li class="breadcrumb-item active">Check-in/Check-out</li>
               </ol>
             </div>
           </div>
@@ -39,17 +39,41 @@
                     </div> 
                   </div>
                   <div class="card-footer mid">
-                    <button type="submit" class="btn btn-primary">Check-in / Check-out</button>
+                    <button type="submit" class="btn btn-primary">Check</button>
                   </div>
                 </form>
                 <?php 
                   date_default_timezone_set('America/Sao_Paulo');
-                  if (isset($_GET['checkin']))
-                  echo "<br><div class='alert alert-info' role='alert'>Horario de Entrada: ". date("H:i:sa")."</div>";
-                  if (isset($_GET['checkout']))
-                  echo "<br><div class='alert alert-info' role='alert'>Horario de Saída: ". date("H:i:sa")."</div>";
-                  if (isset($_GET['erro']))
-                  echo "<br><div class='alert alert-warning' role='alert'>CPF não encontrado</div>";
+                  if (isset($_GET['checkin'])){
+                      echo "<div class='alert alert-info alert-dismissible'>
+                              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                              <h5><i class='fas fa-info'></i>&nbspCheck-in</h5>
+                                  <p>Horario de Entrada: ". date("H:i:sa").".</p>
+                            </div>";
+                  }
+                  if (isset($_GET['checkout'])){
+                      echo "<div class='alert alert-info alert-dismissible'>
+                              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                              <h5><i class='fas fa-info'></i>&nbspCheck-out</h5>
+                                  <p>Horario de Saída: ". date("H:i:sa").".</p>
+                            </div>";
+                  }
+                  if (isset($_GET['erro'])){
+                      echo "<br><div class='alert alert-warning' role='alert'>CPF não encontrado</div>";
+                      echo "<div class='alert alert-warning alert-dismissible'>
+                              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                              <h5><i class='icon fas fa-exclamation-triangle'></i> CPF não encontrado!</h5>
+                                  <p>Não foi possível realizar o check-in pois não consta o CPF digitado em nosso sistema, cadastre-se agora para realizar o check-in.</p>
+                            </div>";
+                  
+                  }
+                  if(isset($_GET['avisoPendencia'])){
+                    echo "<div class='alert alert-danger alert-dismissible'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            <h5><i class='icon fas fa-ban'></i> Alerta pendências</h5>
+                                <p>Há pendências desta empresa.</p>
+                          </div>"; 
+                  }
                 ?>
               </div>
             </div>
@@ -82,7 +106,7 @@
                           <td><?=$row['usu_nome']?></td>
                           <td><?=$row['usu_cpf']?></td>
                           <td><?=$row['che_horario_entrada']?></td>
-                          <td><button class="btn btn-primary center" onclick="checkout('<?=$row['usu_cpf']?>')" name="fechar">Checkout</button></td>
+                          <td><button class="btn btn-primary center" onclick="checkout('<?=$row['usu_cpf']?>')" name="fechar">Check-out</button></td>
                         </tr>
                         <?php 
                         $row = mysqli_fetch_assoc($query);  

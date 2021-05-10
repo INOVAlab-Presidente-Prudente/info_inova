@@ -28,10 +28,20 @@
       <section class="content">
         <div class="container-fluid">
           <?php if (isset($_GET['modalidade_excluida'])) {?>
-              <div class='alert alert-success' role='alert'>Modalidade foi excluida</div>
+              <div class='alert alert-success alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='fas fa-check'></i>&nbspModalidade Excluída!</h5>
+                    <p>A Modalidade foi excluída com sucesso!.</p>
+              </div>
           <?php } 
            if (isset($_GET['exclusao_negada'])) {?>
               <div class='alert alert-warning' role='alert'>Empresas estão cadastradas nessa modalidade</div>
+              <div class='alert alert-warning alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='icon fas fa-exclamation-triangle'></i>Exclusão Negada!</h5>
+                    <p>Empresas estão cadastradas nesta modalidade, exclusão não permitida.</p>
+              </div>
+          
           <?php } ?>
           <div class="col-md-12">
             <div class="card">

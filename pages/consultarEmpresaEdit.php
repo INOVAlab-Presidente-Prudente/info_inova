@@ -46,8 +46,14 @@
                         <div class="card card-primary">
                             <form id="quickForm" action="" method="post">
                                 <?php 
-                                    if (isset($_GET['empresa_alterada']))
-                                        echo "<div class='alert alert-success' role='alert'>Empresa foi alterada</div>";
+                                    if (isset($_GET['empresa_alterada'])){
+                                        echo "<div class='alert alert-success alert-dismissible'>
+                                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                                                <h5><i class='fas fa-check'></i>&nbspEmpresa Alterada!</h5>
+                                                    <p>A empresa foi altrada com sucesso!.</p>
+                                              </div>";
+
+                                    }
                                     if (isset($_GET['empresa_nao_alterada']))
                                         echo "<div class='alert alert-warning' role='alert'>Não foi possível alterar esta empresa.</div>";
                                 ?>
@@ -68,16 +74,34 @@
                                         <label>Ramo de atuação</label>
                                         <input <?=$alterar." value='".$row['emp_area_atuacao']."'"?> name="areaAtuacao" id="ramo" class="form-control">
                                     </div>  
+                                    <div class="form-group">
+                                        <label>Modalidade</label>
+                                        <select required <?=$alterar?> name="modalidade" class="form-control">
+                                            <?php
+                                                $sql = "SELECT * FROM modalidade";
+                                                $query = mysqli_query($connect, $sql);
+                                                $res = mysqli_fetch_array($query);    
+
+                                                while ($res != null) {
+                                                    if ($res['mod_id'] == $row['mod_id'])
+                                                        echo "<option selected value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
+                                                    else
+                                                        echo "<option value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
+                                                    $res = mysqli_fetch_array($query);
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>  
                                     
                                     <label>Sócios:</label>
                                     <?php 
-                                        $sql = "SELECT u.usu_nome AS nome FROM usuario u, empresa e 
+                                        $sql = "SELECT u.usu_nome AS nome, u.usu_cpf AS cpf FROM usuario u, empresa e 
                                                     WHERE u.emp_id = e.emp_id AND u.usu_socio = 1 AND emp_cnpj = '".$_GET['cnpj']."'";
                                         $query = mysqli_query($connect, $sql);
                                         $row2 = mysqli_fetch_assoc($query);
 
                                         while($row2!=null){
-                                            echo "<div class='col'>".$row2['nome']."</div>";
+                                            echo "<div class='col'><a href='../pages/consultarUsuarioEdit.php?cpf=".$row2['cpf']."'>".$row2['nome']."</a></div>";
                                             $row2 = mysqli_fetch_assoc($query);
                                         }
                                     ?>

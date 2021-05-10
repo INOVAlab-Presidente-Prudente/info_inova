@@ -33,10 +33,19 @@
               <div class="card card-primary">
                 <form action="../admin/PesquisaEmpresa.php" id="quickForm" method="post">
                   <?php if (isset($_GET['empresa_excluida'])) {?>
-                      <div class='alert alert-success' role='alert'>Empresa foi excluida</div>
+                      <div class='alert alert-success alert-dismissible'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                        <h5><i class='fas fa-check'></i>&nbspEmpresa excluída!</h5>
+                            <p>A empresa foi excluída com sucesso!.</p>
+                      </div>
+                  
                   <?php } ?>
                   <?php if (isset($_GET['empresa_nao_existe'])) {?>
-                      <div class='alert alert-warning' role='alert'>Empresa nao existe</div>
+                      <div class='alert alert-warning alert-dismissible'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                        <h5><i class='icon fas fa-exclamation-triangle'></i> Empresa não encontrada!</h5>
+                            <p>Empresa não encontrada no nosso sistema!</p>
+                      </div>
                   <?php } ?>
                   <div class="card-body">
                       <div class="form-group">
