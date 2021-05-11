@@ -96,6 +96,13 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                 //fim upload
             }
             else{
+                if(str_contains(mysqli_error($connect), "Duplicate entry"))
+                    echo "<div class='alert alert-info alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-info'></i>&nbspUsuário(a) já Cadastrado(a)!</h5>
+                        <p>Usuário(a) já está cadastrado no sistema!.</p>
+                    </div>";
+                else 
                 echo "<div class='alert alert-info alert-dismissible'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                 <h5><i class='fas fa-info'></i>&nbspUsuário(a) não Cadastrado(a)!</h5>

@@ -60,9 +60,6 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     else {
         if ($query){
             if($_GET['cpf'] == $_SESSION['cpf']) {
-                $primeiroNome = explode(" ", $nome)[0];
-                $sobrenome = explode(" ", $nome)[count(explode(" ", $nome))-1];
-                $_SESSION['nome'] =  $primeiroNome . " " . $sobrenome;
                 $_SESSION['cpf'] = $_POST['cpf'];
                 rename('../images/usuarios/'.hash("md5", $_GET['cpf']).'.png', '../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png');
             }   

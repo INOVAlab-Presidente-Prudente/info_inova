@@ -1,6 +1,7 @@
 <?php 
     ob_start();
     include("../includes/header.php");
+    include("../includes/primeirologin.php");
     if (!isset($_SESSION['admin']) && !isset($_SESSION['financeiro']))
         header("location: ../");
 ?>

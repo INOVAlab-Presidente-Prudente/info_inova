@@ -1,6 +1,7 @@
 <?php 
     ob_start();
     include("../includes/header.php");
+    include("../includes/primeirologin.php");
     include('../includes/permissoes.php');
     require_once("../admin/DB.php");
 

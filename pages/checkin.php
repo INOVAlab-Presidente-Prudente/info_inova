@@ -1,9 +1,10 @@
-<?php include('../includes/header.php'); ?>
-<?php include('../includes/permissoes.php'); ?>
+<?php include('../includes/header.php');?>
+<?php include("../includes/primeirologin.php");?>
+<?php include('../includes/permissoes.php');?>
 
 <body onload="document.title='Check-in | Check-out'" class="hold-transition sidebar-mini">
 
-  <?php include('../includes/navbar.php'); ?>
+  <?php include('../includes/navbar.php');?>
 
   <?php include("../includes/sidebar.php");?>
   <div class="wrapper">

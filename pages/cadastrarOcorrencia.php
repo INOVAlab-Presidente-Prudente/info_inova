@@ -1,5 +1,6 @@
 <?php 
     include("../includes/header.php");
+    include("../includes/primeirologin.php");
     include('../includes/permissoes.php');
     if(!isset($_GET['usu_id']))
         header("location: ../");

@@ -1,4 +1,5 @@
 <?php include("../includes/header.php")?>
+<?php include("../includes/primeirologin.php")?>
 <body class="hold-transition sidebar-mini" onload="document.title='HomePage'">
     <?php include("../includes/navbar.php")?>
     <?php include("../includes/sidebar.php") ?>
@@ -19,7 +20,7 @@
                 echo "<div class='alert alert-success alert-dismissible'>
                         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                         <h5><i class='fas fa-check'></i>&nbspSenha Alterada!</h5>
-                            <p>Senha com sucesso!.</p>
+                            <p>Senha alterada com sucesso!.</p>
                       </div>";
           ?>
           <div class="card">

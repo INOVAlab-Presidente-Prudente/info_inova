@@ -1,5 +1,6 @@
-<?php include('../includes/header.php'); ?>
-<?php include('../includes/permissoes.php'); ?>
+<?php include('../includes/header.php');?>
+<?php include("../includes/primeirologin.php");?>
+<?php include('../includes/permissoes.php');?>
 
 <body class="hold-transition sidebar-mini" onload="document.title=' Cadastrar Usuario'">
 
@@ -161,22 +162,27 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-
+                        
                         <div id="responsavel" style="display: none;">
-                          <div class="form-group col-lg-6">
-                            <label>Nome do Responsável</label>
-                            <input type="text" id="nomeResponsavel" name="responsavel" class="form-control">
-                          </div>
-
-                          <div class="form-group col-lg-6">
-                            <label>Telefone do Responsável</label>
-                            <input pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14"
-                              type="phone" id="telResponsavel" name="telResponsavel" class="form-control"
-                              placeholder="(xx)xxxxx-xxxx">
+                          <div class="row">
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                  <label>Nome do Responsável</label>
+                                  <input type="text" id="nomeResponsavel" name="responsavel" class="form-control">
+                                </div>
+                              </div>
+                              
+                              <div class="col-lg-5">
+                                <div class="form-group">
+                                  <label>Telefone do Responsável</label>
+                                  <input pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14"
+                                    type="phone" id="telResponsavel" name="telResponsavel" class="form-control"
+                                    placeholder="(xx)xxxxx-xxxx">
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-
                         <div class="container-fluid">
                           <div class="row">
                             <div class="col-lg-3">
@@ -259,12 +265,12 @@
                               <option>...</option>
                               <?php 
                                     require_once("../admin/DB.php");
-                                    $sql = "SELECT * FROM empresa";
+                                    $sql = "SELECT * FROM empresa ORDER BY emp_razao_social";
                                     $query = mysqli_query($connect, $sql);
                                     $res = mysqli_fetch_array($query);
-
                                     while ($res != null) {
-                                        echo "<option value='".$res['emp_id']."'>". $res['emp_razao_social'] ."</option>";
+                                        $nome  = (empty($res['emp_nome_fantasia']))? $res['emp_razao_social'] : $res['emp_nome_fantasia'];
+                                        echo "<option value='".$res['emp_id']."'>".$nome."</option>";
                                         $res = mysqli_fetch_array($query);
                                     }
                                 ?>

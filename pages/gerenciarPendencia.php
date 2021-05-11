@@ -1,5 +1,6 @@
 <?php 
     include("../includes/header.php");
+    include("../includes/primeirologin.php");
     if (!isset($_SESSION['admin']) && !isset($_SESSION['financeiro']))
         header("location: ../");
 ?>
@@ -43,7 +44,8 @@
                                                         $res = mysqli_fetch_array($query);
 
                                                         while ($res != null) {
-                                                            echo "<option value='".$res['emp_id']."'>". $res['emp_razao_social'] ."</option>";
+                                                            $nome  = (empty($res['emp_nome_fantasia']))? $res['emp_razao_social'] : $res['emp_nome_fantasia'];
+                                                            echo "<option value='".$res['emp_id']."'>". $nome ."</option>";
                                                             $res = mysqli_fetch_array($query);
                                                         }
                                                     ?>
@@ -96,7 +98,7 @@
                                                         <?=$row['emp_razao_social']?>
                                                     </a></td>
                                                     <td><?=$row['mod_nome']?></td>
-                                                    <td><button class='btn btn-danger center'><i class="fas fa-trash-alt"></i></button></td>                                            
+                                                    <td><button class='btn btn-danger center' name="excluir"><i class="fas fa-trash-alt"></i></button></td>                                            
                                                 </tr>
                                             <?php $row = mysqli_fetch_assoc($query);
                                             }?>                                    

@@ -62,10 +62,20 @@
                                         <label>Razão social</label>
                                         <input <?=$alterar." value='".$row['emp_razao_social']."'"?> name="razaoSocial" id="razaoSocial" class="form-control">
                                     </div>  
-                                    <div class="form-group">
-                                        <label>CNPJ</label>
-                                        <input <?=$alterar." value='".$row['emp_cnpj']."'"?> pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" onpaste="consultaCNPJ(this.value)" oninput="consultaCNPJ(this.value)" name="cnpj" id="cnpj" class="form-control">
-                                    </div>    
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label>CNPJ</label>
+                                                <input <?=$alterar." value='".$row['emp_cnpj']."'"?> pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" onpaste="consultaCNPJ(this.value)" oninput="consultaCNPJ(this.value)" name="cnpj" id="cnpj" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="form-group">
+                                                <label>Nome Fantasia</label>
+                                                <input <?=$alterar." value='".$row['emp_nome_fantasia']."'"?> type="text" id="nomefantasia" name="nomefantasia" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label>Telefone</label>
                                         <input <?=$alterar." value='".$row['emp_telefone']."'"?> pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" name="telefone" class="form-control">
@@ -96,12 +106,18 @@
                                     <label>Sócios:</label>
                                     <?php 
                                         $sql = "SELECT u.usu_nome AS nome, u.usu_cpf AS cpf FROM usuario u, empresa e 
-                                                    WHERE u.emp_id = e.emp_id AND u.usu_socio = 1 AND emp_cnpj = '".$_GET['cnpj']."'";
+                                                    WHERE u.emp_id = e.emp_id AND u.usu_socio = 1 AND emp_cnpj = '".$_GET['cnpj']."' ORDER BY u.usu_nome";
                                         $query = mysqli_query($connect, $sql);
                                         $row2 = mysqli_fetch_assoc($query);
 
                                         while($row2!=null){
-                                            echo "<div class='col'><a href='../pages/consultarUsuarioEdit.php?cpf=".$row2['cpf']."'>".$row2['nome']."</a></div>";
+                                            echo "<div class='col p-1'>";
+                                            if(in_array(hash("md5", $row2['cpf']).".png", scandir("../images/usuarios")))
+                                                echo '<img src="../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
+                                            else
+                                                echo '<img src="../images/avatar-df.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
+                                        
+                                            echo "<a href='../pages/consultarUsuarioEdit.php?cpf=".$row2['cpf']."'>".$row2['nome']."</a></div>";
                                             $row2 = mysqli_fetch_assoc($query);
                                         }
                                     ?>
@@ -199,6 +215,7 @@
               conteudo.telefone = conteudo.telefone.split("/")[0]
           document.getElementById('telefone').value=(conteudo.telefone.replace(" ", ""));
           document.getElementById('ramo').value= (conteudo.atividade_principal[0].text);
+          document.getElementById('nomefantasia').value= conteudo.fantasia;
         }
     </script>
     <?php include('../includes/footer.php');

@@ -1,4 +1,4 @@
-<?php include("../includes/header.php") ?>
+<?php include("../includes/header.php")?>
 <body class="hold-transition login-page" onload="document.title='Alterar Senha'">
   <div class="login-box">
     <div class="login-logo">
@@ -10,7 +10,45 @@
         <?php 
           if (isset($_POST['alterarSenha'])) 
               require_once("../admin/AlteraSenha.php");
+          require_once("../admin/DB.php");
+          $sql = "SELECT usu_nomedeusuario FROM usuario WHERE usu_cpf = '".$_SESSION['cpf']."'";
+          $query = mysqli_query($connect, $sql);
+          $row = mysqli_fetch_assoc($query);
+          $nomeUsuario = $row['usu_nomedeusuario'];
+          if ($nomeUsuario == NULL):
         ?>
+        <!-- Alterar nome de usuario -->
+        <p class="login-box-msg">Escolha um nome de usuario</p>
+        <form method="post">
+          <div class="input-group mb-3">
+            <input name="nomeUsuario" type="text" class="form-control" placeholder="Nome">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <!-- <span class="fas fa-lock"></span> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button name="continuar" type="submit" class="btn btn-warning btn-block">Continuar</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+      </div>
+      <?php 
+          if (isset($_POST['continuar'])) {
+              $sql = "UPDATE usuario SET usu_nomedeusuario = '".$_POST['nomeUsuario']."' WHERE usu_cpf = '".$_SESSION['cpf']."'";
+              $query = mysqli_query($connect, $sql);
+              if ($query) {
+                $_SESSION['nome'] = $_POST['nomeUsuario'];
+                header("location: /pages/alterarSenha.php");
+              }else
+                echo "Digite um nome de usuário válido";
+          }
+      ?>
+      <?php else:?>
+      <!-- Alterar senha -->
         <p class="login-box-msg">Como é seu primeiro login no InfoInova, é necessário que você faça a alteração da sua senha</p>
         <form method="post">
           <div class="input-group mb-3">
@@ -36,13 +74,11 @@
             <!-- /.col -->
           </div>
         </form>
-        <p class="mt-3 mb-1">
-          <a href="../">Ir para a HomePage</a>
-        </p>
       </div>
       <!-- /.login-card-body -->
     </div>
   </div>
+  <?php endif?>
 
     <!-- jQuery -->
     <script src="../plugins/jquery/jquery.min.js"></script>

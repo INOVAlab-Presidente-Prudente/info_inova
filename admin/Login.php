@@ -8,7 +8,7 @@ require_once("DB.php");
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 
-$sql = "SELECT usu_nome, usu_senha, pu_id, usu_primeiro_login, usu_cpf FROM usuario WHERE usu_email = '".$email."'";
+$sql = "SELECT usu_nome, usu_senha, pu_id, usu_primeiro_login, usu_cpf, usu_nomedeusuario FROM usuario WHERE usu_email = '".$email."'";
 
 $query = mysqli_query($connect, $sql);
 
@@ -17,9 +17,7 @@ if ($fetch != null) {
     if (password_verify($senha, $fetch['usu_senha'])) {
         $_SESSION['logado'] = true;
         $_SESSION['cpf'] =  $fetch['usu_cpf'];
-        $nome = explode(" ", $fetch['usu_nome'])[0];
-        $sobrenome = explode(" ", $fetch['usu_nome'])[count(explode(" ", $fetch['usu_nome']))-1];
-        $_SESSION['nome'] =  $nome . " " . $sobrenome;
+        $_SESSION['nome'] =  $fetch['usu_nomedeusuario'];
         
         switch ($fetch['pu_id']) {
             case "1":
@@ -47,9 +45,10 @@ if ($fetch != null) {
             echo "<div class='alert alert-danger alert-dismissible'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                 <h5><i class='fas fa-skull-crossbones'></i>&nbspAcesso Negado!</h5>
-                    <p>Você não tem acesso ao sistema, você é um usuário comum, por favor se retire, ou poderá sofrer com as concequências!.</p>
+                    <p>Você não tem acesso ao sistema!.</p>
               </div>";
         }else if ($fetch['usu_primeiro_login']){
+            $_SESSION['primeiro_login'] = true;
             header("location: ../pages/alterarSenha.php");
         }else{
             header("location: ../pages/adminPage.php");}

@@ -1,8 +1,9 @@
-<?php include("../includes/header.php") ?>
-<?php include("../includes/permissoes.php") ?>
+<?php include("../includes/header.php")?>
+<?php include("../includes/primeirologin.php")?>
+<?php include("../includes/permissoes.php")?>
 <body class="hold-transition sidebar-mini" onload="document.title=' Consulta de Usuario'">
-  <?php include("../includes/navbar.php") ?>
-  <?php include("../includes/sidebar.php") ?>
+  <?php include("../includes/navbar.php")?>
+  <?php include("../includes/sidebar.php")?>
   <div class="wrapper">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

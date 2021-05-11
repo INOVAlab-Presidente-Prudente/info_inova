@@ -1,4 +1,5 @@
 <?php include("../includes/header.php")?>
+<?php include("../includes/primeirologin.php")?>
 <?php include('../includes/permissoes.php')?>
 <body class="hold-transition sidebar-mini" onload="document.title='Admin Page | Cadastrar Empresa'">
     <?php include("../includes/navbar.php")?>
@@ -43,9 +44,19 @@
                       ?>
                     </div>
                       <div class="card-body">
-                          <div class="form-group">
-                              <label>CNPJ</label>
-                              <input required pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" minlength="18" maxlength="18" onpaste="consultaCNPJ(this.value)" oninput="consultaCNPJ(this.value)" type="text" id="cnpj" name="cnpj" class="form-control" placeholder="xx.xxx.xxx/0001-xx">
+                          <div class="row">
+                            <div class="col-3">
+                              <div class="form-group">
+                                  <label>CNPJ</label>
+                                  <input required pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}" minlength="18" maxlength="18" onpaste="consultaCNPJ(this.value)" oninput="consultaCNPJ(this.value)" type="text" id="cnpj" name="cnpj" class="form-control" placeholder="xx.xxx.xxx/0001-xx">
+                              </div>
+                            </div>
+                            <div class="col-9">
+                              <div class="form-group">
+                                <label>Nome Fantasia</label>
+                                <input required type="text" id="nomefantasia" name="nomefantasia" class="form-control">
+                              </div>
+                            </div>
                           </div>
                           <div class="form-group">
                               <label>Razão Social</label>
@@ -53,7 +64,7 @@
                           </div>
                           <div class="form-group">
                               <label>Telefone</label>
-                              <input required pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" type="phone" name="telefone" id="telefone" class="form-control" placeholder="(xx)xxxxx-xxxx">
+                              <input required pattern="\([1-9]{2}\)(?:[2-9]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" type="phone" name="telefone" id="telefone" class="form-control" placeholder="(xx)xxxxx-xxxx">
                           </div>
                           <div class="form-group">
                               <label>Ramo de atuação</label>
@@ -114,6 +125,8 @@
               conteudo.telefone = conteudo.telefone.split("/")[0]
           document.getElementById('telefone').value=(conteudo.telefone.replace(" ", ""));
           document.getElementById('ramo').value= (conteudo.atividade_principal[0].text);
+          document.getElementById('nomefantasia').value = (conteudo.fantasia);
+          console.log(conteudo);
         }
       </script>
 <?php include("../includes/footer.php")?>

@@ -1,6 +1,7 @@
 <?php 
     ob_start();
     include("../includes/header.php");
+    include("../includes/primeirologin.php");
     include("../includes/permissoes.php");
 ?>
 <body class="hold-transition sidebar-mini" onload="verificaIdade(dataNascimento); document.title=' Consulta de Usuario'">
@@ -198,20 +199,26 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      
+                        <div id="responsavel" style="display: none;">
+                          <div class="row">
+                            <div class="col-lg-7">
+                              <div class="form-group">
+                                <label>Nome do Responsável</label>
+                                <input <?=$alterar?> type="text" id="nomeResponsavel" name="responsavel" class="form-control"
+                                  <?="value='".$row['usu_responsavel']."'"?>>
+                              </div>
+                            </div>
 
-                      <div id="responsavel" style="display: none;">
-                        <div class="form-group col-lg-6">
-                          <label>Nome do Responsável</label>
-                          <input <?=$alterar?> type="text" id="nomeResponsavel" name="responsavel" class="form-control"
-                            <?="value='".$row['usu_responsavel']."'"?>>
-                        </div>
-
-                        <div class="form-group col-lg-6">
-                          <label>Telefone do Responsável</label>
-                          <input <?=$alterar?> pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14"
-                            type="phone" id="telResponsavel" name="telResponsavel" class="form-control"
-                            placeholder="(xx)xxxxx-xxxx" <?="value='".$row['usu_tel_responsavel']."'"?>>
+                            <div class="col-lg-5">
+                              <div class="form-group">
+                                <label>Telefone do Responsável</label>
+                                <input <?=$alterar?> pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14"
+                                  type="phone" id="telResponsavel" name="telResponsavel" class="form-control"
+                                  placeholder="(xx)xxxxx-xxxx" <?="value='".$row['usu_tel_responsavel']."'"?>>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -300,15 +307,16 @@
                             <option>...</option>
                             <?php 
                                     require_once("../admin/DB.php");
-                                    $sql = "SELECT * FROM empresa";
+                                    $sql = "SELECT * FROM empresa ORDER BY emp_razao_social";
                                     $query = mysqli_query($connect, $sql);
                                     $res = mysqli_fetch_array($query);
 
                                     while ($res != null) {
+                                        $nome  = (empty($res['emp_nome_fantasia']))? $res['emp_razao_social'] : $res['emp_nome_fantasia'];
                                         if ($row['emp_id'] == $res['emp_id'])
-                                          echo "<option selected value='".$res['emp_id']."'>". $res['emp_razao_social'] ."</option>";
+                                          echo "<option selected value='".$res['emp_id']."'>". $nome ."</option>";
                                         else
-                                          echo "<option value='".$res['emp_id']."'>". $res['emp_razao_social'] ."</option>";
+                                          echo "<option value='".$res['emp_id']."'>". $nome ."</option>";
                                         $res = mysqli_fetch_array($query);
                                     }
                                 ?>

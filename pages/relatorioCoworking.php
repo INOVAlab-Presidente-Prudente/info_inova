@@ -1,5 +1,6 @@
-<?php include('../includes/header.php'); ?>
-<?php include('../includes/permissoes.php'); ?>
+<?php include('../includes/header.php')?>
+<?php include("../includes/primeirologin.php")?>
+<?php include('../includes/permissoes.php')?>
 <body class="hold-transition sidebar-mini" onload="document.title='Relatório de Utilização pelos Usuários do Coworking'">
     <?php include("../includes/navbar.php")?>
     <?php include("../includes/sidebar.php")?>
@@ -48,7 +49,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="row justify-content-center">
-                                    <div class="col-3">
+                                    <div class="col-lg-3">
                                         <button class="btn btn-primary w-100" name="consultar">Consultar</button>
                                     </div>
                                 </div>

@@ -1,4 +1,5 @@
 <?php include("../includes/header.php")?>
+<?php include("../includes/primeirologin.php")?>
 <?php include('../includes/permissoes.php')?>
 <body class="hold-transition sidebar-mini" onload="document.title=' Consultar Empresa'">
     <?php include("../includes/navbar.php") ?>
@@ -77,7 +78,7 @@
                       <table class="table table-hover text-nowrap">
                         <thead>
                           <tr>
-                              <th>Razão Social</th>
+                              <th>Empresa</th>
                               <th>CNPJ</th>
                               <th>Alterar</th>
                               <th>Excluir</th>
@@ -86,7 +87,13 @@
                         <tbody>
                           <?php while($row != null) { ?>
                             <tr>
-                              <td><a href="consultarEmpresaEdit.php?cnpj=<?=$row['emp_cnpj']?>"><?= strlen($row['emp_razao_social']) >= 35 ? substr($row['emp_razao_social'], 0, 35)."..." : $row['emp_razao_social']?></a></td>
+                              <?php 
+                                  if(empty($row['emp_nome_fantasia']))
+                                    $nome = strlen($row['emp_razao_social']) >= 35 ? substr($row['emp_razao_social'], 0, 35)."..." : $row['emp_razao_social'];
+                                  else
+                                    $nome = $row['emp_nome_fantasia'];
+                              ?>
+                              <td><a href="consultarEmpresaEdit.php?cnpj=<?=$row['emp_cnpj']?>"><?= $nome ?></a></td>
                               <td><?= $row['emp_cnpj']?></td>
                               <!-- botoes -->
                               <td><button class="btn btn-warning center" name="alterar" onclick="redireciona('<?=$row['emp_cnpj']?>')">

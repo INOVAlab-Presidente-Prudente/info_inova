@@ -1,4 +1,5 @@
-<?php include('../includes/header.php'); ?>
+<?php include('../includes/header.php');?>
+<?php include("../includes/primeirologin.php");?>
 <body class="hold-transition sidebar-mini" onload="document.title='Relatório de Utilização Empresas'">
     <?php include("../includes/navbar.php")?>
     <?php include("../includes/sidebar.php")?>
@@ -47,7 +48,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="row justify-content-center">
-                                    <div class="col-3">
+                                    <div class="col-lg-3">
                                         <button class="btn btn-primary w-100" name="consultar">Consultar</button>
                                     </div>
                                 </div>
@@ -146,11 +147,11 @@
 
                                             ?>
                                                 <tr>
-                                                    <td><?=$empresas['emp_razao_social']?></td>
+                                                    <td><?=empty($empresas['emp_nome_fantasia'])? $empresas['emp_razao_social'] : $empresas['emp_nome_fantasia']?></td>
                                                     <td><?=$presenca?></td>
                                                     <td><?=$row3['qtde']?></td>
                                                     <td><?=$row['qtde']?></td>
-                                                    <td>?</td>
+                                                    <td><?=$empresas['emp_pendencia']? 'sim' : 'não' ?></td>
                                                     <td>?</td>
                                                 </tr>
                                             <?php

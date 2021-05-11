@@ -11,8 +11,10 @@ if ($novaSenha == $confirmaSenha) {
     $sql = "UPDATE usuario SET usu_senha = '".$senhaHash."', usu_primeiro_login = 0 WHERE usu_cpf = '".$_SESSION['cpf']."'";
     $query = mysqli_query($connect, $sql);
 
-    if($query)
+    if($query) {
         header("location: ../pages/adminPage.php?senha_alterada=true");
+        unset($_SESSION['primeiro_login']);
+    }
 } else{
     echo "<div class='alert alert-danger alert-dismissible'>
         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
