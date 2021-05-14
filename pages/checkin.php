@@ -2,6 +2,7 @@
 $titulo = "Dashboard Checkin";
 include ('../includes/header.php');
 include ('../includes/permissoes.php');
+include ('../includes/primeirologin.php');
 include ('../includes/navbar.php');
 include ('../includes/sidebar.php');
 
@@ -103,9 +104,9 @@ include ('../includes/sidebar.php');
             </div><!-- /.card -->
           </div>
           <div class="col-md-8">
+            <?php 
+            if(isset($_GET['status']) && $_GET['status'] == 'cpf_nao_encontrado'){?>
             <div class="invoice p-3 mb-3" style= "border-radius: .25rem">
-              <?php 
-              if(isset($_GET['status']) && $_GET['status'] == 'cpf_nao_encontrado'){?>
                 <!-- error cpf row -->
                 <div class="row invoice-info mb-2">
                   <div class="col-12 mb-2">
@@ -115,7 +116,7 @@ include ('../includes/sidebar.php');
                     <p>
                       Verifique se o usuário possui cadastro no sistema.
                       <br/>
-                      <a href="usuarios.php">Ir para lista de usuários cadastrados.</a> 
+                      <a href="consultarUsuario.php">Ir para lista de usuários cadastrados.</a> 
                     </p>
                   </div>
                 </div>
@@ -143,7 +144,7 @@ include ('../includes/sidebar.php');
                   <div class="row invoice-info mb-4">
                     <div class="col-md-6 invoice-col">
                       <b>Email:</b><?=$usuario['usu_email']?><br>
-                      <b>Data de nascimento:</b><?=$usuario['usu_data_nascimento']?><br>
+                      <b>Data de nascimento:</b><?=date_format(date_create($usuario['usu_data_nascimento']),"d/m/Y")?><br>
                       <b>RG:</b><?=$usuario['usu_rg']?><br>
                       <b>CPF:</b><?=$usuario['usu_cpf']?><br>
                       <b>Telefone:</b><?=$usuario['usu_telefone']?><br>                  

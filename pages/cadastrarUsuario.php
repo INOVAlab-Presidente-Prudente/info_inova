@@ -1,6 +1,7 @@
 <?php
   $titulo = "Cadastrar Usuario";
   include ('../includes/header.php');
+  include ('../includes/permissoes.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>

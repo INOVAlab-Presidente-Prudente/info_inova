@@ -33,7 +33,7 @@ $estado = $_POST['estado'];
 if (!empty($nome) && !empty($cpf) && !empty($rg) && 
 !empty($dataNascimento) && ($responsavel != "''") && ($telResponsavel != "''") && !empty($bairro) && !empty($endereco) && 
 !empty($municipio) && !empty($email) && !empty($areaAtuacao) && 
-!empty($areaInteresse) &&  !empty($telefone)) {
+!empty($areaInteresse) &&  !empty($telefone) && !empty($estado)) {
 
     $upload_dir = "../images/usuarios//";
     $file = $upload_dir . hash("md5", $cpf) . ".png";

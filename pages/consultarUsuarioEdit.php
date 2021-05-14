@@ -1,6 +1,7 @@
 <?php
   $titulo = "Alterar Usuario";
   include ('../includes/header.php');
+  include ('../includes/permissoes.php');
   include ("../includes/primeirologin.php");
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
@@ -21,8 +22,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="admin_page.php">Início</a></li>
-              <li class="breadcrumb-item "><a href="usuarios.php">Usuários</a></li>
+              <li class="breadcrumb-item"><a href="adminPage.php">Início</a></li>
+              <li class="breadcrumb-item "><a href="consultarUsuario.php">Usuários</a></li>
               <li class="breadcrumb-item active" >Alterar</li>
             </ol>
           </div>
@@ -49,13 +50,13 @@
                     <p>Não foi possível alterar este(a) usuário(a).</p>
                   </div>";
         }if (isset($_GET['erro'])){
-            echo "<div class='alert alert-warning alert-dismissible'>
-                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                    <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
-                    <p>Você nao tem permissão para alterar um(a) usuário(a) com esse perfil.</p>
-                  </div>";
+          echo "<div class='alert alert-warning alert-dismissible'>
+                  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                  <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
+                  <p>Você nao tem permissão para alterar um(a) usuário(a) com esse perfil.</p>
+                </div>";
         
-          }
+        }
         if (!isset($_GET['alterar'])){
             $alterar = 'disabled';
         }
@@ -87,7 +88,7 @@
                             echo '<img id="imgUsuario" src="../images/avatar-df.png" class="img-fluid img-thumbnail mb-3" alt="User Image">';
                       ?>
                       <section class="modal-camera" id="modal-camera">
-                        <div class="modal-content">
+                        <div class="modal-content-camera">
                           <video id="video" autoplay></video>
                           <button type="button" onclick="tirarFoto()">
                             <i class="fas fa-camera-retro"></i>

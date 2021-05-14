@@ -1,5 +1,8 @@
 <?php
+  $titulo = "Checkin Checkout";
   include ('../includes/header.php');
+  include ('../includes/permissoes.php');
+  include ('../includes/primeirologin.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>  
@@ -41,32 +44,32 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class=" text-nowrap">Ana Souza</td>
-                  <td class=" text-nowrap">123.456.789-00</td>
-                  <td class=" text-nowrap">14h35 - 21/04/2021</td>
-                  <td class=" text-nowrap">
-                    <button class="btn btn-danger btn-sm center">Fazer Checkout</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td class=" text-nowrap">Jose Silva</td>
-                  <td class=" text-nowrap">987.654.321-22</td>
-                  <td class=" text-nowrap">16h08 - 21/04/2021</td>
-                  <td class=" text-nowrap">
-                    <button class="btn btn-danger btn-sm center">Fazer Checkout</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td class=" text-nowrap">
-                    <a href="visualizar_usuario.php">Alexander Pierce</a>
-                  </td>
-                  <td class=" text-nowrap">369.258.147-99</td>
-                  <td class=" text-nowrap">8h015 - 21/04/2021</td>
-                  <td class=" text-nowrap">
-                    <button class="btn btn-danger btn-sm center">Fazer Checkout</button>
-                  </td>
-                </tr>
+                <?php 
+                  require_once('../admin/DB.php');
+                  $sql = "SELECT u.usu_id, u.usu_nome, u.usu_cpf, c.che_horario_entrada FROM usuario u, check_in c
+                          WHERE c.usu_id = u.usu_id AND c.che_horario_saida IS NULL";
+                  $query = mysqli_query($connect, $sql);
+                  if($query)
+                    $row = mysqli_fetch_assoc($query);
+                  else{
+                    $row = null;
+                    echo mysqli_error($connect);
+                  }
+                  while($row != null){ 
+                    $data = date_create($row['che_horario_entrada']);?>
+                    <tr>
+                      <td class=" text-nowrap">
+                        <a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>"><?=$row['usu_nome']?></a>
+                      </td> 
+                      <td class=" text-nowrap"><?=$row['usu_cpf']?></td>
+                      <td class=" text-nowrap"><?= date_format($data, 'H\h:i')?> - <?=date_format($data,"d/m/Y")?></td>
+                      <td class=" text-nowrap">
+                        <button onclick='checkout("<?=$row["usu_cpf"]?>")' class="btn btn-danger btn-sm center">Fazer Checkout</button>
+                      </td>
+                    </tr><?php 
+                    $row = mysqli_fetch_assoc($query);
+                  } 
+                ?>
               </tbody>
             </table>
           </div>
@@ -86,6 +89,11 @@
     </section>
     <!-- /.content -->
   </div>
+  <script>
+      function checkout(cpf){
+        window.location.href = "../admin/CheckInUsuario.php?cpf="+cpf;
+      }
+  </script>
   <!-- /.content-wrapper -->
 <?php
   include ('../includes/footer.php');

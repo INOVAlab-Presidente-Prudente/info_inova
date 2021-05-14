@@ -1,6 +1,8 @@
 <?php
+  $titulo = "Alterar Empresa";
   include ('../includes/header.php');
   include ('../includes/permissoes.php');
+  include ('../includes/primeirologin.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 
@@ -24,9 +26,18 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Alterar Empresa</h1>
-          </div>
+          <?php
+            if(isset($_GET['alterar'])){
+              echo "<div class='col-sm-6'>
+                <h1>Alterar Empresa</h1>
+              </div>";
+            }
+            else{
+              echo "<div class='col-sm-6'>
+                <h1>Consultar Empresa</h1>
+              </div>";
+            }
+          ?>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="adminPage.php">Início</a></li>
@@ -105,7 +116,7 @@
                           <label>Atividade Principal</label>
                           <input required <?=$alterar." value='".$row['emp_area_atuacao']."'"?> type="text" id="atividade_principal" name="areaAtuacao" class="form-control">
                         </div> 
-                      </div>
+                      
                       <div class="form-group col-md-12">
                           <label>Modalidade</label>
                           <select required <?=$alterar?> name="modalidade" class="form-control">
@@ -123,6 +134,7 @@
                             ?>
                           </select>
                       </div>
+                    </div>
                       <label>Sócios:</label>
                       <?php 
                           $sql = "SELECT u.usu_nome AS nome, u.usu_cpf AS cpf FROM usuario u, empresa e 

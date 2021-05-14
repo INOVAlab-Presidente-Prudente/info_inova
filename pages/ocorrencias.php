@@ -58,9 +58,10 @@
                             }
                             if(isset($alertSetted))
                             {
+                                $alertSetted = true;
                                 echo "<div class='alert alert-".$typeAlert." alert-dismissible'>
                                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                                    <h5><i class='icon fas ".$icon."'></i>".$title."</h5>
+                                    <h3><i class='icon fas ".$icon."'></i>".$title."</h3>
                                         <p>".$output."</p>
                                 </div>";
                             }
@@ -75,7 +76,7 @@
                             <div class="card-header">
                                 <p class="card-title">Lista de ocorrências</p>
                                 <div class="float-right">
-                                    <a onclick="window.location.href = 'cadastrarOcorrencia.php?usu_id=<?=$_GET['usu_id']?>'">
+                                    <a class="btn btn-sm btn-success" onclick="window.location.href = 'cadastrarOcorrencia.php?usu_id=<?=$_GET['usu_id']?>'">
                                     <i class="fas fa-portrait"></i>&nbsp;
                                         Nova Ocorrência
                                     </a>
@@ -84,27 +85,27 @@
                             <div class="card-body">
                                 <?php    
                                     require_once("../admin/DB.php");
-                                    $sql = "SELECT usu_nome FROM usuario WHERE usu_id = '".$_GET['usu_id']."'";
+                                    $sql = "SELECT usu_nome, usu_cpf FROM usuario WHERE usu_id = '".$_GET['usu_id']."'";
                                     $query = mysqli_query($connect, $sql);
                                     if($query){
                                         $row = mysqli_fetch_assoc($query);?>
                                         <div class="lead">
                                            Nome: <strong><?=$row['usu_nome']?></strong>
                                            <br/>
-                                           <small><?= $row['usu_cpf']?></small>
+                                           <small>CPF: <?=$row['usu_cpf']?></small>
                                         </div>
                                         <?php 
                                             $sql = "SELECT * FROM ocorrencia WHERE usu_id = '".$_GET['usu_id']."' ORDER BY oc_data";
                                             $query = mysqli_query($connect, $sql);
                                             $res = mysqli_fetch_array($query);
-                                            if($res == null)
-                                                echo " <div class='h5'>O usuário não possui ocorrência! </div>";//".$row['usu_nome']."
-                                            
+                                            if($res == null){
+                                                echo "</br>";
+                                                echo "<div class='h5'>O usuário não possui ocorrência! </div>";//".$row['usu_nome']."
+                                            }    
                                             while($res != null){
-                                                $data = substr($res['oc_data'],0,-9);
-                                                $horario = substr($res['oc_data'],-9,6);
+                                                $data = date_create($res['oc_data']);
                                                 echo "<blockquote  class='quote-info'>";
-                                                    echo "Data: <strong>".$data."</strong> - Horário: <strong>".$horario."</strong>";
+                                                    echo "Data: <strong>".date_format($data,"d/m/Y")."</strong> - Horário: <strong>".date_format($data, 'H:i\m\i\n')."</strong>";
                                                     echo "<p>".$res['oc_descricao']."</p>"; //Colocar modal de excluir
                                                     echo "<a class='btn btn-danger btn-sm center' type='link' name='excluir' onclick=\"excluir(".$res['oc_id'].",".$_GET['usu_id'].")\"><i class='fas fa-trash'></i>&nbsp;Excluir</a>";
                                                 echo "</blockquote>";
@@ -115,9 +116,6 @@
                                         $output = "Usuario não encontrado";
                                 ?>
                             </div>
-                            <!-- <div class="card-footer">
-                            
-                            </div> -->
                         </div>
                     </div>
                 </div>

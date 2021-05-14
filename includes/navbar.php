@@ -10,9 +10,9 @@
             <a class="nav-link" data-toggle="dropdown" href="#">
                <?php
                     if(in_array(hash("md5", $_SESSION['cpf']).".png", scandir("../images/usuarios")))
-                        echo '<img src="../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png" class="img-circle img-fluid elevation-2" style="width: 32px; height: 32px;" alt="User Image">';
+                        echo '<img src="../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png" class="img-circle img-fluid elevation-2 mb-1" style="width: 32px; height: 32px;" alt="User Image">';
                     else
-                        echo '<img src="../images/avatar-df.png" class="img-circle img-fluid elevation-2" style="width: 32px; height: 32px;" alt="User Image">';
+                        echo '<img src="../images/avatar-df.png" class="img-circle img-fluid elevation-2 mb-1" style="width: 32px; height: 32px;" alt="User Image">';
                 ?>
                 &nbsp;&nbsp;
                 <?=$_SESSION['nome']?>

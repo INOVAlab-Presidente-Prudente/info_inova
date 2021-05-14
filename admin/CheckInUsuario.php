@@ -33,11 +33,11 @@ if (isset($cpf)) {
         if ($horarioEntrada != null) {
             $sql = "UPDATE check_in SET che_horario_saida = '".date("Y-m-d H:i:s")."' WHERE che_id = '".$che_id."'";
             $query = mysqli_query($connect, $sql);
-            header("location: ../pages/checkin.php?status=checkin&usu_id=".$usu_id.$aviso);
+            header("location: ../pages/checkin.php?status=checkout&usu_id=".$usu_id.$aviso);
         } else {
             $sql = "INSERT INTO check_in VALUES (null, $usu_id, '".date("Y-m-d H:i:s")."', null)";
             $query = mysqli_query($connect, $sql);
-            header("location: ../pages/checkin.php?status=checkout&usu_id=".$usu_id.$aviso);
+            header("location: ../pages/checkin.php?status=checkin&usu_id=".$usu_id.$aviso);
         }
     } else {
         header("location: ../pages/checkin.php?status=cpf_nao_encontrado");

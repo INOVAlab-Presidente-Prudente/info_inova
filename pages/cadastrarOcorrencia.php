@@ -1,4 +1,5 @@
 <?php 
+    $titulo = "Cadastrar Ocorrência";
     include("../includes/header.php");
     include("../includes/primeirologin.php");
     include('../includes/permissoes.php');
@@ -6,7 +7,7 @@
         header("location: ../");
 
     require_once("../admin/DB.php");
-    $sql = "SELECT usu_nome FROM usuario WHERE usu_id = '".$_GET['usu_id']."'";
+    $sql = "SELECT usu_nome, usu_cpf FROM usuario WHERE usu_id = '".$_GET['usu_id']."'";
     $query = mysqli_query($connect, $sql);
     $row = mysqli_fetch_assoc($query);
     
@@ -25,9 +26,9 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
-                                <li class="breadcrumb-item "><a href="/pages/consultarUsuario.php">Consulta de Usuário</a></li>
-                                <li class="breadcrumb-item ">   <a href="/pages/ocorrencias.php?usu_id=<?=$_GET['usu_id']?>">Registro de Ocorrências</a>    </li>
-                                <li class="breadcrumb-item active" >Cadastrar Ocorrência</li>
+                                <li class="breadcrumb-item "><a href="/pages/consultarUsuario.php">Usuários</a></li>
+                                <li class="breadcrumb-item "><a href="/pages/ocorrencias.php?usu_id=<?=$_GET['usu_id']?>">Ocorrências</a></li>
+                                <li class="breadcrumb-item active">Cadastrar</li>
                             </ol>
                         </div>
 
@@ -35,56 +36,49 @@
                 </div>
             </section>
             <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-primary">
-                                <form action="" id="quickForm" method="post">
-                                    <div class="card-header">
-
-                                        <?php 
-                                            if(isset($_POST['cadastrar']))
-                                            require_once("../admin/CadastroOcorrencia.php"); 
-                                        ?>
-                                        <h1 class="card-title">Cadastrar Ocorrência para <strong><?=$row['usu_nome']?></strong></h1>
-                                        <!-- Inserir o require_once do backend -->
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <?php 
+                            if(isset($_POST['cadastrar']))
+                            require_once("../admin/CadastroOcorrencia.php"); 
+                        ?>
+                        <div class="card card-secondary">
+                            <form action="" id="quickForm" method="post">
+                                
+                                <div class="card-header">
+                                    <h3 class="card-title">Cadastrar nova ocorrência</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="lead">
+                                        Nome: <strong><?=$row['usu_nome']?></strong>
+                                        <br/>
+                                        <small> CPF: <?=$row['usu_cpf']?></small>
                                     </div>
-                                    <div class="card-body">
-                                        
-                                        
-                                        <div class="form-group">
+                                    <div class="row mt-4">
+                                        <div class="form-group col-md-6">
                                             <label>Data</label>
                                             <input type="date" id="dt" name="dt" class="form-control"/>
                                         </div>                                        
-                                        <div class="form-group">
+                                        <div class="form-group col-md-6">
                                             <label>Hora</label>
                                             <input type="time" id="hora" name="hora" class="form-control"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Descreva o ocorrido</label>
-                                            <textarea id="descricao" name="descricao" class="form-control" placeholder="Insira a descrição do ocorrido aqui"></textarea>
+                                        <div class="form-group col-md-12">
+                                            <label>Descrição</label>
+                                            <textarea id="descricao" name="descricao" class="form-control" placeholder="Insira a descrição do ocorrido aqui..."></textarea>
                                         </div>
                                     </div>
-                                    <div class="card-footer">
-                                        <button type="submit" name="cadastrar" class="btn btn-primary toastrDefaultSucess   ">Cadastrar</button>
-                                    </div>
-                                    
-                                </form>
-                            </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" name="cadastrar" class="btn btn-primary toastrDefaultSucess"><i class="fas fa-portrait"></i>&nbsp;&nbsp;Registrar Ocorrência</button>
+                                </div>
+                                
+                            </form>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
     </div>
-<!-- Summernote -->
-<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
-<script>
-  $(function () {
-    // Summernote
-    $('#summernote').summernote()
-
-  })
-</script>
 
 <?php include("../includes/footer.php") ?>
