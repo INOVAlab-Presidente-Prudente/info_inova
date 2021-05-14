@@ -22,21 +22,27 @@ if ($fetch != null) {
         switch ($fetch['pu_id']) {
             case "1":
                 $_SESSION['admin'] = true;
+                $_SESSION['perfil_usuario'] = "Administrador";
             break;
             case "2":
                 $_SESSION['coworking'] = true;
+                $_SESSION['perfil_usuario'] = "Coworking";
             break;
             case "3":
                 $_SESSION['usuario'] = true;
+                $_SESSION['perfil_usuario'] = "Visitante";
             break;
             case "4":
                 $_SESSION['financeiro'] = true;
+                $_SESSION['perfil_usuario'] = "Financeiro";
             break;
             case "5":
                 $_SESSION['evento'] = true;
+                $_SESSION['perfil_usuario'] = "Evento";
             break;
             case "6":
                 $_SESSION['empresa'] = true;
+                $_SESSION['perfil_usuario'] = "Empresa";
             break;
         }
 

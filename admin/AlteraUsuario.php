@@ -25,6 +25,8 @@ $areaInteresse = $_POST['areaInteresse'];
 $telefone = $_POST['telefone'];
 $empresa = $_POST['empresa'];
 $senha = $row['usu_senha'];
+$complemento = $_POST['complemento'];
+$estado = $_POST['estado'];
 
 if ($empresa == '...')
     $empresa = 'null';
@@ -53,7 +55,7 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     $upload_dir = "../images/usuarios//";
     $file = $upload_dir . hash("md5", $cpf) . ".png";
 
-    $sql = "UPDATE usuario SET pu_id = ".$perfilUsuario.", emp_id = ".$empresa.", usu_nome = '".$nome."', usu_rg = '".$rg."', usu_cpf = '".$cpf."', usu_data_nascimento = '".$dataNascimento."', usu_responsavel = ".$responsavel.", usu_tel_responsavel = ".$telResponsavel.", usu_endereco = '".$endereco."', usu_cep = '".$cep."', usu_bairro = '".$bairro."', usu_municipio = '".$municipio."', usu_area_atuacao = '".$areaAtuacao."', usu_area_interesse = '".$areaInteresse."', usu_telefone = '".$telefone."', usu_email = '".$email."', usu_senha = '".$senha."', usu_socio = ".$socio." WHERE usu_cpf = '".$_GET['cpf']."'";
+    $sql = "UPDATE usuario SET pu_id = ".$perfilUsuario.", emp_id = ".$empresa.", usu_nome = '".$nome."', usu_rg = '".$rg."', usu_cpf = '".$cpf."', usu_data_nascimento = '".$dataNascimento."', usu_responsavel = ".$responsavel.", usu_tel_responsavel = ".$telResponsavel.", usu_endereco = '".$endereco."', usu_cep = '".$cep."', usu_bairro = '".$bairro."', usu_municipio = '".$municipio."', usu_area_atuacao = '".$areaAtuacao."', usu_area_interesse = '".$areaInteresse."', usu_telefone = '".$telefone."', usu_email = '".$email."', usu_senha = '".$senha."', usu_socio = ".$socio.", usu_complemento = '".$complemento."', usu_estado = '".$estado."' WHERE usu_cpf = '".$_GET['cpf']."'";
     $query = mysqli_query($connect, $sql);
     if (!$perfilUsuario)
             header("location: ?cpf=".$_GET['cpf']."&erro=permissao_negada");
@@ -85,5 +87,9 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
             header("location: ?cpf=".$_GET['cpf']."&usuario_nao_alterado=true");
     }
 } else {
-    echo "Preencha todos os campos";
+    var_dump(
+        ($responsavel != "''") . ($telResponsavel != "''"));
+        // !empty($bairro) . !empty($endereco) . 
+        // !empty($municipio) . !empty($email) . !empty($areaAtuacao) . 
+        // !empty($areaInteresse) .  !empty($telefone));
 }

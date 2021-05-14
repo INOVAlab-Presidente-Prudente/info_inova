@@ -1,4 +1,5 @@
 <?php 
+    ob_start();
     session_start();
     if (!isset($_SESSION['logado'])) 
     {
@@ -11,6 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?=$titulo?></title>
     
     <link rel="sortcut icon" href="../images/logo_page.png" type="image/x-icon" />
     <!-- Google Font: Source Sans Pro -->
@@ -40,3 +42,6 @@
     <!-- jQuery Mask -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 </head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<!-- Site wrapper -->
+<div class="wrapper">

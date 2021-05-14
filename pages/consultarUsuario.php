@@ -55,7 +55,6 @@
                 <div class="card-footer mid">
                   <?php
                       if (isset($_GET['usuario_excluido'])){
-                          echo "<div class='alert alert-success' role='alert'>Usuario foi excluido</div>"; 
                           echo "<div class='alert alert-success alert-dismissible'>
                                   <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                                   <h5><i class='fas fa-check'></i>&nbspUsuario excluído!</h5>

@@ -9,7 +9,7 @@ function verificaIdade(dt) {
     var idade = calculate_age(nd);
     document.getElementById('idade').value = idade;
     if(idade<18) {
-        document.getElementById('responsavel').style.display="block";
+        document.getElementById('responsavel').style.display="flex";
     } else{
         document.getElementById('responsavel').style.display="none";
         document.getElementById('nomeResponsavel').value="";
@@ -17,3 +17,5 @@ function verificaIdade(dt) {
     }
         
 }
+
+verificaIdade(dataNascimento) // id dataNascimento

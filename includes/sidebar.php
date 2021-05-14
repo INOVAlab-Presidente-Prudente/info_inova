@@ -19,7 +19,7 @@
                 ?>
                 </div>  
                 <div class="info">
-                <a class="d-block" href="../pages/consultarUsuarioEdit.php?cpf=<?=$_SESSION['cpf']?>&alterar=true"><?= $_SESSION['nome']?></a>
+                    <a class="d-block" href="../pages/consultarUsuarioEdit.php?cpf=<?=$_SESSION['cpf']?>&alterar=true"><?= $_SESSION['nome']?></a>
                 </div>
             </div>
 
