@@ -9,10 +9,14 @@ include ('../includes/sidebar.php');
   if(isset($_GET['status']) && isset($_GET['usu_id'])){ 
     require_once('../admin/DB.php');
     $sql = "SELECT u.*, e.emp_nome_fantasia FROM usuario u, empresa e 
-            WHERE u.usu_id = ".$_GET['usu_id']." AND u.emp_id = e.emp_id";
+            WHERE u.usu_id = ".$_GET['usu_id'];
     $query = mysqli_query($connect,$sql);
     if($query)
       $usuario = mysqli_fetch_assoc($query); 
+      $sql2 = "SELECT e.emp_nome_fantasia FROM usuario u, empresa e 
+            WHERE u.usu_id = ".$_GET['usu_id']." AND u.emp_id IS NOT NULL AND u.emp_id = e.emp_id";
+      $query2 = mysqli_query($connect, $sql2);
+      $row = mysqli_fetch_assoc($query2);
   }?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -133,6 +137,7 @@ include ('../includes/sidebar.php');
                     $src = "../images/avatar-df.png";
                 ?>
                   <!-- title row -->
+                  <div class="invoice p-3 mb-3" style= "border-radius: .25rem">
                   <div class="row">
                     <div class="col-12 mb-2">
                       <img src="<?=$src?>" style="width: 100px; height: 100px;" class="profile-user-img img-fluid img-circle border-2 <?=$border?>" alt="User profile picture"/>
@@ -154,7 +159,7 @@ include ('../includes/sidebar.php');
                     <div class="col-md-6 invoice-col">
                       <b>Área de Atuação:</b><?=$usuario['usu_area_atuacao']?><br>
                       <b>Área de Interesse:</b><?=$usuario['usu_area_interesse']?><br>
-                      <b>Empresa:</b><?=$usuario['emp_nome_fantasia']?><br>
+                      <b>Empresa:</b><?=$row['emp_nome_fantasia']?><br>
                       <b>Socio:</b><?=$usuario['usu_socio']? "sim":"não" ?><br>                  
                       <b>Perfil de Usuário:</b><?=$usuario['pu_id']?><br>
                     </div><!-- /.col -->

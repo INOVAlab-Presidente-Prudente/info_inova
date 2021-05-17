@@ -100,7 +100,7 @@
                                             $res = mysqli_fetch_array($query);
                                             if($res == null){
                                                 echo "</br>";
-                                                echo "<div class='h5'>O usuário não possui ocorrência! </div>";//".$row['usu_nome']."
+                                                echo "<div class='h5'>O usuário não possui ocorrência! </div>";
                                             }    
                                             while($res != null){
                                                 $data = date_create($res['oc_data']);

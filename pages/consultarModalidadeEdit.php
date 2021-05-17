@@ -112,7 +112,7 @@
                                     }
                                     else {
                                         echo "<div class='col'> <button name='alterar' class='btn btn-warning w-100'>Alterar</button> </div>";
-                                        echo "<div id='btn-excluir' name='excluir' class='col btn btn-danger w-100'> Excluir</div>";
+                                        echo "<a href='../admin/ExcluiModalidade.php?mod_id=".$row['mod_id']."' id='btn-excluir' name='excluir' class='col btn btn-danger w-100' onclick=\"return confirm('Você realmente quer excluir esse usuário?');\"> Excluir</a>";
                                         if (isset($_POST['alterar'])) {
                                             header("location: ?mod_id=".$row['mod_id']."&alterar=enabled");
                                         }
@@ -127,41 +127,6 @@
                 </div> <!-- /.container-fluid -->       
             </section>
         </div>
-        
-        <div id="modal-excluir">
-            <div class="modal-content"> 
-                <div class="container-fluid"> 
-                    <div class="row align-itens-center justify-content-center">
-                    <div class="text-center"> 
-                        <h4>Excluir Modalidade</h4> 
-                        <p>Deseja excluir a modalidade <?=$row['mod_nome']?>?</p>
-                    </div>
-                    <div class="d-flex">
-                        <button onclick="excluirModalidade('<?=$row['mod_id']?>')" class='btn btn-danger'>Sim</button>
-                        <div class="col-1"></div>
-                        <button id="btn-nao" class='btn btn-light'>Não</button>
-                    </div>
-                    </div>
-                </div>  
-            </div> 
-        </div>
-    </div>
-    <script>
-        const modal = document.getElementById("modal-excluir");
-        const btnExcluir = document.getElementById("btn-excluir");
-        const btnNao = document.getElementById("btn-nao");
-
-        btnExcluir.onclick = () => {
-            modal.style.display = "block";
-        }
-        window.onclick = (e) => {
-            if (e.target === modal || e.target === btnNao)
-            modal.style.display = 'none';
-        }
-        function excluirModalidade(id) {
-            window.location.href="../admin/ExcluiModalidade.php?mod_id="+id;
-        }    
-    </script>
 <?php 
     
      include("../includes/footer.php"); 

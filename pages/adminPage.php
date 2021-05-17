@@ -5,16 +5,13 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
+        <div class="container-fluid">
         <?php 
             if (isset($_GET['senha_alterada']))
                 echo "<div class='alert alert-success alert-dismissible'>
@@ -23,24 +20,17 @@
                             <p>Senha alterada com sucesso!.</p>
                       </div>";
           ?>
-        <div class="container-fluid">
           <div class="row">
             <div class="col-12">
               <div class="callout callout-info">
                 <h3>Olá, <?=$_SESSION['nome']?></h3>
                 <p class="lead">Seja bem-vindo(a) ao InfoInova.</p>
               </div>
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
       </section>
-      <!-- /.content --> 
   </div>
-  <!-- /.content-wrapper -->
 <?php
   include ('../includes/footer.php');
 ?>

@@ -16,28 +16,23 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="admin_page.php">Início</a></li>
-              <li class="breadcrumb-item "><a href="empresas.php">Empresas</a></li>
+              <li class="breadcrumb-item"><a href="adminPage.php">Início</a></li>
+              <li class="breadcrumb-item "><a href="consultarEmpresa.php">Empresas</a></li>
               <li class="breadcrumb-item active" >Cadastrar</li>
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Flash message -->
-    <?php 
-      if (isset($_POST['confirmar'])) {
-          require_once("../admin/CadastroEmpresa.php");
-      } 
-    ?>  
-    <!-- /.flash message -->
-
     <section class="content">
-      <!-- form start -->
       <form method="post">
 
         <div class="container-fluid">
+        <?php 
+          if (isset($_POST['confirmar'])) {
+              require_once("../admin/CadastroEmpresa.php");
+          } 
+        ?> 
           <div class="row">
             <div class="col-md-12">
               <div class="card card-secondary">
@@ -72,7 +67,6 @@
                           <label>Atividade Principal</label>
                           <input required enabled type="text" id="atividade_principal" name="areaAtuacao" class="form-control">
                         </div> 
-                      </div>
                       <div class="form-group col-md-12">
                           <label>Modalidade</label>
                           <select required name="modalidade" class="form-control">
@@ -90,7 +84,7 @@
                             ?>
                           </select>
                       </div>
-
+                    </div>
                     </div>
                   </div>
                 </div>

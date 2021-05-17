@@ -26,15 +26,13 @@
             </section>
             <section class="content">
                 <div class="container-fluid">
+                    <?php 
+                        if(isset($_POST['cadastrar']))
+                            require_once('../admin/CadastroModalidade.php');
+                    ?>
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <form id="quickForm" method="post">
-                                <div class="card-header">
-                                    <?php 
-                                        if(isset($_POST['cadastrar']))
-                                            require_once('../admin/CadastroModalidade.php');
-                                    ?>
-                                </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Nome</label>

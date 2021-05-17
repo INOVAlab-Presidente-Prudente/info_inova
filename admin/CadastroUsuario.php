@@ -66,7 +66,7 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
         $sql = "INSERT INTO usuario (usu_id, pu_id, emp_id, usu_nome, usu_rg, usu_cpf, usu_data_nascimento, usu_responsavel, usu_tel_responsavel, usu_endereco, usu_cep, usu_bairro, usu_municipio, usu_area_atuacao, usu_area_interesse, usu_telefone, usu_email, usu_senha, usu_socio, usu_primeiro_login, usu_complemento, usu_estado) VALUES (null, ".$perfilUsuario.", ".$empresa.", '".$nome."', '".$rg."', '".$cpf."', '".$dataNascimento."',".$responsavel.",".$telResponsavel.", '".$endereco."', '".$cep."', '".$bairro."', '".$municipio."', '".$areaAtuacao."', '".$areaInteresse."', '".$telefone."', '".$email."', '".$senhaHash."', ".$socio.", ".$primeiroLogin.", '".$complemento."', '".$estado."')";
         $query = mysqli_query($connect, $sql);
         if (!$perfilUsuario){
-            echo "<div class='alert alert-warning alert-dismissible'>
+            echo "<div class='col alert alert-warning alert-dismissible'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                     <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
                     <p>Você nao tem permissão para cadastrar um usuário com esse perfil.</p>
@@ -75,10 +75,10 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
         
         else {
             if ($query){
-                echo "<div class='alert alert-success alert-dismissible'>
+                echo "<div class='col alert alert-success alert-dismissible'>
                         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                        <h5><i class='fas fa-check'></i>&nbspUsuário Cadastrada!</h5>
-                            <p>O(A) usuário(a) foi cadastrada com sucesso!.</p>
+                        <h5><i class='fas fa-check'></i>&nbspUsuário Cadastrado!</h5>
+                            <p>O usuário foi cadastrado com sucesso!.</p>
                       </div>";
 
                 // upload imagem
@@ -98,39 +98,33 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                 //fim upload
             }
             else{
-                if(strpos(mysqli_error($connect), "Duplicate entry"))
-                    echo "<div class='alert alert-info alert-dismissible'>
+                //  var_dump(mysqli_error($connect));
+                if(strpos(mysqli_error($connect), "uplicate entry"))
+                    echo "<div class='col alert alert-info alert-dismissible'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                    <h5><i class='fas fa-info'></i>&nbspUsuário(a) já Cadastrado(a)!</h5>
-                        <p>Usuário(a) já está cadastrado no sistema!.</p>
+                    <h5><i class='fas fa-info'></i>&nbspUsuário já Cadastrado!</h5>
+                        <p>Usuário já está cadastrado no sistema!.</p>
                     </div>";
                 else 
-                echo "<div class='alert alert-info alert-dismissible'>
+                echo "<div class='col alert alert-info alert-dismissible'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                <h5><i class='fas fa-info'></i>&nbspUsuário(a) não Cadastrado(a)!</h5>
-                    <p>Não foi possível cadastrar o(a) usuário(a), tente novamente!.</p>
+                <h5><i class='fas fa-info'></i>&nbspUsuário não Cadastrado!</h5>
+                    <p> Novo usuário não foi cadastrado, tente novamente!.</p>
                 </div>";
             }
         }
     }
     else{
         echo "
-        <div class='container-fluid'>
-          <div class='row'>
-            <div class='col-md-10 offset-md-1'>
-              <div class='alert alert-danger alert-dismissible'>
-                <div class='lead'>
-                  <i class='fas fa-times'></i>&nbsp;
-                  Novo usuário não foi cadastrado. Tente novamente.
-                </div>
-              </div>               
-            </div>
-          </div>
-        </div> ";
+        <div class='col alert alert-info alert-dismissible'>
+            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            <h5><i class='icon fas fa-ban'></i> Não é possivel efetuar o cadastro!</h5>
+                <p>Este email já está em uso no sistema. Novo usuário não foi cadastrado.!</p>
+        </div>";
     }
 } 
 else {
-    echo "<div class='alert alert-warning alert-dismissible'>
+    echo "<div class='col alert alert-warning alert-dismissible'>
     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
     <h5><i class='fas fa-exclamation-triangle'></i>&nbspNão foi possível cadastar o(a) usuário!</h5>
         <p>Preencha todos os campos!.</p>

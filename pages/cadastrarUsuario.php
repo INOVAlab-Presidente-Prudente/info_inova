@@ -22,20 +22,18 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-    <!-- Flash message -->
-    <?php 
-      if (isset($_POST['confirmar'])) {
-          require_once("../admin/CadastroUsuario.php");
-      } 
-    ?>
-    <!-- /.flash message -->
+    
     
     <section class="content">
-      <!-- form start -->
       <form method="post" enctype="multipart/form-data">
         <div class="container-fluid">
+          <?php 
+            if (isset($_POST['confirmar'])) {
+                require_once("../admin/CadastroUsuario.php");
+            } 
+          ?>
           <div class="row">
             <div class="col-md-12">
               <div class="card card-secondary">
@@ -51,7 +49,7 @@
                       <input type="hidden" id="img64" name="img64"/>
                       <!-- <input type="button" enabled onclick="abrirModal()" value="Tirar Foto"></input> -->
                       <section class="modal-camera" id="modal-camera">
-                        <div class="modal-content">
+                        <div class="modal-content-camera">
                           <video id="video" autoplay></video>
                           <button type="button" onclick="tirarFoto()">
                             <i class="fas fa-camera-retro"></i>
@@ -186,7 +184,7 @@
                         </div>
                         <div class="form-group col-md-3">
                           <label>Complemento</label>
-                          <input required enabled type="text" id="complemento" name="complemento" class="form-control">
+                          <input enabled type="text" id="complemento" name="complemento" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
                           <label>Bairro</label>

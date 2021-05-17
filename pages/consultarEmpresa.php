@@ -49,7 +49,7 @@
         <div class="card">
           <div class="card-header">
               <div class="float-right">
-                  <a href="cadastrar_empresa.php" class="btn btn-sm btn-success">
+                  <a href="cadastrarEmpresa.php" class="btn btn-sm btn-success">
                     <i class="nav-icon fas fa-briefcase"></i>&nbsp;
                     Cadastrar
                   </a>

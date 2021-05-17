@@ -71,12 +71,12 @@
                               <td><a href="consultarModalidadeEdit.php?mod_id=<?=$row['mod_id']?>"><?= ucwords($row['mod_nome'])?></a></td>
                               <td><?= ucwords($row['mod_edital'])?></td>
                               <!-- botoes -->
-                              <td><button class="btn btn-warning center" name="alterar" onclick="redireciona('<?=$row['mod_id']?>')">
+                              <td><a href="consultarModalidadeEdit.php?mod_id=<?=$row['mod_id']?>&alterar=true" class="btn btn-warning center" name="alterar">
                                 <i class="fas fa-edit"></i>
-                              </button></td>
-                              <td><button class="btn btn-danger center" name="excluir" onclick="excluirModalidade(this,'<?=$row['mod_id']?>', '<?=$row['mod_nome']?>')">
+                              </a></td>
+                              <td><a href="../admin/ExcluiModalidade.php?mod_id=<?=$row['mod_id']?>" class="btn btn-danger center" name="excluir" onclick="return confirm('Você realmente quer excluir esse usuário?');">
                                 <i class="fas fa-trash-alt"></i>
-                              </button></td>
+                              </a></td>
                             </tr>
                           <?php 
                             $row = mysqli_fetch_assoc($query);  
@@ -90,50 +90,5 @@
         </div>
       </section>
       </div>
-      <section id="modal-excluir">
-        <div class="modal-content"> 
-          <div class="container-fluid"> 
-            <div class="row align-itens-center justify-content-center">
-            <div class="text-center"> 
-                <h4>Excluir Modalidade</h4> 
-                <p id="mensagem"></p>
-              </div>
-              
-              <div class="d-flex">
-                <button id="btn-sim" class='btn btn-danger'>Sim</button>
-                <div class="col-1"></div>
-                <button id="btn-nao" class='btn btn-light'>Não</button>
-              </div>
-            </div>  
-          </div>
-        </div>     
-      </section>
-    </div>
-  </div>
-      <script>
-          const modal = document.getElementById("modal-excluir");
-          const btnSim = document.getElementById("btn-sim");
-          const btnNao = document.getElementById("btn-nao");
-
-        function redireciona(id){
-            window.location.href="consultarModalidadeEdit.php?mod_id="+id+"&alterar=enabled";
-        }
-
-        function excluirModalidade(e, id, modalidade){
-          if (e.target == document.getElementById("btn-excluir")) {
-                modal.style.display = "block";
-                document.getElementById("mensagem").innerText = `Deseja excluir a modalidade ${modalidade}?`;
-              }
-              btnSim.onclick = () => {
-                window.location.href="../admin/ExcluiModalidade.php?mod_id="+id;
-              }
-        }
-
-        window.onclick = (e) => {
-            if (e.target === modal || e.target === btnNao)
-              modal.style.display = 'none';
-        }
-      </script>
-    
 <?php include('../includes/footer.php'); ?>
  

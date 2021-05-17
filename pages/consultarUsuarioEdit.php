@@ -11,9 +11,7 @@
   $query = mysqli_query($connect, $sql);
   $row = mysqli_fetch_assoc($query);
 ?>
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -28,48 +26,47 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
-    <!-- Fazer o preenchimento automático dos campos via PHP2 -->
     <section class="content">
-      <!-- form start -->
       <form method="post" enctype="multipart/form-data">
-      <?php
-        if (isset($_GET['usuario_alterado'])){
-            echo "<div class='alert alert-success alert-dismissible'>
-            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-            <h5><i class='fas fa-check'></i>&nbspUsuário(a) Alterado(a)!</h5>
-                <p>Usuário(a) foi alterado(a) com sucesso!.</p>
-            </div>";
-        }
-        if (isset($_GET['usuario_nao_alterado'])){
-            echo "<div class='alert alert-warning alert-dismissible'>
-                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                    <h5><i class='fas fa-exclamation-triangle'></i>&nbspDados Incorretos!</h5>
-                    <p>Não foi possível alterar este(a) usuário(a).</p>
-                  </div>";
-        }if (isset($_GET['erro'])){
-          echo "<div class='alert alert-warning alert-dismissible'>
-                  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                  <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
-                  <p>Você nao tem permissão para alterar um(a) usuário(a) com esse perfil.</p>
-                </div>";
-        
-        }
-        if (!isset($_GET['alterar'])){
-            $alterar = 'disabled';
-        }
-        else if (isset($_GET['alterar']) && ($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf']))){
-            $alterar = "enabled";
-        }else{ 
-            $alterar = 'disabled';
-        }
-        if ($row == null) {
-          header("location: consultarUsuario.php");
-        }
-      ?>
+      
         <div class="container-fluid">
+          <?php
+            if (isset($_GET['usuario_alterado'])){
+                echo "<div class='alert alert-success alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='fas fa-check'></i>&nbspUsuário(a) Alterado(a)!</h5>
+                    <p>Usuário(a) foi alterado(a) com sucesso!.</p>
+                </div>";
+            }
+            if (isset($_GET['usuario_nao_alterado'])){
+                echo "<div class='alert alert-warning alert-dismissible'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                        <h5><i class='fas fa-exclamation-triangle'></i>&nbspDados Incorretos!</h5>
+                        <p>Não foi possível alterar este(a) usuário(a).</p>
+                      </div>";
+            }if (isset($_GET['erro'])){
+              echo "<div class='alert alert-warning alert-dismissible'>
+                      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                      <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
+                      <p>Você nao tem permissão para alterar um(a) usuário(a) com esse perfil.</p>
+                    </div>";
+            
+            }
+            if (!isset($_GET['alterar'])){
+                $alterar = 'disabled';
+            }
+            else if (isset($_GET['alterar']) && ($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf']))){
+                $alterar = "enabled";
+            }else{ 
+                $alterar = 'disabled';
+            }
+            if ($row == null) {
+              header("location: consultarUsuario.php");
+            }
+          ?>
           <div class="row">
             <div class="col-md-12">
               <div class="card card-secondary">
@@ -128,7 +125,7 @@
                       </section>
                       <div class="input-group">
                         <div class="input-wrapper mx-auto">
-                          <!-- <div class="container my-auto mx-auto"> -->
+                          
                           <input type="hidden" id="img64" name="img64" />
                           <button <?=$alterar?> class="btn btn-secondary btn-md" type="button"
                             onclick="abrirModal()">Tirar
@@ -136,7 +133,7 @@
                           <input type="file" name="uploadFoto" id="uploadFoto">
                           <button <?=$alterar?> class="btn btn-secondary btn-md" type="button"
                             onclick="document.getElementById('uploadFoto').click()">Escolha Foto</button>
-                          <!-- </div> -->
+                         
                         </div>
                       </div>
                       <script>
@@ -180,7 +177,6 @@
                           <input required <?=$alterar?> enabled type="phone" id="telefone" name="telefone" pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" class="form-control" <?="value='".$row['usu_telefone']."'"?>>
                         </div>
                       </div>          
-                      <!-- <div class="row" id="responsavel" style="display: none;"> -->
                       <div class="row" id="responsavel" style="display: none">          
                         <div class="form-group col-md-6">
                             <label>Nome do Responsável</label>
@@ -349,7 +345,7 @@
                       else {
                           if ($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])) {
                               echo "<div class='col'><button type='submit' name='alterar' class='btn btn-warning w-100'>Alterar</button></div>";
-                              echo "<div class='col'><button id='btn-excluir' type='button' name='excluir' class='col btn btn-danger w-100'> Excluir</button></div>";  
+                              echo "<div class='col'><a href='../admin/ExcluirUsuario.php?cpf=".$row['usu_cpf']."'id='btn-excluir' type='button' name='excluir' class='col btn btn-danger w-100' onclick=\"return confirm('Você realmente quer excluir esse usuário?');\"> Excluir</a></div>";  
                               echo "<div class='col'><button type='button' class='btn btn-info w-100' onclick='window.location.href = \"ocorrencias.php?usu_id=".$row['usu_id']."\"'>Ocorrências</button></div>"  ;
                           }
                           if (isset($_POST['alterar'])) {

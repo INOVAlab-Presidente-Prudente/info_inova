@@ -50,29 +50,7 @@
     </section>
 
     <!-- Flash message -->
-    <?php 
-        if (isset($_GET['empresa_alterada'])){
-            echo "<div class='alert alert-success alert-dismissible'>
-                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                    <h5><i class='fas fa-check'></i>&nbspEmpresa Alterada!</h5>
-                        <p>A empresa foi altrada com sucesso!.</p>
-                  </div>";
-
-        }
-        if (isset($_GET['empresa_nao_alterada']))
-            echo "<div class='container-fluid'>
-            <div class='row'>
-              <div class='col-md-10 offset-md-1'>
-                <div class='alert alert-danger alert-dismissible'>
-                  <div class='lead'>
-                    <i class='fas fa-times'></i>&nbsp;
-                    Dados da empresa não foram alterados. Tente novamente.
-                  </div>
-                </div>               
-              </div>
-            </div>
-          </div>";
-    ?>
+    
     
     <!-- /.flash message -->
 
@@ -82,6 +60,30 @@
       <form method="post">
 
         <div class="container-fluid">
+          <?php 
+            if (isset($_GET['empresa_alterada'])){
+                echo "<div class='alert alert-success alert-dismissible'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                        <h5><i class='fas fa-check'></i>&nbspEmpresa Alterada!</h5>
+                            <p>A empresa foi altrada com sucesso!.</p>
+                      </div>";
+
+            }
+            if (isset($_GET['empresa_nao_alterada'])){
+                echo "<div class='container-fluid'>
+                <div class='row'>
+                  <div class='col-md-10 offset-md-1'>
+                    <div class='alert alert-danger alert-dismissible'>
+                      <div class='lead'>
+                        <i class='fas fa-times'></i>&nbsp;
+                        Dados da empresa não foram alterados. Tente novamente.
+                      </div>
+                    </div>               
+                  </div>
+                </div>
+              </div>";
+            }
+          ?>
           <div class="row">
             <div class="col-md-12">
               <div class="card card-secondary">
@@ -128,6 +130,9 @@
 
                               while ($res != null) {
                                   if (isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro']))
+                                    if ($res['mod_id'] == $row['mod_id'])
+                                      echo "<option selected value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
+                                    else
                                       echo "<option value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
                                   $res = mysqli_fetch_array($query);
                               }
@@ -179,7 +184,7 @@
                       }
                       else {
                           echo "<div class='col'> <button name='alterar' class='btn btn-warning w-100'>Alterar</button> </div>";
-                          echo "<div id='btn-excluir' name='excluir' class='col btn btn-danger w-100'> Excluir</div>";
+                          echo "<a href='../admin/ExcluiEmpresa.php?cnpj=".$row['emp_cnpj']."' id='btn-excluir' name='excluir' class='col btn btn-danger w-100' onclick=\"return confirm('Você realmente quer excluir essa empresa?');\"> Excluir</a>";
                           if (isset($_POST['alterar'])) {
                               header("location: ?cnpj=".$row['emp_cnpj']."&alterar=enabled");
                           }
