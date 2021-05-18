@@ -1,6 +1,7 @@
 <?php
   $title = "Cadastrar Empresa";
   include ('../includes/header.php');
+  include ('../includes/permissoes.php');
   include ("../includes/primeirologin.php");
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
@@ -26,13 +27,12 @@
     </section>
     <section class="content">
       <form method="post">
-
         <div class="container-fluid">
-        <?php 
-          if (isset($_POST['confirmar'])) {
-              require_once("../admin/CadastroEmpresa.php");
-          } 
-        ?> 
+          <?php 
+            if (isset($_POST['confirmar'])) {
+                require_once("../admin/CadastroEmpresa.php");
+            } 
+          ?> 
           <div class="row">
             <div class="col-md-12">
               <div class="card card-secondary">

@@ -28,18 +28,10 @@ if (!empty($razaoSocial) && !empty($cnpj) && !empty($telefone) && !empty($areaAt
             </div>";
         }
         else 
-            echo "<div class='container-fluid'>
-            <div class='row'>
-              <div class='col-md-10 offset-md-1'>
-                <div class='alert alert-danger alert-dismissible'>
-                  <div class='lead'>
-                    <i class='fas fa-times'></i>&nbsp;
-                    Nova empresa não foi cadastrada. Tente novamente.
-                  </div>
-                </div>               
-              </div>
-            </div>
-          </div>  ";
+            echo "<div class='alert alert-danger alert-dismissible'>
+            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            <h5><i class='icon fas fa-ban'></i> Empresa não foi cadastrada tente novamente!</h5>
+          </div>";
     }
 } else {
     echo "<div class='alert alert-warning alert-dismissible'>

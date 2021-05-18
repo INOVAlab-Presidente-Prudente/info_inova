@@ -22,14 +22,8 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Flash message -->
-    
-    <!-- /.flash message -->
-
-    <!-- Main content -->
     <section class="content">     
       <div class="col-md-12">
         <?php 
@@ -77,12 +71,13 @@
             <p class="card-title">Lista de usuários</p>
           </div>
           <!-- /.card-header -->
-          <div class="card-body table-responsive p-0">
-            <table class="table table-bordered table-striped table-hover">
+          <div class="card-body table-responsive">
+            <table id="tabela-usuarios" class="table table-bordered table-striped table-hover">
               <thead>                  
                 <tr>
                   <th>Nome</th>
                   <th>CPF</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -116,7 +111,6 @@
                     </a>
                   </td>
                 </tr>
-                <tr>
                   <?php 
                     $row = mysqli_fetch_assoc($query);
                     endwhile;
@@ -125,23 +119,22 @@
             </table>
           </div>
           <!-- /.card-body -->
-          <div class="card-footer clearfix">
-            <ul class="pagination pagination-sm m-0 float-right">
-              <!-- TODO: arrumar paginacao -->
-              <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-            </ul>
-          </div>
-        </div>
         <!-- /.card -->
       </div>
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <script>
+    $('#tabela-usuarios').DataTable({
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bInfo": false,
+        "bAutoWidth": false 
+      });
+  </script>
+  
 <?php
   include ('../includes/modal_usuarios.php');
   include ('../includes/footer.php');

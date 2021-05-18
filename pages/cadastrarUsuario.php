@@ -197,13 +197,7 @@
                         <div class="form-group col-md-3">
                           <label>Estado</label>
                           <select name="estado" id="estado" class="form-control">                              
-                            <option value=''></option>  
-                            <option value='MT'>Mato Grosso</option> 
-                            <option value='MS'>Mato Grosso do Sul</option> 
-                            <option value='MG'>Minas Gerais</option> 
-                            <option value='PR'>Paraná</option> 
-                            <option value='RJ'>Rio de Janeiro</option> 
-                            <option value='SP'>São Paulo</option>                   
+                            <option>...</option>
                           </select>
                         </div>
                       </div>
@@ -216,7 +210,6 @@
             </div>
           </div>
         </div>
-
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
@@ -236,6 +229,8 @@
                       <label>Área de Interesse</label>
                       <input required enabled type="text" name="areaInteresse" class="form-control">
                     </div>
+                  </div>
+                  <div class="row">
                     <div class="form-group col-md-7">
                       <label>Empresa:</label>
                       <select required name="empresa" class="form-control ">
@@ -253,13 +248,14 @@
                                 ?>
                             </select>
                     </div>
-                    <div class="form-group col-md-2 my-auto mx-auto mt-0">
+                  
+                    <div class="form-group col-md-1 my-auto mx-auto mt-0">
                       <div class="custom-control custom-checkbox">
                         <input enabled class="custom-control-input required" type="checkbox" name="socio" id="socio" enabled >
                         <label class="custom-control-label mt-3" for="socio">Socio</label><br>               
                       </div>
                     </div>
-                    <div class="form-group col-md-3 mt-2">
+                    <div class="form-group col-md-4">
                       <label>Perfil de Usuário</label>
                       <select required name="perfil" class="form-control">
                         <?php
@@ -281,13 +277,11 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="card-footer"> 
                   <div class="row">
                     <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="fas fa-user-check"></i>&nbsp;&nbsp;Salvar Dados do Usuário</button>                
                   </div> 
                 </div>
-                
               </div>
             </div>
           </div>
@@ -299,6 +293,9 @@
   </div>
   <script src="../js/verificaIdade.js"></script>
   <script src="../js/consultaCep.js"></script>
+  <script>
+    window.onload = () => carregaEstados()
+  </script>
 <?php
   include ('../includes/footer.php');
 ?>

@@ -1,7 +1,6 @@
 <?php
   $titulo = "Alterar Empresa";
   include ('../includes/header.php');
-  include ('../includes/permissoes.php');
   include ('../includes/primeirologin.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
@@ -70,19 +69,19 @@
 
             }
             if (isset($_GET['empresa_nao_alterada'])){
-                echo "<div class='container-fluid'>
-                <div class='row'>
-                  <div class='col-md-10 offset-md-1'>
-                    <div class='alert alert-danger alert-dismissible'>
-                      <div class='lead'>
-                        <i class='fas fa-times'></i>&nbsp;
-                        Dados da empresa não foram alterados. Tente novamente.
-                      </div>
-                    </div>               
-                  </div>
-                </div>
-              </div>";
+                echo "<div class='alert alert-danger alert-dismissible'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                        <h5><i class='icon fas fa-ban'></i> Empresa não alterada!</h5>
+                            <p>Empresa não foi alterada.</p>
+                      </div>";
             }
+            if (isset($_GET['empresa_nao_alterada'])){
+              echo "<div class='alert alert-waning alert-dismissible'>
+                      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                      <h5><i class='icon fas fa-exclamation-triangle'></i> Empresa não alterada!</h5>
+                          <p>Empresa não foi alterada.</p>
+                    </div>";
+          }
           ?>
           <div class="row">
             <div class="col-md-12">

@@ -1,4 +1,3 @@
-
 function consultaCEP(CEP){
     if(CEP.length==9){
         document.getElementById('bairro').value = "...";
@@ -8,6 +7,7 @@ function consultaCEP(CEP){
         var elemento = document.createElement('script');
         elemento.src = 'https://viacep.com.br/ws/'+ CEP + '/json/?callback=meu_callback';
         document.body.appendChild(elemento);
+        console.log(elemento)
     }
 }
 

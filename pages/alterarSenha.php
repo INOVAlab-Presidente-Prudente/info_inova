@@ -36,7 +36,7 @@
             if (isset($_POST['alterarSenha'])) 
                 require_once("../admin/AlteraSenha.php");
             require_once("../admin/DB.php");
-            $sql = "SELECT usu_nomedeusuario FROM usuario WHERE usu_cpf = '".$_SESSION['cpf']."'";
+            $sql = "SELECT usu_nomedeusuario, usu_primeiro_login FROM usuario WHERE usu_cpf = '".$_SESSION['cpf']."'";
             $query = mysqli_query($connect, $sql);
             $row = mysqli_fetch_assoc($query);
             $nomeUsuario = $row['usu_nomedeusuario'];
@@ -49,7 +49,6 @@
               <input name="nomeUsuario" type="text" class="form-control" placeholder="Nome">
               <div class="input-group-append">
                 <div class="input-group-text">
-                  <!-- <span class="fas fa-lock"></span> -->
                 </div>
               </div>
             </div>
@@ -57,7 +56,6 @@
               <div class="col-12 w-100">
                 <button name="continuar" type="submit" class="btn btn-warning btn-block fo">Continuar</button>
               </div>
-              <!-- /.col -->
             </div>
           </form>
         </div>
@@ -68,13 +66,26 @@
                 if ($query) {
                   $_SESSION['nome'] = $_POST['nomeUsuario'];
                   header("location: /pages/alterarSenha.php");
-                }else
-                  echo "Digite um nome de usuário válido";
+                }
+                else{
+                  echo "<div class='col alert alert-warning alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-exclamation-triangle'></i>&nbspNome de Usuário inválido!</h5>
+                    <p>O nome de usuário é muito grande, tente novamente.</p>
+                  </div>";
+                }
+                  
             }
         ?>
         <?php else:?>
         <!-- Alterar senha -->
-          <p class="login-box-msg">Como é seu primeiro login no InfoInova, é necessário que você faça a alteração da sua senha</p>
+        <?php
+          if($_GET['usu_primeiro_login'])
+            echo "<p class='login-box-msg'>Como é seu primeiro login no InfoInova, é necessário que você faça a alteração da sua senha</p>";
+          else{
+            echo "<p class='login-box-msg'>Altere sua Senha</p>";
+          }
+        ?>  
           <form method="post">
             <div class="input-group mb-3">
               <input name="novaSenha" type="password" class="form-control" placeholder="Password">
@@ -96,11 +107,9 @@
               <div class="col-12">
                 <button name="alterarSenha" type="submit" class="btn btn-warning btn-block">Alterar Senha</button>
               </div>
-              <!-- /.col -->
             </div>
           </form>
         </div>
-        <!-- /.login-card-body -->
       </div>
     </div>
     <?php endif?>

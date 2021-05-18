@@ -87,9 +87,5 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
             header("location: ?cpf=".$_GET['cpf']."&usuario_nao_alterado=true");
     }
 } else {
-    var_dump(
-        ($responsavel != "''") . ($telResponsavel != "''"));
-        // !empty($bairro) . !empty($endereco) . 
-        // !empty($municipio) . !empty($email) . !empty($areaAtuacao) . 
-        // !empty($areaInteresse) .  !empty($telefone));
+    header("location: ?cpf=".$_GET['cpf']."&usuario_nao_alterado=true");
 }

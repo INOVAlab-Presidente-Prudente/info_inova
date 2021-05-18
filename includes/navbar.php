@@ -5,14 +5,14 @@
         </li>
     </ul>
  
-    <ul class="navbar-nav ml-auto"> 
-        <li class="nav-item dropdown mr-3">
+    <ul class="navbar-nav ml-auto my-auto"> 
+        <li class="nav-item dropdown mr-3 mb-2">
             <a class="nav-link" data-toggle="dropdown" href="#">
                <?php
                     if(in_array(hash("md5", $_SESSION['cpf']).".png", scandir("../images/usuarios")))
-                        echo '<img src="../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png" class="img-circle img-fluid elevation-2 mb-1" style="width: 32px; height: 32px;" alt="User Image">';
+                        echo '<img src="../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png" class="img-circle img-fluid elevation-2 mb-1" style="width: 35px; height: 35px;" alt="User Image">';
                     else
-                        echo '<img src="../images/avatar-df.png" class="img-circle img-fluid elevation-2 mb-1" style="width: 32px; height: 32px;" alt="User Image">';
+                        echo '<img src="../images/avatar-df.png" class="img-circle img-fluid elevation-2 mb-1" style="width: 35px; height: 35px;" alt="User Image">';
                 ?>
                 &nbsp;&nbsp;
                 <?=$_SESSION['nome']?>
@@ -28,16 +28,7 @@
                 <a href="../admin/Logout.php" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt"></i> Sair do sistema</a></div>
             </div>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-slide="true" href="../admin/Logout.php" role="button">
-            <i class="fas fa-sign-out-alt"></i>
-            </a>
+
         </li> -->
     </ul>
 </nav>
-        <!-- /.navbar -->

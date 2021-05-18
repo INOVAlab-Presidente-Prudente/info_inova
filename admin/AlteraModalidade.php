@@ -25,10 +25,5 @@ if(!empty($id) && !empty($nome) && !empty($desc) && (!empty($valorAnual) || $val
     }
 
 }else{
-    echo "<div class='alert alert-info' role='alert' > Preencha todos os campos </div>";
+    header('location: ../pages/consultarModalidadeEdit.php?mod_id='.$id.'&erro-alterar=true'); 
 }
-echo "<div class='alert alert-info alert-dismissible'>
-        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-        <h5><i class='fas fa-info'></i>&nbspNão foi possível alterar a modalidade!</h5>
-            <p>Preencha todos os campos!.</p>
-      </div>";

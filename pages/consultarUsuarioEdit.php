@@ -190,7 +190,6 @@
                     </div> 
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -232,21 +231,14 @@
                         </div>                      
                         <div class="form-group col-md-3">
                           <label>Estado</label>
-                          <select required <?=$alterar?> name="estado" class="form-control">
-                            <option value='MT'>Mato Grosso</option> 
-                            <option value='MS'>Mato Grosso do Sul</option> 
-                            <option value='MG'>Minas Gerais</option> 
-                            <option value='PR'>Paraná</option> 
-                            <option value='RJ'>Rio de Janeiro</option> 
-                            <option value='SP' selected>São Paulo</option>                   
+                          <select required <?=$alterar?> name="estado" id="estado" class="form-control">    
+                            <option>...</option>
                           </select>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -298,7 +290,7 @@
                         <label class="custom-control-label mt-3" for="socio">Socio</label><br>               
                       </div>
                     </div>
-                    <div class="form-group col-md-3 mt-2">
+                    <div class="form-group col-md-3">
                       <label>Perfil de Usuário</label>
                       <select required <?=$alterar?> name="perfil" class="form-control">
                         <?php
@@ -364,9 +356,11 @@
         
       </form>
     </section>
-    <!-- /.content -->
   </div>
   <script src="../js/verificaIdade.js"></script>
+  <script>
+    window.onload = () => carregaEstados()
+  </script>
 <?php
   include ('../includes/footer.php');
 ?>

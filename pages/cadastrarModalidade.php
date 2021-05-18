@@ -18,7 +18,8 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
-                                <li class="breadcrumb-item active">Cadastro de modalidade</li>
+                                <li class="breadcrumb-item active"><a href="/pages/consultarModalidade.php">Modalidades</a></li>
+                                <li class="breadcrumb-item active">Cadastrar</li>
                             </ol>
                         </div>
                     </div>

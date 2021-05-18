@@ -1,7 +1,6 @@
 <?php
   $titulo = "Consultar Empresa";
   include ('../includes/header.php');
-  include ('../includes/permissoes.php');
   include ('../includes/primeirologin.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
@@ -67,8 +66,8 @@
             $query = mysqli_query($connect, $sql);
             $row = mysqli_fetch_assoc($query);
           ?>
-          <div class="card-body table-responsive p-0">
-            <table class="table table-bordered table-striped table-hover">
+          <div class="card-body table-responsive">
+            <table id="tabela-empresas" class="table table-bordered table-striped table-hover">
               <thead>                  
                 <tr>
                   <th>CNPJ</th>
@@ -109,19 +108,19 @@
               </tbody>
             </table>
           </div>
-          <div class="card-footer clearfix">
-            <ul class="pagination pagination-sm m-0 float-right">
-              <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-            </ul>
-          </div>
         </div>
       </div>
     </section>
   </div>
+  <script>
+    $('#tabela-empresas').DataTable({
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bInfo": false,
+        "bAutoWidth": false 
+      });
+  </script>
 <?php
   include ('../includes/modal_empresas.php');
   include ('../includes/footer.php');

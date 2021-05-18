@@ -33,8 +33,8 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="consultarModalidade.php">Consulta de Modalidade</a></li>
-                                <li class="breadcrumb-item"></li>
+                                <li class="breadcrumb-item"><a href="consultarModalidade.php">Modalidades</a></li>
+                                <li class="breadcrumb-item">Alterar</li>
                             </ol>
                         </div>
                     </div>
@@ -42,24 +42,25 @@
             </section>
             <section class="content">
                 <div class="container-fluid">
+                    <?php 
+                        if(isset($_GET['modalidade-alterada'])){
+                            echo "<div class='alert alert-success alert-dismissible'>
+                                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                                    <h5><i class='fas fa-check'></i>&nbspModalidade alterada!</h5>
+                                        <p>A Modalidade com alterada com sucesso!.</p>
+                                </div>";
+                        }
+                        if(isset($_GET['erro-alterar'])){
+                            echo "<div class='alert alert-info alert-dismissible'>
+                                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                                    <h5><i class='fas fa-info'></i>&nbspModalidade não alterada!</h5>
+                                        <p>Não foi possível alterar a modalidade, tente novamente!.</p>
+                                    </div>";
+                        }
+                    ?>
                     <div class="col-md-12">
                         <div class="card card-primary">
-                            <?php 
-                                if(isset($_GET['modalidade-alterada'])){
-                                    echo "<div class='alert alert-success alert-dismissible'>
-                                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                                            <h5><i class='fas fa-check'></i>&nbspModalidade alterada!</h5>
-                                                <p>A Modalidade com alterada com sucesso!.</p>
-                                        </div>";
-                                }
-                                if(isset($_GET['erro-alterar'])){
-                                    echo "<div class='alert alert-info alert-dismissible'>
-                                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                                            <h5><i class='fas fa-info'></i>&nbspModalidade não alterada!</h5>
-                                                <p>Não foi possível alterar a modalidade, tente novamente!.</p>
-                                          </div>";
-                                }
-                            ?>
+                            
                             <form id="quickForm" method="post">
                                 <div class="card-body">
                                     <input type="hidden" name="id" value="<?=$row['mod_id']?>">
