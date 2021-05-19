@@ -13,7 +13,7 @@
   if (!isset($_GET['alterar']))
       $alterar = 'disabled';
   else
-      $alterar = "type='text'";
+      $alterar = "";
   
   if($row == NULL){
       header("location: consultarEmpresa.php");
@@ -75,13 +75,13 @@
                             <p>Empresa não foi alterada.</p>
                       </div>";
             }
-            if (isset($_GET['empresa_nao_alterada'])){
-              echo "<div class='alert alert-waning alert-dismissible'>
-                      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                      <h5><i class='icon fas fa-exclamation-triangle'></i> Empresa não alterada!</h5>
-                          <p>Empresa não foi alterada.</p>
-                    </div>";
-          }
+            // if (isset($_GET['empresa_nao_alterada'])){
+            //   echo "<div class='alert alert-waning alert-dismissible'>
+            //           <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            //           <h5><i class='icon fas fa-exclamation-triangle'></i> Empresa não alterada!</h5>
+            //               <p>Empresa não foi alterada.</p>
+            //         </div>";
+              //}
           ?>
           <div class="row">
             <div class="col-md-12">
@@ -119,24 +119,37 @@
                         </div> 
                       
                       <div class="form-group col-md-12">
-                          <label>Modalidade</label>
-                          <select required <?=$alterar?> name="modalidade" class="form-control">
-                          <?php
-                            require_once("../admin/DB.php");
-                              $sql = "SELECT * FROM modalidade";
-                              $query = mysqli_query($connect, $sql);
-                              $res = mysqli_fetch_array($query);    
+                        <div class="row">
+                          <div class="col-2 my-auto">
+                            <div class="custom-control custom-checkbox">
+                              <input <?=$alterar?> <?=$row['emp_residente'] ?"checked":""; ?>  
+                              onclick="residenteCheck(this)" class="custom-control-input required" 
+                              type="checkbox" name="residente" id="residente">
+                              <label class="custom-control-label" for="residente">Residente</label><br>               
+                            </div>
+                          </div>
+                          <div class="col-10" id="modalidade-content" style="display: <?=$row['emp_residente'] ? "block" : "none"?>">
+                            <label>Modalidade</label>
+                            <select required <?=$alterar?> name="modalidade" class="form-control">
+                            <?php
+                              require_once("../admin/DB.php");
+                                $sql = "SELECT * FROM modalidade";
+                                $query = mysqli_query($connect, $sql);
+                                $res = mysqli_fetch_array($query);    
 
-                              while ($res != null) {
-                                  if (isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro']))
-                                    if ($res['mod_id'] == $row['mod_id'])
-                                      echo "<option selected value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
-                                    else
-                                      echo "<option value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
-                                  $res = mysqli_fetch_array($query);
-                              }
-                            ?>
-                          </select>
+                                while ($res != null) {
+                                    if (isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro']))
+                                      if ($res['mod_id'] == $row['mod_id'])
+                                        echo "<option selected value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
+                                      else
+                                        echo "<option value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
+                                    $res = mysqli_fetch_array($query);
+                                }
+                              ?>
+                              
+                            </select>
+                          </div>
+                        </div>
                       </div>
                     </div>
                       <label>Sócios:</label>
@@ -218,6 +231,13 @@
       document.getElementById('telefone').value=(conteudo.telefone.replace(" ", ""));
       document.getElementById('atividade_principal').value= (conteudo.atividade_principal[0].text);
       document.getElementById('nome_fantasia').value = (conteudo.fantasia);
+    }
+    function residenteCheck(button){
+      var content = document.getElementById('modalidade-content');
+      if(button.checked == true)
+        content.style.display = "block";
+      else
+        content.style.display = "none";
     }
   </script>
 <?php

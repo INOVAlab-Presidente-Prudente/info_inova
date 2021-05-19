@@ -1,5 +1,5 @@
 <?php
-  $title = "Cadastrar Empresa";
+  $titulo = "Cadastrar Empresa";
   include ('../includes/header.php');
   include ('../includes/permissoes.php');
   include ("../includes/primeirologin.php");
@@ -68,21 +68,31 @@
                           <input required enabled type="text" id="atividade_principal" name="areaAtuacao" class="form-control">
                         </div> 
                       <div class="form-group col-md-12">
-                          <label>Modalidade</label>
-                          <select required name="modalidade" class="form-control">
-                          <?php
-                            require_once("../admin/DB.php");
-                              $sql = "SELECT * FROM modalidade";
-                              $query = mysqli_query($connect, $sql);
-                              $res = mysqli_fetch_array($query);    
+                        <div class="row">
+                          <div class="col-2 my-auto">
+                            <div class="custom-control custom-checkbox">
+                              <input enabled onclick="residenteCheck(this)" class="custom-control-input required" type="checkbox" name="residente" id="residente">
+                              <label class="custom-control-label" for="residente">Residente</label><br>               
+                            </div>
+                          </div>
+                          <div class="col-10" id="modalidade-content" style="display: none">
+                            <label>Modalidade</label>
+                            <select required name="modalidade" class="form-control">
+                              <?php
+                                require_once("../admin/DB.php");
+                                $sql = "SELECT * FROM modalidade";
+                                $query = mysqli_query($connect, $sql);
+                                $res = mysqli_fetch_array($query);    
 
-                              while ($res != null) {
-                                  if (isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro']))
-                                      echo "<option value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
-                                  $res = mysqli_fetch_array($query);
-                              }
-                            ?>
-                          </select>
+                                while ($res != null) {
+                                    if (isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro']))
+                                        echo "<option value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
+                                    $res = mysqli_fetch_array($query);
+                                }
+                              ?>
+                            </select>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     </div>
@@ -121,6 +131,15 @@
       document.getElementById('telefone').value=(conteudo.telefone.replace(" ", ""));
       document.getElementById('atividade_principal').value= (conteudo.atividade_principal[0].text);
       document.getElementById('nome_fantasia').value = (conteudo.fantasia);
+    }
+
+    function residenteCheck(button){
+      var content = document.getElementById('modalidade-content');
+
+      if(button.checked == true)
+        content.style.display = "block";
+      else
+        content.style.display = "none";
     }
   </script>
 <?php
