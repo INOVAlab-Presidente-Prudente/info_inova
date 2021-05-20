@@ -52,7 +52,7 @@
                 <li class="nav-item">
                     <a href="/pages/checkin_checkout.php" class="nav-link">
                         <i class="nav-icon fas fa-calendar-check"></i>
-                        <p>Check-in/Check-out</p>
+                        <p>Check-out</p>
                     </a>
                 </li>
                 <?php endif;?>
@@ -88,27 +88,12 @@
                 <?php endif */?>
                 <?php if(isset($_SESSION['admin']) || isset($_SESSION['financeiro'])) { ?>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="../pages/consultarModalidade.php" class="nav-link">
                     <i class="nav-icon fas fa-handshake"></i> 
                     <p>
-                        Gerenciar Modalidades
-                        <i class="right fas fa-angle-left"></i>
+                        Modalidades
                     </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="../pages/cadastrarModalidade.php" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Cadastrar Modalidade</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../pages/consultarModalidade.php" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Consultar Modalidade</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <?php 
                 }

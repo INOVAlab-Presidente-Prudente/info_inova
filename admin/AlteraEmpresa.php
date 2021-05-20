@@ -14,11 +14,9 @@
         $sql = "UPDATE empresa SET emp_razao_social = '".$razaoSocial."', emp_cnpj = '".$cnpj."', emp_telefone = '".$telefone."', emp_area_atuacao = '".$areaAtuacao."', mod_id = ".$modalidade.", emp_nome_fantasia = '".$nomeFantasia."', emp_residente = ".$residente." WHERE emp_cnpj = '".$_GET['cnpj']."';";
         $query = mysqli_query($connect, $sql);
         if ($query){
-            header("location: ?cnpj=".$cnpj."&empresa_alterada=true");
+            header("location: ../pages/visualizarEmpresa.php?cnpj=".$cnpj."&empresa_alterada=true");
         }
         else{
-            // echo $sql;
-            // var_dump(mysqli_error($connect));
             header("location: ?cnpj=".$_GET['cnpj']."&empresa_nao_alterada=true");
         }
     } else {

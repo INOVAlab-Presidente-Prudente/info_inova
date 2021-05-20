@@ -1,5 +1,5 @@
 <?php
-  $titulo = "Consultar Usuario";
+  $titulo = "Consultar de Usuário";
   include ('../includes/header.php');
   include ('../includes/permissoes.php');
   include ("../includes/primeirologin.php");
@@ -89,7 +89,15 @@
                   while ($row != null):
                 ?>
                 <tr>
-                  <td class=" text-nowrap"><?=$row['usu_nome']?></td>
+                  <td class=" text-nowrap">
+                    <?php
+                      if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
+                        echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
+                      else
+                          echo '<img src="../images/avatar-df.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
+                    ?>
+                    <?=$row['usu_nome']?>
+                  </td>
                   <td class=" text-nowrap"><?=$row['usu_cpf']?></td>
                   <?php $dis = (($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])))? "":"disabled"?>
                   <td class=" text-nowrap">
@@ -97,7 +105,7 @@
                       <i class="fas fa-portrait"></i>&nbsp;
                       Ocorrências
                     </a>
-                    <a <?=$dis?> class='btn btn-primary btn-sm center' name="alterar" href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>">
+                    <a <?=$dis?> class='btn btn-primary btn-sm center' name="visualizar" href="visualizarUsuario.php?cpf=<?=$row['usu_cpf']?>">
                       <i class="fas fa-user"></i>&nbsp;
                       Visualizar
                     </a>

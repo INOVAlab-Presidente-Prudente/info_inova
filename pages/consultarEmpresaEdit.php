@@ -11,7 +11,7 @@
   $row = mysqli_fetch_assoc($query);
   
   if (!isset($_GET['alterar']))
-      $alterar = 'disabled';
+      $alterar = '';
   else
       $alterar = "";
   
@@ -45,29 +45,21 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Flash message -->
-    
-    
-    <!-- /.flash message -->
-
-    <!-- Fazer o preenchimento automático dos campos via PHP2 -->
     <section class="content">
-      <!-- form start -->
       <form method="post">
 
         <div class="container-fluid">
           <?php 
-            if (isset($_GET['empresa_alterada'])){
-                echo "<div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                        <h5><i class='fas fa-check'></i>&nbspEmpresa Alterada!</h5>
-                            <p>A empresa foi altrada com sucesso!.</p>
-                      </div>";
+            // if (isset($_GET['empresa_alterada'])){
+            //     echo "<div class='alert alert-success alert-dismissible'>
+            //             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            //             <h5><i class='fas fa-check'></i>&nbspEmpresa Alterada!</h5>
+            //                 <p>A empresa foi altrada com sucesso!.</p>
+            //           </div>";
 
-            }
+            // }
             if (isset($_GET['empresa_nao_alterada'])){
                 echo "<div class='alert alert-danger alert-dismissible'>
                         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
@@ -75,13 +67,6 @@
                             <p>Empresa não foi alterada.</p>
                       </div>";
             }
-            // if (isset($_GET['empresa_nao_alterada'])){
-            //   echo "<div class='alert alert-waning alert-dismissible'>
-            //           <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-            //           <h5><i class='icon fas fa-exclamation-triangle'></i> Empresa não alterada!</h5>
-            //               <p>Empresa não foi alterada.</p>
-            //         </div>";
-              //}
           ?>
           <div class="row">
             <div class="col-md-12">
@@ -178,29 +163,33 @@
                 <div class="card-footer"> 
                   <div class="row">
                   <?php 
-                      if (isset($_GET['alterar'])) {
-                          echo "<button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class='fas fa-edit'></i>&nbsp;&nbsp;Salvar Alterações</button>";
+                      // if (isset($_GET['alterar'])) {
+                      //     echo "<button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class='fas fa-edit'></i>&nbsp;&nbsp;Salvar Alterações</button>";
+                      //     if (isset($_POST['confirmar'])) {
+                      //         require_once("../admin/AlteraEmpresa.php");
+                      //     }
+                      // } 
+                      // else if (isset($_GET['excluir'])) {
+                      //     echo "<button class='btn btn-danger' name='sim'>Sim</button>";
+                      //     echo "<button class='btn btn-light' name='nao'>Nao</button>";
+                      //     if (isset($_POST['sim'])) {
+                      //         require_once("../admin/ExcluiEmpresa.php");
+                      //     }
+                      //     if (isset($_POST['nao']))
+                      //         header("location: ?cnpj=".$row['emp_cnpj']."");
+                          
+                      // }
+                      // else {
+                          //echo "<div class='col'> <button name='alterar' class='btn btn-warning w-100'>Alterar</button> </div>";
+                          echo "<button class='col btn btn-primary' name='confirmar'><i class='fas fa-edit'></i>&nbsp;&nbsp;Salvar Alterações</button>";
                           if (isset($_POST['confirmar'])) {
                               require_once("../admin/AlteraEmpresa.php");
                           }
-                      } 
-                      else if (isset($_GET['excluir'])) {
-                          echo "<button class='btn btn-danger' name='sim'>Sim</button>";
-                          echo "<button class='btn btn-light' name='nao'>Nao</button>";
-                          if (isset($_POST['sim'])) {
-                              require_once("../admin/ExcluiEmpresa.php");
-                          }
-                          if (isset($_POST['nao']))
-                              header("location: ?cnpj=".$row['emp_cnpj']."");
-                          
-                      }
-                      else {
-                          echo "<div class='col'> <button name='alterar' class='btn btn-warning w-100'>Alterar</button> </div>";
                           echo "<a href='../admin/ExcluiEmpresa.php?cnpj=".$row['emp_cnpj']."' id='btn-excluir' name='excluir' class='col btn btn-danger w-100' onclick=\"return confirm('Você realmente quer excluir essa empresa?');\"> Excluir</a>";
-                          if (isset($_POST['alterar'])) {
-                              header("location: ?cnpj=".$row['emp_cnpj']."&alterar=enabled");
-                          }
-                      }
+                          // if (isset($_POST['alterar'])) {
+                          //     header("location: ?cnpj=".$row['emp_cnpj']."&alterar=enabled");
+                          // }
+                      //}
                   ?>                
                   </div> 
                 </div>

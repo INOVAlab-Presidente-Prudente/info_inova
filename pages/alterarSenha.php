@@ -80,7 +80,7 @@
         <?php else:?>
         <!-- Alterar senha -->
         <?php
-          if($_GET['usu_primeiro_login'])
+          if($_SESSION['usu_primeiro_login'])
             echo "<p class='login-box-msg'>Como é seu primeiro login no InfoInova, é necessário que você faça a alteração da sua senha</p>";
           else{
             echo "<p class='login-box-msg'>Altere sua Senha</p>";
@@ -109,6 +109,11 @@
               </div>
             </div>
           </form>
+          <?php if (!$_SESSION['primeiro_login']):?>
+            <p class="mt-3 mb-1">
+              <a href="../">Ir para a HomePage</a>
+            </p>
+          <?php endif;?>
         </div>
       </div>
     </div>

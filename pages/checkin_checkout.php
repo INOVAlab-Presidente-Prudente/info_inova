@@ -54,6 +54,12 @@
                     $data = date_create($row['che_horario_entrada']);?>
                     <tr>
                       <td class=" text-nowrap">
+                        <?php 
+                          if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
+                            echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
+                          else
+                              echo '<img src="../images/avatar-df.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
+                        ?>
                         <a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>"><?=$row['usu_nome']?></a>
                       </td> 
                       <td class=" text-nowrap"><?=$row['usu_cpf']?></td>

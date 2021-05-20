@@ -21,60 +21,64 @@
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="#"><b>Info</b>Inova</a>
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="#"><b>Info</b>Inova</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+    
+      <div class="card-body login-card-body">
+        <div class="mb-2">
+          <?php 
+            if (isset($_POST['entrar'])) {
+                require_once("admin/Login.php");
+            }
+          ?>
+        </div>
+        
+        <p class="login-box-msg">Faça login para iniciar sua sessão</p>
+
+        <form method="post">
+          <div class="input-group mb-3">
+            <input type="email" name = "email" class="form-control" placeholder="example@email.com">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" name ="senha" placeholder="Senha">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col w-100">
+              <button type="submit" name="entrar" class="btn btn-warning btn-block fo">Login</button>
+            </div>
+            
+          </div>
+        </form>
+        
+    </div>
   </div>
-  <!-- /.login-logo -->
-  <div class="card">
-  
-    <div class="card-body login-card-body">
-      <div class="mb-2">
-        <?php 
-          if (isset($_POST['entrar'])) {
-              require_once("admin/Login.php");
-          }
-        ?>
-      </div>
-      
-      <p class="login-box-msg">Faça login para iniciar sua sessão</p>
 
-      <form method="post">
-        <div class="input-group mb-3">
-          <input type="email" name = "email" class="form-control" placeholder="example@email.com">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" name ="senha" placeholder="Senha">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.min.js"></script>
 
-        <div class="row">
-          <div class="col w-100">
-            <button type="submit" name="entrar" class="btn btn-warning btn-block fo">Login</button>
-          </div>
-          
-        </div>
-      </form>
-      
-</div>
-</div>
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+  <!-- hCaptcha -->
+  <script src="https://hcaptcha.com/1/api.js" async defer></script>
 </body>
 </html>

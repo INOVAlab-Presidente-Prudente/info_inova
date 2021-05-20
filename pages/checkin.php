@@ -148,20 +148,29 @@ include ('../includes/sidebar.php');
                   <!-- info row -->
                   <div class="row invoice-info mb-4">
                     <div class="col-md-6 invoice-col">
-                      <b>Email:</b><?=$usuario['usu_email']?><br>
-                      <b>Data de nascimento:</b><?=date_format(date_create($usuario['usu_data_nascimento']),"d/m/Y")?><br>
-                      <b>RG:</b><?=$usuario['usu_rg']?><br>
-                      <b>CPF:</b><?=$usuario['usu_cpf']?><br>
-                      <b>Telefone:</b><?=$usuario['usu_telefone']?><br>                  
-                      <b>Nome do Responsável:</b><?=$usuario['usu_responsavel']?><br>
-                      <b>Telefonedo Responsável:</b><?=$usuario['usu_tel_responsavel']?><br>
+                      <b>Email: </b><?=$usuario['usu_email']?><br>
+                      <b>Data de nascimento: </b><?=date_format(date_create($usuario['usu_data_nascimento']),"d/m/Y")?><br>
+                      <b>RG: </b><?=$usuario['usu_rg']?><br>
+                      <b>CPF: </b><?=$usuario['usu_cpf']?><br>
+                      <b>Telefone: </b><?=$usuario['usu_telefone']?><br>
+                      <?php if ($usuario['usu_responsavel'] != null):?>
+                        <b>Nome do Responsável: </b><?=$usuario['usu_responsavel']?><br>
+                        <b>Telefone do Responsável: </b><?=$usuario['usu_tel_responsavel']?><br>
+                      <?php endif;?>
                     </div><!-- /.col -->
                     <div class="col-md-6 invoice-col">
-                      <b>Área de Atuação:</b><?=$usuario['usu_area_atuacao']?><br>
-                      <b>Área de Interesse:</b><?=$usuario['usu_area_interesse']?><br>
-                      <b>Empresa:</b><?=$row['emp_nome_fantasia']?><br>
-                      <b>Socio:</b><?=$usuario['usu_socio']? "sim":"não" ?><br>                  
-                      <b>Perfil de Usuário:</b><?=$usuario['pu_id']?><br>
+                      <b>Área de Atuação: </b><?=$usuario['usu_area_atuacao']?><br>
+                      <b>Área de Interesse: </b><?=$usuario['usu_area_interesse']?><br>
+                      <?php if ($usuario['emp_id'] != null):?>
+                        <b>Empresa: </b><?=$row['emp_nome_fantasia']?><br>
+                      <?php endif;?>
+                      <b>Socio: </b><?=$usuario['usu_socio']? "sim": "não" ?><br>
+                      <?php 
+                        $sql = "SELECT pu_descricao FROM perfil_usuario p INNER JOIN usuario u ON u.pu_id = p.pu_id";
+                        $query = mysqli_query($connect, $sql);
+                        $perfil = mysqli_fetch_assoc($query)['pu_descricao'];
+                      ?>                 
+                      <b>Perfil de Usuário: </b><?=ucwords($perfil)?><br>
                     </div><!-- /.col -->
                   </div><!-- /.row -->
                   <?php 

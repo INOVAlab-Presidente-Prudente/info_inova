@@ -87,7 +87,7 @@
                   <td class=" text-nowrap"><?=$row['emp_cnpj']?></td>
                   <td class=" text-nowrap"><?=$nome?></td>
                   <td class=" text-nowrap">
-                    <a href="consultarEmpresaEdit.php?cnpj=<?=$row['emp_cnpj']?>" class="btn btn-primary btn-sm center">
+                    <a href="visualizarEmpresa.php?cnpj=<?=$row['emp_cnpj']?>" class="btn btn-primary btn-sm center">
                       <i class="far fa-eye"></i>&nbsp;
                       Visualizar
                     </a>
