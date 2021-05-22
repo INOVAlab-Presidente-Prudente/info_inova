@@ -1,6 +1,7 @@
 <?php
   $titulo = "Alterar Empresa";
   include ('../includes/header.php');
+  include ('../includes/permissoes.php');
   include ('../includes/primeirologin.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
@@ -19,9 +20,7 @@
       header("location: consultarEmpresa.php");
   }            
 ?>
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">

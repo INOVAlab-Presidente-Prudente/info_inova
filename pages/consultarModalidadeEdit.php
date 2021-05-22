@@ -9,7 +9,7 @@
         header("location: ../");
 
   require_once('../admin/DB.php');
-  $sql="SELECT * FROM modalidade WHERE mod_id =".$_GET['mod_id'];
+  $sql = "SELECT * FROM modalidade WHERE mod_id =".$_GET['mod_id'];
   $query = mysqli_query($connect, $sql);
   $row = mysqli_fetch_assoc($query);
 
@@ -39,25 +39,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
-    <!-- Flash message -->
-    <?php 
-        if(isset($_GET['modalidade-alterada'])){
-            echo "<div class='alert alert-success alert-dismissible'>
-                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                    <h5><i class='fas fa-check'></i>&nbspModalidade alterada!</h5>
-                        <p>A Modalidade com alterada com sucesso!.</p>
-                </div>";
-        }
-        if(isset($_GET['erro-alterar'])){
-            echo "<div class='alert alert-info alert-dismissible'>
-                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                    <h5><i class='fas fa-info'></i>&nbspModalidade não alterada!</h5>
-                        <p>Não foi possível alterar a modalidade, tente novamente!.</p>
-                    </div>";
-        }
-    ?>
-    <!-- /.flash message -->
 
     <!-- Fazer o preenchimento automático dos campos via PHP2 -->
     <section class="content">

@@ -16,9 +16,9 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="admin_page.php">Início</a></li>
-              <li class="breadcrumb-item "><a href="usuarios.php">Usuários</a></li>
-              <li class="breadcrumb-item active" >Cadastrar</li>
+              <li class="breadcrumb-item"><a href="adminPage.php">Início</a></li>
+              <li class="breadcrumb-item "><a href="consultarUsuario.php">Usuários</a></li>
+              <li class="breadcrumb-item active">Cadastrar</li>
             </ol>
           </div>
         </div>
@@ -89,14 +89,12 @@
                       </section>
                       <div class="input-group">
                           <div class="input-wrapper mx-auto">
-                            <!-- <div class="container my-auto mx-auto"> -->
                             <input type="hidden" id="img64" name="img64" />
                             <button class="btn btn-secondary btn-md" type="button" onclick="abrirModal()">Tirar
                               Foto</button>
                             <input type="file" name="uploadFoto" id="uploadFoto">
                             <button class="btn btn-secondary btn-md" type="button"
                               onclick="document.getElementById('uploadFoto').click()">Escolha Foto</button>
-                            <!-- </div> -->
                           </div>
                         </div>
                         <script>
@@ -140,7 +138,6 @@
                           <input required enabled type="phone" id="telefone" name="telefone" pattern="\([1-9]{2}\)(?:[2-8]|9[1-9])[0-9]{3}-[0-9]{4}" minlength="13" maxlength="14" class="form-control">
                         </div>
                       </div>          
-                      <!-- <div class="row" id="responsavel" style="display: none;"> -->
                       <div class="row" id="responsavel" style="display: none;">          
                         <div class="form-group col-md-6">
                             <label>Nome do Responsável</label>
@@ -232,21 +229,21 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-md-7">
-                      <label>Empresa:</label>
+                      <label>Empresa</label>
                       <select required name="empresa" class="form-control ">
-                              <option>...</option>
-                              <?php 
-                                  require_once("../admin/DB.php");
-                                  $sql = "SELECT * FROM empresa ORDER BY emp_razao_social";
-                                  $query = mysqli_query($connect, $sql);
-                                  $res = mysqli_fetch_array($query);
-                                  while ($res != null) {
-                                      $nome  = (empty($res['emp_nome_fantasia']))? $res['emp_razao_social'] : $res['emp_nome_fantasia'];
-                                      echo "<option value='".$res['emp_id']."'>".$nome."</option>";
-                                      $res = mysqli_fetch_array($query);
-                                  }
-                                ?>
-                            </select>
+                        <option>...</option>
+                        <?php 
+                            require_once("../admin/DB.php");
+                            $sql = "SELECT * FROM empresa ORDER BY emp_razao_social";
+                            $query = mysqli_query($connect, $sql);
+                            $res = mysqli_fetch_array($query);
+                            while ($res != null) {
+                                $nome  = (empty($res['emp_nome_fantasia']))? $res['emp_razao_social'] : $res['emp_nome_fantasia'];
+                                echo "<option value='".$res['emp_id']."'>".$nome."</option>";
+                                $res = mysqli_fetch_array($query);
+                            }
+                          ?>
+                      </select>
                     </div>
                   
                     <div class="form-group col-md-1 my-auto mx-auto mt-0">
@@ -277,6 +274,10 @@
                     </div>
                   </div>
                 </div>
+                <div class="d-flex align-items-center justify-content-center">
+                  <input type="checkbox" name="termos">&nbsp;&nbsp;
+                  <label class="mt-2" for="termos"><a href="#">Termos de uso</a></label>
+                </div>
                 <div class="card-footer"> 
                   <div class="row">
                     <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="fas fa-user-check"></i>&nbsp;&nbsp;Salvar Dados do Usuário</button>                
@@ -286,15 +287,44 @@
             </div>
           </div>
         </div>
-
       </form>
     </section>
-    <!-- /.content -->
   </div>
   <script src="../js/verificaIdade.js"></script>
   <script src="../js/consultaCep.js"></script>
   <script>
     window.onload = () => carregaEstados()
+    const geraSelects = (result) => {
+        var elem, indexAtual;
+        var i = 0;
+        const comboEstados = document.getElementById("estado");
+        for(var j = 0; j < result.length; j++){
+            elem = document.createElement("option");
+            elem.value = result[j].sigla;
+            elem.text = result[j].nome;
+            if(result[j].sigla == "<?=$row['usu_estado']?>")
+              elem.selected = 'selected';
+            comboEstados.add(elem, comboEstados.options[i++]);
+        }
+        comboEstados.value = "<?=$row['usu_estado']?>";
+    }
+
+    function carregaEstados(){
+        const options = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'default'
+        }
+
+        fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome`, options)
+        .then(response => {
+            response.json()
+            .then( data => {
+                geraSelects(data);
+            } )
+        })
+        .catch(e => console.log('Deu erro: '+ e.message));
+    }
   </script>
 <?php
   include ('../includes/footer.php');

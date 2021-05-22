@@ -18,11 +18,11 @@ if(!empty($nome) && !empty($desc) && (!empty($valorAnual) || $valorAnual == "0")
     $query = mysqli_query($connect,$sql);
 
     if($query){
-        header('location: ../pages/consultarModalidadeEdit.php?mod_id='.$id.'&modalidade-alterada=true'); 
+        header('location: ../pages/visualizarModalidade.php?mod_id='.$id.'&modalidade-alterada=true'); 
     }else{
-        header('location: ../pages/consultarModalidadeEdit.php?mod_id='.$id.'&erro-alterar=true'); 
+        header('location: ../pages/visualizarModalidade.php?mod_id='.$id.'&erro-alterar=true'); 
     }
 
 }else{
-    header('location: ../pages/consultarModalidadeEdit.php?mod_id='.$id.'&erro-alterar=true'); 
+    header('location: ../pages/visualizarModalidade.php?mod_id='.$id.'&erro-alterar=true'); 
 }

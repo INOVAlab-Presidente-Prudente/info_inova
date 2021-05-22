@@ -1,18 +1,22 @@
 <?php
-  $titulo = "Alterar Empresa";
+  $titulo = "Vizualizar Usuário";
   include ('../includes/header.php');
+  include ('../includes/permissoes.php');
+  include ('../includes/primeirologin.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 
   require_once("../admin/DB.php");
   $sql = "SELECT u.*, pu_descricao, emp_nome_fantasia, emp_razao_social 
-            FROM usuario u, perfil_usuario pu, empresa emp 
-                WHERE usu_cpf = '".$_GET['cpf']."' AND pu.pu_id = u.pu_id AND emp.emp_id = u.emp_id";
+            FROM usuario u LEFT JOIN empresa emp 
+                ON emp.emp_id = u.emp_id AND usu_cpf = '".$_GET['cpf']."'
+            LEFT JOIN perfil_usuario pu 
+                ON pu.pu_id = u.pu_id"; 
   $query = mysqli_query($connect, $sql);
   if($query)
     $row = mysqli_fetch_assoc($query);
   else
-    var_dump(mysqli_error($connect));
+    header("location: /pages/adminPage.php");
 
   
 ?>
@@ -25,17 +29,11 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="admin_page.php">Início</a></li>
-              <li class="breadcrumb-item"><a href="usuarios.php">Usuários</a></li>
+              <li class="breadcrumb-item"><a href="adminPage.php">Início</a></li>
+              <li class="breadcrumb-item"><a href="consultarUsuario.php">Usuários</a></li>
               <li class="breadcrumb-item">Visualizar</li>
             </ol>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-10 offset-md-1">
         </div>
       </div>
     </div>
@@ -43,6 +41,29 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
+            <?php 
+              if (isset($_GET['usuario_alterado'])){
+                echo "<div class='alert alert-success alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='fas fa-check'></i>&nbspUsuário(a) Alterado(a)!</h5>
+                    <p>Usuário(a) foi alterado(a) com sucesso!</p>
+                </div>";
+              }
+              if (isset($_GET['usuario_nao_alterado'])){
+                  echo "<div class='alert alert-warning alert-dismissible'>
+                          <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                          <h5><i class='fas fa-exclamation-triangle'></i>&nbspDados Incorretos!</h5>
+                          <p>Não foi possível alterar este(a) usuário(a).</p>
+                        </div>";
+              }
+              if (isset($_GET['erro'])){
+                echo "<div class='alert alert-warning alert-dismissible'>
+                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                        <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
+                        <p>Você nao tem permissão para alterar um(a) usuário(a) com esse perfil.</p>
+                      </div>";
+              }
+            ?>
             <div class="invoice p-3 mb-3">
               <div class="row">
                 <div class="col-12 mb-4">
@@ -53,7 +74,7 @@
                             echo '<img id="imgUsuario" src="../images/avatar-df.png" class="profile-user-img img-fluid img-circle border-2 border-default" alt="User Image">';
                     ?>
                   <h2><?="".$row['usu_nome'].""?></h2>
-                  <a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>" class="btn btn-warning btn-sm center">
+                  <a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>&alterar=true" class="btn btn-warning btn-sm center">
                     <i class="fas fa-edit"></i>&nbsp;
                     Alterar Usuário
                   </a>
@@ -79,7 +100,7 @@
                   <b>Área de Interesse:&nbsp;</b><?="".$row['usu_area_interesse'].""?><br/>
                   <b>Empresa:&nbsp;</b><?="".(empty($row['emp_nome_fantasia']))? $row['emp_razao_social'] : $row['emp_nome_fantasia'].""?><br/>
                   <b>Socio:&nbsp;</b><?=$row['usu_socio'] ? "Sim" : "Não";?><br/>                  
-                  <b>Perfil de Usuário:&nbsp;</b><?="".$row['pu_descricao'].""?><br/>
+                  <b>Perfil de Usuário:&nbsp;</b><?="".ucwords($row['pu_descricao']).""?><br/>
                 </div>
                 <div class="col-md-4 invoice-col">
                   <address>

@@ -34,27 +34,6 @@
       
         <div class="container-fluid">
           <?php
-            if (isset($_GET['usuario_alterado'])){
-                echo "<div class='alert alert-success alert-dismissible'>
-                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                <h5><i class='fas fa-check'></i>&nbspUsuário(a) Alterado(a)!</h5>
-                    <p>Usuário(a) foi alterado(a) com sucesso!.</p>
-                </div>";
-            }
-            if (isset($_GET['usuario_nao_alterado'])){
-                echo "<div class='alert alert-warning alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                        <h5><i class='fas fa-exclamation-triangle'></i>&nbspDados Incorretos!</h5>
-                        <p>Não foi possível alterar este(a) usuário(a).</p>
-                      </div>";
-            }if (isset($_GET['erro'])){
-              echo "<div class='alert alert-warning alert-dismissible'>
-                      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                      <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
-                      <p>Você nao tem permissão para alterar um(a) usuário(a) com esse perfil.</p>
-                    </div>";
-            
-            }
             if (!isset($_GET['alterar'])){
                 $alterar = 'disabled';
             }

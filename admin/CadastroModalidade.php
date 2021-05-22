@@ -1,5 +1,4 @@
 <?php
-
 $nome = $_POST['nome'];
 $desc = $_POST['descricao'];
 $valorMensal = $_POST['valorMensal'];
@@ -8,9 +7,12 @@ $edital = $_POST['edital'];
 
 if(!empty($nome) && !empty($desc) && (!empty($valorAnual) || $valorAnual == "0") && (!empty($valorMensal) || $valorMensal == "0") && !empty($edital) ){
     require_once('DB.php');
-    $sql = "INSERT INTO modalidade (mod_nome, mod_descricao,mod_valMensal, mod_valAnual, mod_edital) VALUES ('".$nome."', '".$desc."', ".$valorMensal.", ".$valorAnual.", '".$edital."')";
-    $query = mysqli_query($connect,$sql);
-    if ($query) {
+    $sql = "INSERT INTO modalidade (mod_nome, mod_descricao,mod_valMensal, mod_valAnual, mod_edital) 
+    VALUES (?, ?, ?, ?, ?)";
+    $prepare = mysqli_prepare($connect, $sql);
+    mysqli_stmt_bind_param($prepare, "ssdds", $nome, $desc, $valorMensal, $valorAnual, $edital);
+
+    if (mysqli_stmt_execute($prepare)) {
         echo "<div class='alert alert-success alert-dismissible'>
         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
         <h5><i class='fas fa-check'></i>&nbspModalidade Cadastrada!</h5>
@@ -30,6 +32,3 @@ if(!empty($nome) && !empty($desc) && (!empty($valorAnual) || $valorAnual == "0")
             <p>Preencha todos os campos!.</p>
         </div>";
 }
-
-
-    

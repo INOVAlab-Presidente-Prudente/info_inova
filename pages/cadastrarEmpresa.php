@@ -6,9 +6,7 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -36,15 +34,12 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card card-secondary">
-
                 <div class="card-header">
                   <p class="card-title">Dados Cadastrais</p>
                 </div>
-
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
-
                       <div class="row">
                         <div class="form-group col-md-6">
                           <label>CNPJ</label>
@@ -54,7 +49,6 @@
                             <label>Telefone</label>
                           <input required enabled type="text" id="telefone" name="telefone" class="form-control">
                         </div>
-
                         <div class="form-group col-md-12">
                           <label>Razão Social</label>
                           <input required enabled type="text" id="razao_social" name="razaoSocial" class="form-control">
@@ -69,28 +63,35 @@
                         </div> 
                       <div class="form-group col-md-12">
                         <div class="row">
-                          <div class="col-2 my-auto">
+                          <div class="col-md-2 my-auto">
                             <div class="custom-control custom-checkbox">
                               <input enabled onclick="residenteCheck(this)" class="custom-control-input required" type="checkbox" name="residente" id="residente">
                               <label class="custom-control-label" for="residente">Residente</label><br>               
                             </div>
                           </div>
-                          <div class="col-10" id="modalidade-content" style="display: none">
+                          
+                          <div class="col-md-9" id="modalidade-content" style="display: none">
                             <label>Modalidade</label>
-                            <select required name="modalidade" class="form-control">
-                              <?php
-                                require_once("../admin/DB.php");
-                                $sql = "SELECT * FROM modalidade";
-                                $query = mysqli_query($connect, $sql);
-                                $res = mysqli_fetch_array($query);    
-
-                                while ($res != null) {
-                                    if (isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro']))
-                                        echo "<option value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
-                                    $res = mysqli_fetch_array($query);
-                                }
-                              ?>
-                            </select>
+                            <div class="row ">
+                              <select required name="modalidade" id="modalidade" class="form-control col-11 w-100">
+                                <?php
+                                  require_once("../admin/DB.php");
+                                  $sql = "SELECT * FROM modalidade";
+                                  $query = mysqli_query($connect, $sql);
+                                  $res = mysqli_fetch_array($query);    
+                                  while ($res != null) {
+                                      if (isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['financeiro']))
+                                          echo "<option descricao='".$res['mod_descricao']."' value='".$res['mod_id']."'>". ucwords($res['mod_nome']) ."</option>";
+                                      $res = mysqli_fetch_array($query);
+                                  }
+                                ?>
+                              </select> 
+                              <div class="align-itens-center justify-content-end">
+                                <button type="button" class="btn btn-dark ml-1" id="example" data-toggle="tooltip" data-placement="top" >
+                                  <i class="far fa-question-circle w-100"></i>
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -98,23 +99,28 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="card-footer"> 
                   <div class="row">
                     <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="nav-icon fas fa-briefcase"></i>&nbsp;&nbsp;Salvar Dados da Empresa</button>                
                   </div> 
                 </div>
-                
               </div>
             </div>
           </div>
         </div>
-
       </form>
     </section>
-    <!-- /.content -->
   </div>
   <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    $('#example').hover(function(){
+      $('#example').prop("title",$("#modalidade").children("option:selected")[0].attributes[0].textContent);
+    })
+
+
     function consultaCNPJ(CNPJ){
       CNPJ = CNPJ.replace(/[./-]/g, "")
       if(CNPJ.length==14){

@@ -5,9 +5,7 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -21,14 +19,8 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Flash message -->
-    
-    <!-- /.flash message -->
-
-    <!-- Main content -->
     <section class="content">     
       <div class="col-md-12">
         <?php 
@@ -69,7 +61,6 @@
               </div>             
             <p class="card-title">Lista de modalidades</p>
           </div>
-          <!-- /.card-header -->
           <div class="card-body table-responsive">
             <table id="tabela-modalidades" class="table table-bordered table-striped table-hover">
               <thead>                  
@@ -91,7 +82,7 @@
                   <td class=" text-nowrap"><a href="consultarModalidadeEdit.php?mod_id=<?=$row['mod_id']?>"><?= ucwords($row['mod_nome'])?></a></td>
                   <td class=" text-nowrap"><?= ucwords($row['mod_edital'])?></td>
                   <td class=" text-nowrap">
-                    <a href="consultarModalidadeEdit.php?mod_id=<?=$row['mod_id']?>" class="btn btn-primary btn-sm center">
+                    <a href="visualizarModalidade.php?mod_id=<?=$row['mod_id']?>" class="btn btn-primary btn-sm center">
                       <i class="far fa-eye"></i>&nbsp;
                       Visualizar
                     </a>
@@ -99,7 +90,7 @@
                       <i class="far fa-edit"></i>&nbsp;
                       Alterar
                     </a>
-                    <a href="../admin/ExcluiModalidade.php?mod_id=<?=$row['mod_id']?>" class="btn btn-danger btn-sm center" onclick="return confirm('Você realmente quer excluir essa empresa?');">
+                    <a href="../admin/ExcluiModalidade.php?mod_id=<?=$row['mod_id']?>" class="btn btn-danger btn-sm center" onclick="return confirm('Você realmente quer excluir essa modalidade?');">
                       <i class="far fa-trash-alt"></i>&nbsp;
                       Excluir
                     </a>
@@ -112,13 +103,9 @@
               </tbody>
             </table>
           </div>
-          <!-- /.card-body -->
-        <!-- /.card -->
       </div>
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
   <script>
     $('#tabela-modalidades').DataTable({
         "bPaginate": true,
