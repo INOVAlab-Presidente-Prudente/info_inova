@@ -63,7 +63,7 @@
                         <a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>"><?=$row['usu_nome']?></a>
                       </td> 
                       <td class=" text-nowrap"><?=$row['usu_cpf']?></td>
-                      <td class=" text-nowrap"><?= date_format($data, 'H\h:i')?> - <?=date_format($data,"d/m/Y")?></td>
+                      <td class=" text-nowrap"><?= date_format($data, 'H\hi')?> - <?=date_format($data,"d/m/Y")?></td>
                       <td class=" text-nowrap">
                         <button onclick='checkout("<?=$row["usu_cpf"]?>")' class="btn btn-danger btn-sm center">Fazer Checkout</button>
                       </td>

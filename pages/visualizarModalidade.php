@@ -5,16 +5,19 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 
-    if(isset($_GET['mod_id'])){
-        require_once("../admin/DB.php");
-        $sql = "SELECT * FROM modalidade WHERE mod_id = ".$_GET['mod_id']."";
-        $query = mysqli_query($connect, $sql);
-        $row = mysqli_fetch_assoc($query);
-        
-        if($row == NULL)
-            header("location: consultarModalidade.php");
-    }else
-        header("location: consultarModalidade.php");
+  if (!isset($_SESSION['admin']) && !isset($_SESSION['financeiro']))
+        header("location: ../");
+
+  if(isset($_GET['mod_id'])){
+      require_once("../admin/DB.php");
+      $sql = "SELECT * FROM modalidade WHERE mod_id = ".$_GET['mod_id']."";
+      $query = mysqli_query($connect, $sql);
+      $row = mysqli_fetch_assoc($query);
+      
+      if($row == NULL)
+          header("location: consultarModalidade.php");
+  }else
+      header("location: consultarModalidade.php");
 ?> 
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

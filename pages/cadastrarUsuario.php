@@ -194,7 +194,7 @@
                         <div class="form-group col-md-3">
                           <label>Estado</label>
                           <select name="estado" id="estado" class="form-control">                              
-                            <option>...</option>
+                            <option selected disabled value="">Selecione um estado</option>
                           </select>
                         </div>
                       </div>
@@ -290,41 +290,11 @@
       </form>
     </section>
   </div>
+</div>
   <script src="../js/verificaIdade.js"></script>
   <script src="../js/consultaCep.js"></script>
   <script>
-    window.onload = () => carregaEstados()
-    const geraSelects = (result) => {
-        var elem, indexAtual;
-        var i = 0;
-        const comboEstados = document.getElementById("estado");
-        for(var j = 0; j < result.length; j++){
-            elem = document.createElement("option");
-            elem.value = result[j].sigla;
-            elem.text = result[j].nome;
-            if(result[j].sigla == "<?=$row['usu_estado']?>")
-              elem.selected = 'selected';
-            comboEstados.add(elem, comboEstados.options[i++]);
-        }
-        comboEstados.value = "<?=$row['usu_estado']?>";
-    }
-
-    function carregaEstados(){
-        const options = {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'default'
-        }
-
-        fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome`, options)
-        .then(response => {
-            response.json()
-            .then( data => {
-                geraSelects(data);
-            } )
-        })
-        .catch(e => console.log('Deu erro: '+ e.message));
-    }
+    window.onload = () => carregaEstados("");
   </script>
 <?php
   include ('../includes/footer.php');

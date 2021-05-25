@@ -68,12 +68,12 @@ include ('../includes/sidebar.php');
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-10 offset-md-1">
-                  <div class="alert <?=$alertType?> alert-dismissible">
+                  <div class='alert <?=$alertType?> alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                     <div class="lead">
-                      <i class="far <?=$iconType?>"></i>&nbsp;
-                        <?= $mensagem ?>
+                      <i class='fas <?=$iconType?>'></i>&nbsp;<?= $mensagem ?>
                     </div>
-                  </div>               
+                  </div>             
                 </div>
               </div>
             </div>

@@ -52,7 +52,7 @@
                 <li class="nav-item">
                     <a href="/pages/checkin_checkout.php" class="nav-link">
                         <i class="nav-icon fas fa-calendar-check"></i>
-                        <p>Check-out</p>
+                        <p>Usuários ativos</p>
                     </a>
                 </li>
                 <?php endif;?>

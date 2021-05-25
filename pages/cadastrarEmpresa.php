@@ -41,19 +41,27 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                           <label>CNPJ</label>
                           <input required enabled onpaste="consultaCNPJ(this.value)" oninput="consultaCNPJ(this.value)" type="text" id="cnpj" name="cnpj" class="form-control">
                         </div>
+                        <div class="form-group col-md-3">
+                          <label>CPF</label>
+                          <input required enabled type="text" id="cpf" name="cpf" class="form-control">
+                        </div>
                         <div class="form-group col-md-6">
+                            <label>Email</label>
+                          <input required enabled type="email" id="email" name="email" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
                             <label>Telefone</label>
                           <input required enabled type="text" id="telefone" name="telefone" class="form-control">
                         </div>
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-4">
                           <label>Razão Social</label>
                           <input required enabled type="text" id="razao_social" name="razaoSocial" class="form-control">
                         </div>
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-4">
                           <label>Nome Fantasia</label>
                           <input required enabled type="text" id="nome_fantasia" name="nomeFantasia" class="form-control">
                         </div>
@@ -61,6 +69,8 @@
                           <label>Atividade Principal</label>
                           <input required enabled type="text" id="atividade_principal" name="areaAtuacao" class="form-control">
                         </div> 
+                      </div>
+                                            
                       <div class="form-group col-md-12">
                         <div class="row">
                           <div class="col-md-2 my-auto">
@@ -99,10 +109,56 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-footer"> 
-                  <div class="row">
-                    <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="nav-icon fas fa-briefcase"></i>&nbsp;&nbsp;Salvar Dados da Empresa</button>                
-                  </div> 
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card card-secondary">
+                  <div class="card-header">
+                    <p class="card-title">Endereço</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="form-group col-md-2">
+                            <label>CEP</label>
+                            <input required enabled pattern="[0-9]{5}-[0-9]{3}" minlength="9" maxlength="9" onpaste="consultaCEP(this.value)" oninput="consultaCEP(this.value)" type="text" id="cep" name="cep" class="form-control">
+                          </div>
+                          <div class="form-group col-md-7">
+                            <label>Endereço</label>
+                            <input required enabled type="text" id="endereco" name="endereco" class="form-control">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label>Complemento</label>
+                            <input enabled type="text" id="complemento" name="complemento" class="form-control">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label>Bairro</label>
+                            <input required enabled type="text" id="bairro" name="bairro" class="form-control">
+                          </div>
+                          <div class="form-group col-md-5">
+                            <label>Município</label>
+                            <input required enabled type="text" id="municipio" name="municipio" class="form-control">
+                          </div>                      
+                          <div class="form-group col-md-3">
+                            <label>Estado</label>
+                            <select name="estado" id="estado" class="form-control">                              
+                              <option selected disabled value="">Selecione um estado</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer"> 
+                    <div class="row">
+                      <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="nav-icon fas fa-briefcase"></i>&nbsp;&nbsp;Salvar Dados da Empresa</button>                
+                    </div> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -111,7 +167,10 @@
       </form>
     </section>
   </div>
+  <script src="../js/consultaCep.js"></script>
   <script>
+    window.onload = () => carregaEstados("");
+
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     });

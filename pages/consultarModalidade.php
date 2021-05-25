@@ -4,6 +4,9 @@
   include ('../includes/primeirologin.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
+  
+  if (!isset($_SESSION['admin']) && !isset($_SESSION['financeiro']))
+        header("location: ../");
 ?>
   <div class="content-wrapper">
     <section class="content-header">
