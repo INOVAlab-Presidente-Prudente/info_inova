@@ -21,14 +21,6 @@ if (isset($cpf)) {
         $che_id = $fetch['che_id'];
 
         $aviso = "";
-        if($socio != null){
-            $sql2 = "SELECT emp_razao_social FROM empresa WHERE emp_pendencia = true AND emp_id=".$emp;
-            $query2 = mysqli_query($connect, $sql2);
-            $row2 = mysqli_fetch_assoc($query2);
-            if($row2 != null){
-                $aviso = "&avisoPendencia=true";
-            }
-        }
         // verifica se ja existe um check in aberto
         if ($horarioEntrada != null) {
             $sql = "UPDATE check_in SET che_horario_saida = '".date("Y-m-d H:i:s")."' WHERE che_id = '".$che_id."'";

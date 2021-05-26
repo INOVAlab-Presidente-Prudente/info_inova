@@ -68,6 +68,7 @@
             <table id="tabela-modalidades" class="table table-bordered table-striped table-hover">
               <thead>                  
                 <tr>
+                  <th>Código</th>
                   <th>Modalidade</th>
                   <th>Edital</th>
                   <th></th>
@@ -82,8 +83,9 @@
                     while($row != null):
                 ?>
                 <tr>
-                  <td class=" text-nowrap"><a href="consultarModalidadeEdit.php?mod_id=<?=$row['mod_id']?>"><?= ucwords($row['mod_nome'])?></a></td>
-                  <td class=" text-nowrap"><?= ucwords($row['mod_edital'])?></td>
+                  <td><?=htmlspecialchars($row['mod_codigo'])?></td>
+                  <td class=" text-nowrap"><a href="visualizarModalidade.php?mod_id=<?=$row['mod_id']?>"><?= htmlspecialchars(ucwords($row['mod_nome']))?></a></td>
+                  <td class=" text-nowrap"><?=htmlspecialchars(ucwords($row['mod_edital']))?></td>
                   <td class=" text-nowrap">
                     <a href="visualizarModalidade.php?mod_id=<?=$row['mod_id']?>" class="btn btn-primary btn-sm center">
                       <i class="far fa-eye"></i>&nbsp;

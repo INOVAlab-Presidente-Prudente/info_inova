@@ -81,6 +81,7 @@
             <!-- info row -->
               <div class="row invoice-info mb-2">
                 <div class="col-md-10 offset-md-1 invoice-col">
+                  <b>Código:</b> <?=$row['mod_codigo']?><br>
                   <b>Nome:</b> <?=ucwords($row['mod_nome'])?><br>
                   <b>Descrição:</b> <?=$row['mod_descricao']?><br>
                   <b>Valor Mensal:</b> R$<?=$row['mod_valMensal']?><br>

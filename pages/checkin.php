@@ -51,11 +51,11 @@ include ('../includes/sidebar.php');
       <?php //Alerts (checkin, checkout, erro)
         if(isset($_GET['status'])){
           if($_GET['status'] == 'checkin'){
-            $mensagem = "Check-in de <strong>".$usuario['usu_nome']."</strong> realizado com sucesso";
+            $mensagem = "Check-in de <strong>".htmlspecialchars($usuario['usu_nome'])."</strong> realizado com sucesso";
             $alertType = "alert-success";
             $iconType = "fa-check-square";
           }else if($_GET['status'] == 'checkout'){
-            $mensagem = "Check-out de <strong>".$usuario['usu_nome']."</strong> realizado com sucesso.";
+            $mensagem = "Check-out de <strong>".htmlspecialchars($usuario['usu_nome'])."</strong> realizado com sucesso.";
             $alertType = "alert-secondary";
             $iconType = "fa-square";
           }else if($_GET['status'] == 'erro'){
@@ -148,29 +148,29 @@ include ('../includes/sidebar.php');
                   <!-- info row -->
                   <div class="row invoice-info mb-4">
                     <div class="col-md-6 invoice-col">
-                      <b>Email: </b><?=$usuario['usu_email']?><br>
-                      <b>Data de nascimento: </b><?=date_format(date_create($usuario['usu_data_nascimento']),"d/m/Y")?><br>
-                      <b>RG: </b><?=$usuario['usu_rg']?><br>
-                      <b>CPF: </b><?=$usuario['usu_cpf']?><br>
-                      <b>Telefone: </b><?=$usuario['usu_telefone']?><br>
+                      <b>Email: </b><?=htmlspecialchars($usuario['usu_email'])?><br>
+                      <b>Data de nascimento: </b><?=htmlspecialchars(date_format(date_create($usuario['usu_data_nascimento']),"d/m/Y"))?><br>
+                      <b>RG: </b><?=htmlspecialchars($usuario['usu_rg'])?><br>
+                      <b>CPF: </b><?=htmlspecialchars($usuario['usu_cpf'])?><br>
+                      <b>Telefone: </b><?=htmlspecialchars($usuario['usu_telefone'])?><br>
                       <?php if ($usuario['usu_responsavel'] != null):?>
-                        <b>Nome do Responsável: </b><?=$usuario['usu_responsavel']?><br>
-                        <b>Telefone do Responsável: </b><?=$usuario['usu_tel_responsavel']?><br>
+                        <b>Nome do Responsável: </b><?=htmlspecialchars($usuario['usu_responsavel'])?><br>
+                        <b>Telefone do Responsável: </b><?=htmlspecialchars($usuario['usu_tel_responsavel'])?><br>
                       <?php endif;?>
                     </div><!-- /.col -->
                     <div class="col-md-6 invoice-col">
-                      <b>Área de Atuação: </b><?=$usuario['usu_area_atuacao']?><br>
-                      <b>Área de Interesse: </b><?=$usuario['usu_area_interesse']?><br>
+                      <b>Área de Atuação: </b><?=htmlspecialchars($usuario['usu_area_atuacao'])?><br>
+                      <b>Área de Interesse: </b><?=htmlspecialchars($usuario['usu_area_interesse'])?><br>
                       <?php if ($usuario['emp_id'] != null):?>
-                        <b>Empresa: </b><?=$row['emp_nome_fantasia']?><br>
+                        <b>Empresa: </b><?=htmlspecialchars($row['emp_nome_fantasia'])?><br>
                       <?php endif;?>
-                      <b>Socio: </b><?=$usuario['usu_socio']? "sim": "não" ?><br>
+                      <b>Socio: </b><?=htmlspecialchars($usuario['usu_socio']? "sim": "não")?><br>
                       <?php 
                         $sql = "SELECT pu_descricao FROM perfil_usuario p INNER JOIN usuario u ON u.pu_id = p.pu_id";
                         $query = mysqli_query($connect, $sql);
                         $perfil = mysqli_fetch_assoc($query)['pu_descricao'];
                       ?>                 
-                      <b>Perfil de Usuário: </b><?=ucwords($perfil)?><br>
+                      <b>Perfil de Usuário: </b><?=htmlspecialchars(ucwords($perfil))?><br>
                     </div><!-- /.col -->
                   </div><!-- /.row -->
                   <?php 

@@ -96,9 +96,9 @@
                       else
                           echo '<img src="../images/avatar-df.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
                     ?>
-                    <?=$row['usu_nome']?>
+                    <?=htmlspecialchars($row['usu_nome'])?>
                   </td>
-                  <td class=" text-nowrap"><?=$row['usu_cpf']?></td>
+                  <td class=" text-nowrap"><?=htmlspecialchars($row['usu_cpf'])?></td>
                   <?php $dis = (($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])))? "":"disabled"?>
                   <td class=" text-nowrap">
                     <a <?=$dis?> class="btn btn-info btn-sm center" name="ocorrencias" href="ocorrencias.php?usu_id=<?=$row['usu_id']?>">

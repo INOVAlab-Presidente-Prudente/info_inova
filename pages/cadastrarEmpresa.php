@@ -45,11 +45,7 @@
                           <label>CNPJ</label>
                           <input required enabled onpaste="consultaCNPJ(this.value)" oninput="consultaCNPJ(this.value)" type="text" id="cnpj" name="cnpj" class="form-control">
                         </div>
-                        <div class="form-group col-md-3">
-                          <label>CPF</label>
-                          <input required enabled type="text" id="cpf" name="cpf" class="form-control">
-                        </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-9">
                             <label>Email</label>
                           <input required enabled type="email" id="email" name="email" class="form-control">
                         </div>
@@ -125,7 +121,7 @@
                         <div class="row">
                           <div class="form-group col-md-2">
                             <label>CEP</label>
-                            <input required enabled pattern="[0-9]{5}-[0-9]{3}" minlength="9" maxlength="9" onpaste="consultaCEP(this.value)" oninput="consultaCEP(this.value)" type="text" id="cep" name="cep" class="form-control">
+                            <input required enabled pattern="[0-9]{5}-[0-9]{3}" minlength="9" maxlength="9" onpaste="consultaCEP(this.value)" onchange="consultaCEP(this.value)" oninput="consultaCEP(this.value)" type="text" id="cep" name="cep" class="form-control">
                           </div>
                           <div class="form-group col-md-7">
                             <label>Endereço</label>
@@ -150,14 +146,11 @@
                             </select>
                           </div>
                         </div>
-                      </div>
+                        <div class="row">
+                          <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="nav-icon fas fa-briefcase"></i>&nbsp;&nbsp;Salvar Dados da Empresa</button> 
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="card-footer"> 
-                    <div class="row">
-                      <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="nav-icon fas fa-briefcase"></i>&nbsp;&nbsp;Salvar Dados da Empresa</button>                
-                    </div> 
                   </div>
                 </div>
               </div>
@@ -196,6 +189,14 @@
       document.getElementById('telefone').value=(conteudo.telefone.replace(" ", ""));
       document.getElementById('atividade_principal').value= (conteudo.atividade_principal[0].text);
       document.getElementById('nome_fantasia').value = (conteudo.fantasia);
+      document.getElementById('cep').value = (conteudo.cep.replace(".", ""));
+      document.getElementById('endereco').value = (conteudo.logradouro);
+      document.getElementById('complemento').value = (conteudo.complemento);
+      document.getElementById('bairro').value = (conteudo.bairro);
+      document.getElementById('municipio').value = (conteudo.municipio);
+      document.getElementById('estado').value = (conteudo.uf);
+      document.getElementById('email').value = (conteudo.email);
+               
     }
 
     function residenteCheck(button){

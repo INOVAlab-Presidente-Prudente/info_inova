@@ -47,7 +47,11 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-1">
+                            <label>Código</label>
+                            <input required type="text" name="codigo" class="form-control">
+                        </div>
+                        <div class="form-group col-md-11">
                             <label>Nome</label>
                             <input required type="text" name="nome" class="form-control">
                         </div>
@@ -57,11 +61,11 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label>Valor Mensal</label>
+                            <label>Valor Mensal (R$)</label>
                             <input required type="text" pattern="[0-9\.]+" name="valorMensal" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
-                            <label>Valor Anual</label>
+                            <label>Valor Anual (R$)</label>
                             <input required type="text" pattern="[0-9\.]+" name="valorAnual" class="form-control">
                         </div>
                         <div class="form-group col-md-12">

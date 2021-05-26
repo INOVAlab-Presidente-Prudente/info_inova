@@ -84,8 +84,8 @@
                     else
                       $nome = $row['emp_nome_fantasia'];
                   ?>
-                  <td class=" text-nowrap"><?=$row['emp_cnpj']?></td>
-                  <td class=" text-nowrap"><?=$nome?></td>
+                  <td class=" text-nowrap"><?=htmlspecialchars($row['emp_cnpj'])?></td>
+                  <td class=" text-nowrap"><?=htmlspecialchars($nome)?></td>
                   <td class=" text-nowrap">
                     <a href="visualizarEmpresa.php?cnpj=<?=$row['emp_cnpj']?>" class="btn btn-primary btn-sm center">
                       <i class="far fa-eye"></i>&nbsp;

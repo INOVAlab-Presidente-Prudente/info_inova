@@ -337,6 +337,7 @@
     </section>
   </div>
   <script src="../js/verificaIdade.js"></script>
+  <script src="../js/consultaCep.js"></script>
   <script>
     window.onload = () => carregaEstados("<?=$row['usu_estado']?>");
   </script>

@@ -18,11 +18,9 @@
     else
         header("location: consultarEmpresa.php");
 ?> 
-  <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
+    <section class="content-header">
+      <section class="container-fluid">
         <?php 
         if (isset($_GET['empresa_alterada'])){
             echo "<div class='alert alert-success alert-dismissible'>
@@ -30,45 +28,34 @@
                     <h5><i class='fas fa-check'></i>&nbspEmpresa Alterada!</h5>
                         <p>A empresa foi alterada com sucesso!</p>
                   </div>";
-
         }
         ?>
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Visualizar Empresa</h1>
-          </div><!-- /.col -->
+          </div>
           <div class="col-sm-6">
-            <!-- Breadcrumbs -->
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="checkin.php">Início</a></li>
               <li class="breadcrumb-item"><a href="consultarEmpresa.php">Empresas</a></li>
               <li class="breadcrumb-item">Visualizar</li>
             </ol>
-            <!-- /.Breadcrumbs -->
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Flash message -->
+          </div>
+        </div>
+      </section>
+    </section>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-10 offset-md-1">
 
         </div>
       </div>
-    </div>    
-    <!-- /.flash message -->
-
-    <!-- Main content -->
+    </div>
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <!-- Main content -->
             <div class="invoice p-3 mb-3">
-            <!-- title row -->
               <div class="row">
                 <div class="col-12 mb-4">
                   <h2><?=ucwords($row['emp_nome_fantasia'] == null ? $row['emp_razao_social'] : $row['emp_nome_fantasia']) ?></h2>
@@ -77,25 +64,47 @@
                     Alterar Empresa
                   </a>
                 </div>
-                <!-- /.col -->
               </div>
-            <!-- info row -->
               <div class="row invoice-info mb-2">
-                <div class="col-md-10 offset-md-1 invoice-col">
-                  <b>CNPJ:</b> <?=$row['emp_cnpj']?><br>
-                  <b>Telefone:</b> <?=$row['emp_telefone']?><br>
-                  <b>Razão Social:</b> <?=strtoupper($row['emp_razao_social'])?><br>
-                  <b>Nome Fantasia:</b> <?=$row['emp_nome_fantasia']?><br>
-                  <b>Atividade Principal:</b> <?=$row['emp_area_atuacao']?><br>  
+                <div class="col-md-6 invoice-col">
+                  <b>CNPJ:</b>&nbsp;<?=$row['emp_cnpj']?><br>
+                  <b>Telefone:</b>&nbsp;<?=$row['emp_telefone']?><br>
+                  <b>Email:</b>&nbsp;<?=$row['emp_email']?><br>
+                  <b>Razão Social:</b>&nbsp;<?=strtoupper($row['emp_razao_social'])?><br>
+                  <b>Nome Fantasia:</b>&nbsp;<?=$row['emp_nome_fantasia']?><br>
+                  <b>Atividade Principal:</b>&nbsp;<?=$row['emp_area_atuacao']?><br>  
                 </div>
-                <!-- /.col -->
-              </div><!-- /.row -->
-            </div><!-- /.invoice -->
-          </div><!-- /.col -->
-        </div><!-- /.row -->        
-      </div><!-- /.container-fluid -->
+                <div class="col-md-6 invoice-col">
+                  <?php
+                    if(isset($row['mod_id'])){
+                      require_once("../admin/DB.php");
+                      $sql = "SELECT * FROM modalidade WHERE mod_id = '".$row['mod_id']."'";
+                      $query2 = mysqli_query($connect, $sql);
+                      $row2 = mysqli_fetch_assoc($query2);
+                      
+                      if($row2 == NULL){
+                        echo "<b>Modalide:</b>&nbsp;Modalidade não existente!<br/>";}
+                      else{
+                        echo "<b>Modalide:</b>&nbsp;".$row2['mod_nome'].".<br/>";
+                      }
+                    }
+                    else
+                      echo "<b>Modalide:</b>&nbsp;Empresa não possui modalidade contratada.<br/>";
+                        
+                  ?>
+                  
+                  <b>Município:</b>&nbsp;<?=$row['emp_municipio']?> - <?= $row['emp_estado']?><br/>
+                  <b>CEP:</b>&nbsp;<?=$row['emp_cep']?><br/>
+                  <b>Endereço:</b>&nbsp;<?=$row['emp_endereco']?> - <b>Complemento:</b>&nbsp;<?= $row['emp_complemento']?><br/>
+                  <b>Bairro:</b>&nbsp;<?=$row['emp_bairro']?><br/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>     
+      </div>
     </section>
-    <!-- /.content -->
+  </section>
 </div>
 <?php
   

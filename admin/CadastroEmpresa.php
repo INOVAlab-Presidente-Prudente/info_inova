@@ -14,18 +14,17 @@ $endereco = $_POST['endereco'];
 $municipio = $_POST['municipio'];
 $bairro = $_POST['bairro'];
 $estado = $_POST['estado'];
+$complemento = $_POST['complemento'];
 $email = $_POST['email'];
 
 
 if (!empty($cep) && !empty($email) && !empty($estado) && !empty($municipio) && !empty($bairro) && !empty($endereco) && !empty($razaoSocial) && !empty($cnpj) && !empty($telefone) && !empty($areaAtuacao) && !empty($modalidade)) {
     require_once("DB.php");
-    $sql = "INSERT INTO empresa VALUES (null, '".$razaoSocial."', '".$cnpj."', '".$telefone."', '".$areaAtuacao."', ".$modalidade.", 0, '".$nomeFantasia."', ".$residente.")";
-    $sql = "INSERT INTO empresa (emp_id, emp_razao_social, emp_cpf, emp_cnpj, emp_telefone,
+    $sql = "INSERT INTO empresa (emp_id, emp_razao_social, emp_cnpj, emp_telefone,
             mod_id, emp_nome_fantasia, emp_residente, emp_municipio, 
-            emp_endereco, emp_bairro, emp_estado, emp_area_atuacao, emp_cep, emp_email) VALUES (
+            emp_endereco, emp_bairro, emp_estado, emp_area_atuacao, emp_cep, emp_email, emp_complemento) VALUES (
                 null,
                 '".$razaoSocial."',
-                'cpf',
                 '".$cnpj."',
                 '".$telefone."',
                 ".$modalidade.",
@@ -37,7 +36,8 @@ if (!empty($cep) && !empty($email) && !empty($estado) && !empty($municipio) && !
                 '".$estado."',
                 '".$areaAtuacao."',
                 '".$cep."',
-                '".$email."'
+                '".$email."',
+                '".$complemento."'
             )";
     $query = mysqli_query($connect, $sql);
     if ($query) {
@@ -57,9 +57,8 @@ if (!empty($cep) && !empty($email) && !empty($estado) && !empty($municipio) && !
         else {
             echo "<div class='alert alert-danger alert-dismissible'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-            <h5><i class='icon fas fa-ban'></i> Empresa não foi cadastrada tente novamente!</h5>
+            <h5><i class='icon fas fa-ban'></i> Ocorreu um erro ao cadastrar, tente novamente ou contate um Administrador!</h5>
           </div>";
-            var_dump(mysqli_error($connect));
         }
             
     }
