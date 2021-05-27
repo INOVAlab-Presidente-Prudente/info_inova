@@ -58,7 +58,7 @@
             <div class="invoice p-3 mb-3">
               <div class="row">
                 <div class="col-12 mb-4">
-                  <h2><?=ucwords($row['emp_nome_fantasia'] == null ? $row['emp_razao_social'] : $row['emp_nome_fantasia']) ?></h2>
+                  <h2><?=ucwords($row['emp_nome_fantasia'] == null ? htmlspecialchars($row['emp_razao_social']) : htmlspecialchars($row['emp_nome_fantasia'])) ?></h2>
                   <a href="consultarEmpresaEdit.php?cnpj=<?=$_GET['cnpj']?>&alterar=enabled" class="btn btn-warning btn-sm center">
                     <i class="fas fa-edit"></i>&nbsp;
                     Alterar Empresa
@@ -67,12 +67,12 @@
               </div>
               <div class="row invoice-info mb-2">
                 <div class="col-md-6 invoice-col">
-                  <b>CNPJ:</b>&nbsp;<?=$row['emp_cnpj']?><br>
-                  <b>Telefone:</b>&nbsp;<?=$row['emp_telefone']?><br>
-                  <b>Email:</b>&nbsp;<?=$row['emp_email']?><br>
-                  <b>Razão Social:</b>&nbsp;<?=strtoupper($row['emp_razao_social'])?><br>
-                  <b>Nome Fantasia:</b>&nbsp;<?=$row['emp_nome_fantasia']?><br>
-                  <b>Atividade Principal:</b>&nbsp;<?=$row['emp_area_atuacao']?><br>  
+                  <b>CNPJ:</b>&nbsp;<?=htmlspecialchars($row['emp_cnpj'])?><br>
+                  <b>Telefone:</b>&nbsp;<?=htmlspecialchars($row['emp_telefone'])?><br>
+                  <b>Email:</b>&nbsp;<?=htmlspecialchars($row['emp_email'])?><br>
+                  <b>Razão Social:</b>&nbsp;<?=htmlspecialchars(strtoupper($row['emp_razao_social']))?><br>
+                  <b>Nome Fantasia:</b>&nbsp;<?=htmlspecialchars($row['emp_nome_fantasia'])?><br>
+                  <b>Atividade Principal:</b>&nbsp;<?=htmlspecialchars($row['emp_area_atuacao'])?><br>  
                 </div>
                 <div class="col-md-6 invoice-col">
                   <?php
@@ -85,7 +85,7 @@
                       if($row2 == NULL){
                         echo "<b>Modalide:</b>&nbsp;Modalidade não existente!<br/>";}
                       else{
-                        echo "<b>Modalide:</b>&nbsp;".$row2['mod_nome'].".<br/>";
+                        echo "<b>Modalide:</b>&nbsp;".$row2['mod_nome']."<br/>";
                       }
                     }
                     else
@@ -93,10 +93,10 @@
                         
                   ?>
                   
-                  <b>Município:</b>&nbsp;<?=$row['emp_municipio']?> - <?= $row['emp_estado']?><br/>
-                  <b>CEP:</b>&nbsp;<?=$row['emp_cep']?><br/>
-                  <b>Endereço:</b>&nbsp;<?=$row['emp_endereco']?> - <b>Complemento:</b>&nbsp;<?= $row['emp_complemento']?><br/>
-                  <b>Bairro:</b>&nbsp;<?=$row['emp_bairro']?><br/>
+                  <b>Município:</b>&nbsp;<?=htmlspecialchars($row['emp_municipio'])?> - <?=htmlspecialchars( $row['emp_estado'])?><br/>
+                  <b>CEP:</b>&nbsp;<?=htmlspecialchars($row['emp_cep'])?><br/>
+                  <b>Endereço:</b>&nbsp;<?=htmlspecialchars($row['emp_endereco'])?> - <b>Complemento:</b>&nbsp;<?=htmlspecialchars( $row['emp_complemento'])?><br/>
+                  <b>Bairro:</b>&nbsp;<?=htmlspecialchars($row['emp_bairro'])?><br/>
                 </div>
               </div>
             </div>

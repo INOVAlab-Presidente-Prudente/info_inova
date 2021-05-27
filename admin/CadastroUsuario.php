@@ -9,11 +9,11 @@ $rg = $_POST['rg'];
 $dataNascimento = $_POST['dataNascimento'];
 $idade = $_POST['idade'];
 if($idade < 18){
-    $responsavel = "'".$_POST['responsavel']."'";
-    $telResponsavel = "'".$_POST['telResponsavel']."'";
+    $responsavel = $_POST['responsavel'];
+    $telResponsavel = $_POST['telResponsavel'];
     
 }else{
-    $responsavel = $telResponsavel = "null";
+    $responsavel = $telResponsavel = null;
 }
 
 $cep = $_POST['cep'];
@@ -41,7 +41,7 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     require_once("DB.php");
 
     if ($empresa == '...')
-        $empresa = 'null';
+        $empresa = null;
     
     if (isset($_POST['socio']) && $empresa != 'null')
         $socio = true;
@@ -63,18 +63,42 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     $query = mysqli_query($connect, $sql);
 
     if (!mysqli_num_rows($query)) {
-        $sql = "INSERT INTO usuario (usu_id, pu_id, emp_id, usu_nome, usu_rg, usu_cpf, usu_data_nascimento, usu_responsavel, usu_tel_responsavel, usu_endereco, usu_cep, usu_bairro, usu_municipio, usu_area_atuacao, usu_area_interesse, usu_telefone, usu_email, usu_senha, usu_socio, usu_primeiro_login, usu_complemento, usu_estado) VALUES (null, ".$perfilUsuario.", ".$empresa.", '".$nome."', '".$rg."', '".$cpf."', '".$dataNascimento."',".$responsavel.",".$telResponsavel.", '".$endereco."', '".$cep."', '".$bairro."', '".$municipio."', '".$areaAtuacao."', '".$areaInteresse."', '".$telefone."', '".$email."', '".$senhaHash."', ".$socio.", ".$primeiroLogin.", '".$complemento."', '".$estado."')";
-        $query = mysqli_query($connect, $sql);
+        $sql = "INSERT INTO usuario (pu_id, emp_id, usu_nome, usu_rg, usu_cpf, usu_data_nascimento, usu_responsavel, usu_tel_responsavel, usu_endereco, usu_cep, usu_bairro, usu_municipio, usu_area_atuacao, usu_area_interesse, usu_telefone, usu_email, usu_senha, usu_socio, usu_primeiro_login, usu_complemento, usu_estado) 
+        VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $prepare = mysqli_prepare($connect, $sql);
+        $bindParam = mysqli_stmt_bind_param($prepare, "iisssssssssssssssiiss", 
+            $perfilUsuario,
+            $empresa,
+            $nome,
+            $rg,
+            $cpf,
+            $dataNascimento,
+            $responsavel,
+            $telResponsavel,
+            $endereco,
+            $cep,
+            $bairro,
+            $municipio,
+            $areaAtuacao,
+            $areaInteresse,
+            $telefone,
+            $email,
+            $senhaHash,
+            $socio,
+            $primeiroLogin, 
+            $complemento,
+            $estado
+        );
+
         if (!$perfilUsuario){
             echo "<div class='col alert alert-warning alert-dismissible'>
-                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                    <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
-                    <p>Você nao tem permissão para cadastrar um usuário com esse perfil.</p>
-                  </div>";
+            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
+            <p>Você nao tem permissão para cadastrar um usuário com esse perfil.</p>
+            </div>";
         }
-        
         else {
-            if ($query){
+            if (mysqli_stmt_execute($prepare)){
                 echo "<div class='col alert alert-success alert-dismissible'>
                         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                         <h5><i class='fas fa-check'></i>&nbspUsuário Cadastrado!</h5>
@@ -126,7 +150,7 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
 else {
     echo "<div class='col alert alert-warning alert-dismissible'>
     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-    <h5><i class='fas fa-exclamation-triangle'></i>&nbspNão foi possível cadastar o(a) usuário!</h5>
+    <h5><i class='fas fa-exclamation-triangle'></i>&nbspNão foi possível cadastar usuário!</h5>
         <p>Preencha todos os campos!.</p>
     </div>";
 }

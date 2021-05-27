@@ -18,7 +18,6 @@
   else
     header("location: /pages/adminPage.php");
 ?>
-<?=var_dump($row['emp_id'])?>
   <div class="content-wrapper">
     <div class="content-header">
       <div class="container-fluid">
@@ -44,22 +43,22 @@
               if (isset($_GET['usuario_alterado'])){
                 echo "<div class='alert alert-success alert-dismissible'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                <h5><i class='fas fa-check'></i>&nbspUsuário(a) Alterado(a)!</h5>
-                    <p>Usuário(a) foi alterado(a) com sucesso!</p>
+                <h5><i class='fas fa-check'></i>&nbspUsuário Alterado!</h5>
+                    <p>Usuário foi alterado com sucesso!</p>
                 </div>";
               }
               if (isset($_GET['usuario_nao_alterado'])){
                   echo "<div class='alert alert-warning alert-dismissible'>
                           <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                           <h5><i class='fas fa-exclamation-triangle'></i>&nbspDados Incorretos!</h5>
-                          <p>Não foi possível alterar este(a) usuário(a).</p>
+                          <p>Não foi possível alterar este usuário.</p>
                         </div>";
               }
               if (isset($_GET['erro'])){
                 echo "<div class='alert alert-warning alert-dismissible'>
                         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                         <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
-                        <p>Você nao tem permissão para alterar um(a) usuário(a) com esse perfil.</p>
+                        <p>Você nao tem permissão para alterar um usuário com esse perfil.</p>
                       </div>";
               }
             ?>
@@ -72,7 +71,7 @@
                         else
                             echo '<img id="imgUsuario" src="../images/avatar-df.png" class="profile-user-img img-fluid img-circle border-2 border-default" alt="User Image">';
                     ?>
-                  <h2><?=$row['usu_nome']?></h2>
+                  <h2><?=htmlspecialchars($row['usu_nome'])?></h2>
                   <a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>&alterar=true" class="btn btn-warning btn-sm center">
                     <i class="fas fa-edit"></i>&nbsp;
                     Alterar Usuário
@@ -81,39 +80,39 @@
               </div>
               <div class="row invoice-info mb-4">
                 <div class="col-md-4 invoice-col">
-                  <b>Email: </b><?=$row['usu_email']?><br/>
-                  <b>Data de nascimento: </b><?=$row['usu_data_nascimento']?><br/>
-                  <b>RG: </b><?=$row['usu_rg']?><br/>
-                  <b>CPF: </b><?=$row['usu_cpf']?><br/>
-                  <b>Telefone: </b><?=$row['usu_telefone']?><br/>
+                  <b>Email: </b><?=htmlspecialchars($row['usu_email'])?><br/>
+                  <b>Data de nascimento: </b><?=htmlspecialchars($row['usu_data_nascimento'])?><br/>
+                  <b>RG: </b><?=htmlspecialchars($row['usu_rg'])?><br/>
+                  <b>CPF: </b><?=htmlspecialchars($row['usu_cpf'])?><br/>
+                  <b>Telefone: </b><?=htmlspecialchars($row['usu_telefone'])?><br/>
                   <!-- Fazer Verificação para ver se tem responsável -->
                   <?php           
                     if($row['usu_responsavel'] != null && $row['usu_tel_responsavel'] != null){
-                        echo "<b>Nome do Responsável: </b>".$row['usu_responsavel']."<br/>";
-                        echo "<b>Telefone do Responsável: </b>".$row['usu_tel_responsavel']."<br/>";
+                        echo "<b>Nome do Responsável: </b>".htmlspecialchars($row['usu_responsavel'])."<br/>";
+                        echo "<b>Telefone do Responsável: </b>".htmlspecialchars($row['usu_tel_responsavel'])."<br/>";
                     }
                   ?>
                 </div>
                 <div class="col-md-4 invoice-col">
-                  <b>Área de Atuação: </b><?=$row['usu_area_atuacao']?><br/>
-                  <b>Área de Interesse: </b><?=$row['usu_area_interesse']?><br/>
+                  <b>Área de Atuação: </b><?=htmlspecialchars($row['usu_area_atuacao'])?><br/>
+                  <b>Área de Interesse: </b><?=htmlspecialchars($row['usu_area_interesse'])?><br/>
                   <?php 
                     if ($row['emp_id'] != null):
                       $empresa = $row['emp_nome_fantasia'] ? $row['emp_nome_fantasia'] : $row['emp_razao_social'];
                   ?>
-                    <b>Empresa: </b><?=$empresa?><br/>
+                    <b>Empresa: </b><?=htmlspecialchars($empresa)?><br/>
                     <b>Socio: </b><?=$row['usu_socio'] ? "Sim" : "Não";?><br/>                  
                   <?php endif;?>
-                  <b>Perfil de Usuário: </b><?=ucwords($row['pu_descricao'])?><br/>
+                  <b>Perfil de Usuário: </b><?=htmlspecialchars(ucwords($row['pu_descricao']))?><br/>
                 </div>
                 <div class="col-md-4 invoice-col">
                   <address>
-                    <b>CEP: </b><?=$row['usu_cep']?><br/>
-                    <b>Endereço: </b><?=$row['usu_endereco']?><br/>
-                    <b>Complemento: </b><?=$row['usu_complemento']?><br/>
-                    <b>Bairro: </b><?=$row['usu_bairro']?><br/>                
-                    <b>Cidade: </b><?=$row['usu_municipio']?><br/>
-                    <b>Estado: </b><?=$row['usu_estado']?><br/>
+                    <b>CEP: </b><?=htmlspecialchars($row['usu_cep'])?><br/>
+                    <b>Endereço: </b><?=htmlspecialchars($row['usu_endereco'])?><br/>
+                    <b>Complemento: </b><?=htmlspecialchars($row['usu_complemento'])?><br/>
+                    <b>Bairro: </b><?=htmlspecialchars($row['usu_bairro'])?><br/>                
+                    <b>Cidade: </b><?=htmlspecialchars($row['usu_municipio'])?><br/>
+                    <b>Estado: </b><?=htmlspecialchars($row['usu_estado'])?><br/>
                   </address>
                 </div>
               </div>

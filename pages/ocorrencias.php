@@ -16,16 +16,16 @@
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item">    <a href="adminPage.php">Home</a> </li>
                                 <li class="breadcrumb-item">    <a href="consultarUsuario.php">Usuários</a> </li>
-                                <li class="breadcrumb-item active">   <a href="ocorrencias.php?usu_id=<?=$_GET['usu_id']?>">Ocorrências</a></li>
+                                <li class="breadcrumb-item active">Ocorrências</li>
                             </ol>
                         </div>
 
                     </div>
                 </div>
             </section>
-            <div class="container-fluid">
+            <section class="content">
                 <div class="row">
-                    <div class="col-md-10 offset-md-1">
+                    <div class="col-md-12">
                         <?php
                             if(isset($_GET['excluido'])){
                                 $output = "Ocorrência excluída com sucesso.";
@@ -66,12 +66,6 @@
                                 </div>";
                             }
                         ?> 
-                    </div>
-                </div>
-            </div>
-            <section class="content">
-                <div class="row">
-                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 <p class="card-title">Lista de ocorrências</p>
@@ -90,9 +84,9 @@
                                     if($query){
                                         $row = mysqli_fetch_assoc($query);?>
                                         <div class="lead">
-                                           Nome: <strong><?=$row['usu_nome']?></strong>
+                                           Nome: <strong><?=htmlspecialchars($row['usu_nome'])?></strong>
                                            <br/>
-                                           <small>CPF: <?=$row['usu_cpf']?></small>
+                                           <small>CPF: <?=htmlspecialchars($row['usu_cpf'])?></small>
                                         </div>
                                         <?php 
                                             $sql = "SELECT * FROM ocorrencia WHERE usu_id = '".$_GET['usu_id']."' ORDER BY oc_data";
@@ -105,8 +99,8 @@
                                             while($res != null){
                                                 $data = date_create($res['oc_data']);
                                                 echo "<blockquote  class='quote-info'>";
-                                                    echo "Data: <strong>".date_format($data,"d/m/Y")."</strong> - Horário: <strong>".date_format($data, 'H:i\m\i\n')."</strong>";
-                                                    echo "<p>".$res['oc_descricao']."</p>"; //Colocar modal de excluir
+                                                    echo "Data: <strong>".htmlspecialchars(date_format($data,"d/m/Y"))."</strong> - Horário: <strong>".htmlspecialchars(date_format($data, 'H:i\m\i\n'))."</strong>";
+                                                    echo "<p>".htmlspecialchars($res['oc_descricao'])."</p>"; //Colocar modal de excluir
                                                     echo "<a class='btn btn-danger btn-sm center' type='link' name='excluir' onclick=\"excluir(".$res['oc_id'].",".$_GET['usu_id'].")\"><i class='fas fa-trash'></i>&nbsp;Excluir</a>";
                                                 echo "</blockquote>";
                                                 $res = mysqli_fetch_array($query);

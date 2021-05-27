@@ -70,7 +70,7 @@
             <!-- title row -->
               <div class="row">
                 <div class="col-12 mb-4">
-                  <h2><?=ucwords($row['mod_nome'])?></h2>
+                  <h2><?=htmlspecialchars(ucwords($row['mod_nome']))?></h2>
                   <a href="consultarModalidadeEdit.php?mod_id=<?=$_GET['mod_id']?>&alterar=enabled" class="btn btn-warning btn-sm center">
                     <i class="fas fa-edit"></i>&nbsp;
                     Alterar Modalidade
@@ -81,12 +81,12 @@
             <!-- info row -->
               <div class="row invoice-info mb-2">
                 <div class="col-md-10 offset-md-1 invoice-col">
-                  <b>Código:</b> <?=$row['mod_codigo']?><br>
-                  <b>Nome:</b> <?=ucwords($row['mod_nome'])?><br>
-                  <b>Descrição:</b> <?=$row['mod_descricao']?><br>
-                  <b>Valor Mensal:</b> R$<?=$row['mod_valMensal']?><br>
-                  <b>Valor Anual:</b> R$<?=$row['mod_valAnual']?><br>
-                  <b>Edital:</b> <?=ucwords($row['mod_edital'])?><br>  
+                  <b>Código:</b> <?=htmlspecialchars($row['mod_codigo'])?><br>
+                  <b>Nome:</b> <?=htmlspecialchars(ucwords($row['mod_nome']))?><br>
+                  <b>Descrição:</b> <?=htmlspecialchars($row['mod_descricao'])?><br>
+                  <b>Valor Mensal:</b> R$<?=htmlspecialchars($row['mod_valMensal'])?><br>
+                  <b>Valor Anual:</b> R$<?=htmlspecialchars($row['mod_valAnual'])?><br>
+                  <b>Edital:</b> <?=htmlspecialchars(ucwords($row['mod_edital']))?><br>  
                 </div>
                 <!-- /.col -->
               </div><!-- /.row -->

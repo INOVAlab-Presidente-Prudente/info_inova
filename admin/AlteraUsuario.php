@@ -9,11 +9,11 @@ $rg = $_POST['rg'];
 $dataNascimento = $_POST['dataNascimento'];
 $idade = $_POST['idade'];
 if($idade < 18){
-    $responsavel = "'".$_POST['responsavel']."'";
-    $telResponsavel = "'".$_POST['telResponsavel']."'";
+    $responsavel = $_POST['responsavel'];
+    $telResponsavel = $_POST['telResponsavel'];
     
 }else{
-    $responsavel = $telResponsavel = "null";
+    $responsavel = $telResponsavel = null;
 }
 $cep = $_POST['cep'];
 $bairro = $_POST['bairro'];
@@ -29,12 +29,12 @@ $complemento = $_POST['complemento'];
 $estado = $_POST['estado'];
 
 if ($empresa == '...')
-    $empresa = 'null';
+    $empresa = null;
     
 if (isset($_POST['socio']) && $empresa != 'null')
     $socio = true;
 else
-    $socio = 'null';
+    $socio = null;
 
 if (isset($_POST['perfil']))
     if (isset($_SESSION['coworking']) && $_POST['perfil'] != '1' && $cpf == $_SESSION['cpf'])
@@ -55,12 +55,34 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     $upload_dir = "../images/usuarios//";
     $file = $upload_dir . hash("md5", $cpf) . ".png";
 
-    $sql = "UPDATE usuario SET pu_id = ".$perfilUsuario.", emp_id = ".$empresa.", usu_nome = '".$nome."', usu_rg = '".$rg."', usu_cpf = '".$cpf."', usu_data_nascimento = '".$dataNascimento."', usu_responsavel = ".$responsavel.", usu_tel_responsavel = ".$telResponsavel.", usu_endereco = '".$endereco."', usu_cep = '".$cep."', usu_bairro = '".$bairro."', usu_municipio = '".$municipio."', usu_area_atuacao = '".$areaAtuacao."', usu_area_interesse = '".$areaInteresse."', usu_telefone = '".$telefone."', usu_email = '".$email."', usu_senha = '".$senha."', usu_socio = ".$socio.", usu_complemento = '".$complemento."', usu_estado = '".$estado."' WHERE usu_cpf = '".$_GET['cpf']."'";
-    $query = mysqli_query($connect, $sql);
+    $sql = "UPDATE usuario SET pu_id = ?, emp_id = ?, usu_nome = ?, usu_rg = ?, usu_cpf = ?, usu_data_nascimento = ?, usu_responsavel = ?, usu_tel_responsavel = ?, usu_endereco = ?, usu_cep = ?, usu_bairro = ?, usu_municipio = ?, usu_area_atuacao = ?, usu_area_interesse = ?, usu_telefone = ?, usu_email = ?, usu_senha = ?, usu_socio = ?, usu_complemento = ?, usu_estado = ? WHERE usu_cpf = '".$_GET['cpf']."'";
+    $prepare = mysqli_prepare($connect, $sql);
+    mysqli_stmt_bind_param($prepare, "iisssssssssssssssiss",
+    $perfilUsuario,
+    $empresa,
+    $nome,
+    $rg,
+    $cpf,
+    $dataNascimento,
+    $responsavel,
+    $telResponsavel,
+    $endereco,
+    $cep,
+    $bairro,
+    $municipio,
+    $areaAtuacao,
+    $areaInteresse,
+    $telefone,
+    $email,
+    $senha,
+    $socio,
+    $complemento,
+    $estado);
+
     if (!$perfilUsuario)
             header("location: ../pages/visualizarUsuario.php?cpf=".$_GET['cpf']."&erro=permissao_negada");
     else {
-        if ($query){
+        if (mysqli_stmt_execute($prepare)){
             if($_GET['cpf'] == $_SESSION['cpf']) {
                 $_SESSION['cpf'] = $_POST['cpf'];
                 rename('../images/usuarios/'.hash("md5", $_GET['cpf']).'.png', '../images/usuarios/'.hash("md5", $_SESSION['cpf']).'.png');

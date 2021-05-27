@@ -46,7 +46,6 @@
                   <div class="row">                  
                     <div class="col-md-3">
                       <img src="../images/avatar-df.png" class="img-fluid img-thumbnail" id="imgUsuario" alt="User Image">                        
-                      <input type="hidden" id="img64" name="img64"/>
                       <!-- <input type="button" enabled onclick="abrirModal()" value="Tirar Foto"></input> -->
                       <section class="modal-camera" id="modal-camera">
                         <div class="modal-content-camera">
@@ -231,7 +230,7 @@
                     <div class="form-group col-md-7">
                       <label>Empresa</label>
                       <select required name="empresa" class="form-control ">
-                        <option>...</option>
+                        <option value="">...</option>
                         <?php 
                             require_once("../admin/DB.php");
                             $sql = "SELECT * FROM empresa ORDER BY emp_razao_social";

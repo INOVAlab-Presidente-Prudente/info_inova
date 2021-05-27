@@ -31,7 +31,6 @@
 
     <section class="content">
       <form method="post" name= "teste" enctype="multipart/form-data">
-      
         <div class="container-fluid">
           <?php
             if (!isset($_GET['alterar'])){
@@ -48,6 +47,28 @@
           ?>
           <div class="row">
             <div class="col-md-12">
+              <?php
+                if(isset($_GET['fotoNaoExistente'])){
+                  echo "<div class='alert alert-warning alert-dismissible'>
+                          <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                          <h5><i class='fas fa-exclamation-triangle'></i>&nbspErro ao excluir foto de perfil!</h5>
+                        </div>";
+                }
+                if(isset($_GET['fotoExcluida'])){
+                  if($_GET['fotoExcluida']){
+                    echo "<div class='alert alert-success alert-dismissible'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            <h5><i class='fas fa-check'></i>&nbspFoto excluída com sucesso!</h5>
+                          </div>";
+                  }
+                  else{
+                    echo "<div class='alert alert-danger alert-dismissible'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            <h5><i class='fas fa-times'></i>&nbspNão foi possível excluir a foto!</h5>
+                          </div>";
+                  }
+                }
+              ?>
               <div class="card card-secondary">
 
                 <div class="card-header">
@@ -57,11 +78,16 @@
                 <div class="card-body">
                   <div class="row">                  
                     <div class="col-md-3">
-                      <?php 
+                      <?php if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios"))):?>
+                        <a href="../admin/ExcluiFoto.php?cpf=<?=$row['usu_cpf']?>" name="delImage" type="button" class="close" aria-label="Close" onclick="return confirm('Você realmente quer excluir a foto?');">
+                          <span aria-hidden="true">&times;</span>
+                        </a>
+                      <?php
+                        endif; 
                         if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
-                            echo '<img id="imgUsuario" src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-fluid mx-auto thumbnail mb-3" alt="User Image">';
+                            echo '<img id="imgUsuario" src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-fluid mx-auto img-thumbnail mb-2" alt="User Image">';
                         else
-                            echo '<img id="imgUsuario" src="../images/avatar-df.png" class="img-fluid img-thumbnail mb-3" alt="User Image">';
+                            echo '<img id="imgUsuario" src="../images/avatar-df.png" class="img-fluid img-thumbnail mb-2" alt="User Image">';
                       ?>
                       <section class="modal-camera" id="modal-camera">
                         <div class="modal-content-camera">
@@ -103,10 +129,10 @@
                         </div>
                       </section>
                       <div class="input-group">
-                        <div class="input-wrapper mx-auto">
+                        <div class="input-wrapper mx-auto mt-1">
                           
                           <input type="hidden" id="img64" name="img64" />
-                          <button <?=$alterar?> class="btn btn-secondary btn-md" type="button"
+                          <button <?=$alterar?> class=" btn btn-secondary btn-md" type="button"
                             onclick="abrirModal()">Tirar
                             Foto</button>
                           <input type="file" name="uploadFoto" id="uploadFoto">

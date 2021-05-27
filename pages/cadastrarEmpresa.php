@@ -79,7 +79,7 @@
                           <div class="col-md-9" id="modalidade-content" style="display: none">
                             <label>Modalidade</label>
                             <div class="row ">
-                              <select required name="modalidade" id="modalidade" class="form-control col-11 w-100">
+                              <select name="modalidade" id="modalidade" class="form-control col-11 w-100">
                                 <?php
                                   require_once("../admin/DB.php");
                                   $sql = "SELECT * FROM modalidade";

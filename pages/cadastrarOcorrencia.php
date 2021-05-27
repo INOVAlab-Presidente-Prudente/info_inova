@@ -50,9 +50,9 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="lead">
-                                        Nome: <strong><?=$row['usu_nome']?></strong>
+                                        Nome: <strong><?=htmlspecialchars($row['usu_nome'])?></strong>
                                         <br/>
-                                        <small> CPF: <?=$row['usu_cpf']?></small>
+                                        <small> CPF: <?=htmlspecialchars($row['usu_cpf'])?></small>
                                     </div>
                                     <div class="row mt-4">
                                         <div class="form-group col-md-6">

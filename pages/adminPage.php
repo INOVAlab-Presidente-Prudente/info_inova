@@ -24,7 +24,7 @@
             <div class="col-12">
               <div class="callout callout-info">
                 <h3>Olá, <?=$_SESSION['nome']?></h3>
-                <p class="lead">Seja bem-vindo(a) ao InfoInova.</p>
+                <p class="lead">Seja bem-vindo ao InfoInova.</p>
               </div>
             </div>
           </div>

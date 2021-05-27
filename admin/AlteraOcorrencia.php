@@ -7,7 +7,6 @@ $hora = $_POST['hora'];
 $descricao = $_POST['descricao'];
 $oc_id = $_POST['oc_id'];
 $usu_id = $_POST['usu_id'];
-var_dump($_POST['usu_id']);
 
 require_once("DB.php");
 

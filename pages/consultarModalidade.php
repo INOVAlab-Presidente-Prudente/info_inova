@@ -35,8 +35,7 @@
             </div>";
           } 
           if (isset($_GET['exclusao_negada'])) {
-            echo "<div class='alert alert-warning' role='alert'>Empresas estão cadastradas nessa modalidade</div>
-            <div class='alert alert-warning alert-dismissible'>
+            echo "<div class='alert alert-warning alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
               <h5><i class='icon fas fa-exclamation-triangle'></i>Exclusão Negada!</h5>
                   <p>Empresas estão cadastradas nesta modalidade, exclusão não permitida.</p>

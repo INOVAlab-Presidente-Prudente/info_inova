@@ -53,7 +53,7 @@
                       </div>";
             }
             if (isset($_GET['falta_dados'])){
-              echo "<div class='alert alert-danger alert-dismissible'>
+              echo "<div class='alert alert-warning alert-dismissible'>
                       <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                       <h5><i class='icon fas fa-ban'></i> Empresa não alterada!</h5>
                           <p>Preencha todos os campos.</p>

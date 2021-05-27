@@ -8,8 +8,8 @@ include ('../includes/sidebar.php');
 
   if(isset($_GET['status']) && isset($_GET['usu_id'])){ 
     require_once('../admin/DB.php');
-    $sql = "SELECT u.*, e.emp_nome_fantasia FROM usuario u, empresa e 
-            WHERE u.usu_id = ".$_GET['usu_id'];
+    $sql = "SELECT u.* FROM usuario u
+            WHERE u.usu_id = ".$_GET['usu_id']; // so aparece os dados se existe uma empresa cadastrada no sistema
     $query = mysqli_query($connect,$sql);
     if($query)
       $usuario = mysqli_fetch_assoc($query); 
