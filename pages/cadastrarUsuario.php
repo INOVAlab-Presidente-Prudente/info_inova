@@ -229,7 +229,7 @@
                   <div class="row">
                     <div class="form-group col-md-7">
                       <label>Empresa</label>
-                      <select required name="empresa" class="form-control ">
+                      <select name="empresa" class="form-control ">
                         <option value="">...</option>
                         <?php 
                             require_once("../admin/DB.php");

@@ -121,3 +121,8 @@ input[type='file'] {
 .input-wrapper label:hover {
     background-color: #869199
 }
+
+.dataTables_filter {
+    /* Filtro de pesquisa do datatables */
+    float: right !important;
+}

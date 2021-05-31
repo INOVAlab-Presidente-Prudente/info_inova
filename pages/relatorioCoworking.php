@@ -129,11 +129,11 @@
                                                             //if ($row2['tempo']){ 
                                                                 ?>
                                                                     <tr>
-                                                                        <td><?=$row['usu_nome']?></td>
-                                                                        <td><?=$row2['tempo']?></td>
-                                                                        <td><?=$row2['qtde']?></td>
-                                                                        <td><?=$row3['qtdeOcorrencia']?></td>
-                                                                        <td><?=$row['usu_area_atuacao']?></td>
+                                                                        <td><?=htmlspecialchars($row['usu_nome'])?></td>
+                                                                        <td><?=htmlspecialchars($row2['tempo'])?></td>
+                                                                        <td><?=htmlspecialchars($row2['qtde'])?></td>
+                                                                        <td><?=htmlspecialchars($row3['qtdeOcorrencia'])?></td>
+                                                                        <td><?=htmlspecialchars($row['usu_area_atuacao'])?></td>
                                                                     </tr>
                                                             <?php //}
                                                             $row = mysqli_fetch_assoc($query);

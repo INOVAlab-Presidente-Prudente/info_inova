@@ -31,29 +31,22 @@
               echo "<div class='alert alert-success alert-dismissible'>
                       <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                       <h5><i class='fas fa-check'></i>&nbspUsuario excluído!</h5>
-                          <p>O(A) usuário(a) foi excluído(a) com sucesso!.</p>
+                          <p>O usuário foi excluído com sucesso!</p>
                     </div>";
           }
           if (isset($_GET['erro'])){
               echo "<div class='alert alert-warning alert-dismissible'>
                       <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                       <h5><i class='fas fa-exclamation-triangle'></i>&nbspPermissão Negada!</h5>
-                      <p>Você nao tem permissão para excluir um(a) usuário(a) com esse perfil.</p>
+                      <p>Você nao tem permissão para excluir um usuário com esse perfil.</p>
                     </div>";
           }
           if (isset($_GET['usuario_nao_existe'])) {
-            echo "<div class='container-fluid'>
-                    <div class='row'>
-                      <div class='col-md-10 offset-md-1'>
-                        <div class='alert alert-danger alert-dismissible'>
-                          <div class='lead'>
-                            <i class='fas fa-times'></i>&nbsp;
-                            Usuário não foi encontrado no sistema.
-                          </div>
-                        </div>               
-                      </div>
-                    </div>
-                  </div>"; 
+            echo "<div class='alert alert-warning alert-dismissible'>
+                  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                  <h5><i class='fas fa-exclamation-triangle'></i>&nbspUsuário não encontrado!</h5>
+                  <p>O usuário não foi econtrado no sistema.</p>
+                </div>"; 
           }
         ?>
         <div class="card">
@@ -74,7 +67,7 @@
           <div class="card-body table-responsive">
             <table id="tabela-usuarios" class="table table-bordered table-striped table-hover">
               <thead>                  
-                <tr>
+                <tr>  
                   <th>Nome</th>
                   <th>CPF</th>
                   <th></th>
@@ -132,14 +125,22 @@
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
   <script>
     $('#tabela-usuarios').DataTable({
-        "bPaginate": true,
         "bLengthChange": false,
-        "bFilter": false,
+        "bFilter": true,
         "bInfo": false,
-        "bAutoWidth": false 
+        "bAutoWidth": false,
+        "language": {
+            "search": "Pesquisar",
+            "paginate": {
+              "first":      "First",
+              "last":       "Last",
+              "next":       "Próximo",
+              "previous":   "Anterior"
+            },
+            "zeroRecords": "Nenhum dado encontrado."
+        }
       });
   </script>
   

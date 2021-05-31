@@ -147,10 +147,10 @@
 
                                             ?>
                                                 <tr>
-                                                    <td><?=empty($empresas['emp_nome_fantasia'])? $empresas['emp_razao_social'] : $empresas['emp_nome_fantasia']?></td>
-                                                    <td><?=$presenca?></td>
-                                                    <td><?=$row3['qtde']?></td>
-                                                    <td><?=$row['qtde']?></td>
+                                                    <td><?=empty($empresas['emp_nome_fantasia'])? htmlspecialchars($empresas['emp_razao_social']) : htmlspecialchars($empresas['emp_nome_fantasia'])?></td>
+                                                    <td><?=htmlspecialchars($presenca)?></td>
+                                                    <td><?=htmlspecialchars($row3['qtde'])?></td>
+                                                    <td><?=htmlspecialchars($row['qtde'])?></td>
                                                     <td><?=$empresas['emp_pendencia']? 'sim' : 'não' ?></td>
                                                     <td>?</td>
                                                 </tr>

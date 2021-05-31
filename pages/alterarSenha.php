@@ -46,7 +46,7 @@
           <p class="login-box-msg">Escolha um nome de usuario</p>
           <form method="post">
             <div class="input-group mb-3">
-              <input name="nomeUsuario" type="text" class="form-control" placeholder="Nome">
+              <input name="nomeUsuario" pattern="(?=[a-zA-Z0-9._]{4,50}$)(?!.*[_-]{2})[^_.]*[^_.]" type="text" class="form-control" placeholder="Nome">
               <div class="input-group-append">
                 <div class="input-group-text">
                 </div>

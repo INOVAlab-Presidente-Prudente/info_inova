@@ -112,11 +112,20 @@
   </div>
   <script>
     $('#tabela-modalidades').DataTable({
-        "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": false,
+      "bLengthChange": false,
+        "bFilter": true,
         "bInfo": false,
-        "bAutoWidth": false 
+        "bAutoWidth": false,
+        "language": {
+            "search": "Pesquisar",
+            "paginate": {
+              "first":      "First",
+              "last":       "Last",
+              "next":       "Próximo",
+              "previous":   "Anterior"
+            },
+            "zeroRecords": "Nenhum dado encontrado."
+        } 
       });
   </script>
 <?php

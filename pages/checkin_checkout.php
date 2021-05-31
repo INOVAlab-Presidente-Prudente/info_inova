@@ -83,11 +83,20 @@
       window.location.href = "../admin/CheckInUsuario.php?cpf="+cpf;
     }
     $('#tabela-checkins').DataTable({
-        "bPaginate": true,
         "bLengthChange": false,
-        "bFilter": false,
+        "bFilter": true,
         "bInfo": false,
-        "bAutoWidth": false 
+        "bAutoWidth": false,
+        "language": {
+            "search": "Pesquisar",
+            "paginate": {
+              "first":      "First",
+              "last":       "Last",
+              "next":       "Próximo",
+              "previous":   "Anterior"
+            },
+            "zeroRecords": "Nenhum dado encontrado."
+        }
       });
   </script>
 <?php

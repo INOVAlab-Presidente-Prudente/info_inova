@@ -9,7 +9,7 @@
         header("location: ../");
 
   require_once('../admin/DB.php');
-  $sql = "SELECT * FROM modalidade WHERE mod_id =".$_GET['mod_id'];
+  $sql = "SELECT * FROM modalidade WHERE mod_id = '".$_GET['mod_id']."'";
   $query = mysqli_query($connect, $sql);
   $row = mysqli_fetch_assoc($query);
 

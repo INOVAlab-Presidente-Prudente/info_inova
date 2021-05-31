@@ -40,7 +40,7 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
 
     require_once("DB.php");
 
-    if ($empresa == '...')
+    if ($empresa == '')
         $empresa = null;
     
     if (isset($_POST['socio']) && $empresa != 'null')
