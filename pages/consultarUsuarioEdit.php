@@ -222,7 +222,11 @@
                           <label>Endereço</label>
                           <input required <?=$alterar?> enabled type="text" id="endereco" name="endereco" class="form-control" <?="value='".$row['usu_endereco']."'"?>>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-1">
+                          <label>Número</label>
+                          <input required <?=$alterar?> enabled type="text" id="numero" name="numero" class="form-control" <?="value='".$row['usu_numero']."'"?>>
+                        </div>
+                        <div class="form-group col-md-2">
                           <label>Complemento</label>
                           <input required <?=$alterar?> enabled type="text" id="complemento" name="complemento" class="form-control" <?="value='".$row['usu_complemento']."'"?>>
                         </div>

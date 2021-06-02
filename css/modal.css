@@ -35,3 +35,12 @@
   .modal-content p {
       padding-left: 10px;
   }
+
+.modal-hover{
+    position: absolute;
+    z-index: 1;
+}
+
+.img-user{
+    z-index: 1;
+}

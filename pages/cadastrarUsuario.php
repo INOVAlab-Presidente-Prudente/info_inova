@@ -33,6 +33,13 @@
             if (isset($_POST['confirmar'])) {
                 require_once("../admin/CadastroUsuario.php");
             } 
+            if (isset($_GET['erro']) && $_GET['erro'] == "cpf_invalido") {
+              echo "<div class='col alert alert-warning alert-dismissible'>
+                  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                  <h5><i class='fas fa-exclamation-triangle'></i>&nbspCPF Inválido!</h5>
+                  <p>Digite um cpf válido.</p>
+                  </div>";
+            }
           ?>
           <div class="row">
             <div class="col-md-12">
@@ -130,7 +137,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>RG</label>
-                            <input required enabled type="text" pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}-[0-9a-zA-Z]{1}" minlength="12" maxlength="12" id="rg" name="rg" class="form-control">
+                            <input required enabled type="text" pattern="[0-9]{2}.[0-9]{3}.[0-9]{3}-[0-9a-zA-Z]{1}" minlength="10" maxlength="12" id="rg" name="rg" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
                           <label>Telefone(com DDD)</label>
@@ -178,7 +185,11 @@
                           <label>Endereço</label>
                           <input required enabled type="text" id="endereco" name="endereco" class="form-control">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-1">
+                          <label>Número</label>
+                          <input required enabled type="text" id="numero" name="numero" class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
                           <label>Complemento</label>
                           <input enabled type="text" id="complemento" name="complemento" class="form-control">
                         </div>
@@ -294,6 +305,11 @@
   <script src="../js/consultaCep.js"></script>
   <script>
     window.onload = () => carregaEstados("");
+    let rg = document.getElementById("rg")
+    rg.onfocusout = () => {
+      if (rg.value.length == 10)
+        rg.value = rg.value + "-X";
+    }
   </script>
 <?php
   include ('../includes/footer.php');

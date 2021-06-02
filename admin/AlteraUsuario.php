@@ -27,6 +27,7 @@ $empresa = $_POST['empresa'];
 $senha = $row['usu_senha'];
 $complemento = $_POST['complemento'];
 $estado = $_POST['estado'];
+$numero = $_POST['numero'];
 
 if ($empresa == '...')
     $empresa = null;
@@ -55,9 +56,9 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     $upload_dir = "../images/usuarios//";
     $file = $upload_dir . hash("md5", $cpf) . ".png";
 
-    $sql = "UPDATE usuario SET pu_id = ?, emp_id = ?, usu_nome = ?, usu_rg = ?, usu_cpf = ?, usu_data_nascimento = ?, usu_responsavel = ?, usu_tel_responsavel = ?, usu_endereco = ?, usu_cep = ?, usu_bairro = ?, usu_municipio = ?, usu_area_atuacao = ?, usu_area_interesse = ?, usu_telefone = ?, usu_email = ?, usu_senha = ?, usu_socio = ?, usu_complemento = ?, usu_estado = ? WHERE usu_cpf = '".$_GET['cpf']."'";
+    $sql = "UPDATE usuario SET pu_id = ?, emp_id = ?, usu_nome = ?, usu_rg = ?, usu_cpf = ?, usu_data_nascimento = ?, usu_responsavel = ?, usu_tel_responsavel = ?, usu_endereco = ?, usu_cep = ?, usu_bairro = ?, usu_municipio = ?, usu_area_atuacao = ?, usu_area_interesse = ?, usu_telefone = ?, usu_email = ?, usu_senha = ?, usu_socio = ?, usu_complemento = ?, usu_estado = ?, usu_numero = ? WHERE usu_cpf = '".$_GET['cpf']."'";
     $prepare = mysqli_prepare($connect, $sql);
-    mysqli_stmt_bind_param($prepare, "iisssssssssssssssiss",
+    mysqli_stmt_bind_param($prepare, "iisssssssssssssssissi",
     $perfilUsuario,
     $empresa,
     $nome,
@@ -77,7 +78,8 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     $senha,
     $socio,
     $complemento,
-    $estado);
+    $estado,
+    $numero);
 
     if (!$perfilUsuario)
             header("location: ../pages/visualizarUsuario.php?cpf=".$_GET['cpf']."&erro=permissao_negada");

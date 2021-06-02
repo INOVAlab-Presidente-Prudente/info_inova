@@ -18,10 +18,7 @@ include ('../includes/sidebar.php');
       $query2 = mysqli_query($connect, $sql2);
       $row = mysqli_fetch_assoc($query2);
   }?>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -29,10 +26,8 @@ include ('../includes/sidebar.php');
             <h1>Dashboard</h1>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -43,9 +38,9 @@ include ('../includes/sidebar.php');
                 <br/>
                 Esse é o ambiente de trabalho para <?=$_SESSION['perfil_usuario']?> no InfoInova.
               </p>
-            </div><!-- /.card -->
-          </div><!-- /.col -->
-        </div><!-- /.row -->
+            </div>
+          </div>
+        </div>
       </div>
 
       <?php //Alerts (checkin, checkout, erro)
@@ -81,7 +76,6 @@ include ('../includes/sidebar.php');
           }
         }
       ?>
-      
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-4">
@@ -89,7 +83,6 @@ include ('../includes/sidebar.php');
               <div class="card-header">
                 <h3 class="card-title">Entrada ou Saída de um usuário</h3>
               </div>
-              <!-- /.card-header --> 
               <form action="../admin/CheckInUsuario.php" method="get">
                 <div class="card-body">
                   <div class="form-group">
@@ -97,15 +90,13 @@ include ('../includes/sidebar.php');
                     <input type="text" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" minlength="14" maxlength="14" name="cpf" class="form-control" id="cpf" placeholder="xxx.xxx.xxx-xx">
                     <?php //<input type="text" id="inputEstimatedBudget" class="form-control" disabled> ?>
                   </div>
-                </div>
-                <!-- /.card-body -->            
+                </div>         
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Fazer Check-in / Check-out</button>
                     <?php // <button type="submit" class="btn btn-warning"><i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Refazer Check-in / Check-out</button>?>
                 </div>
-                <!-- /.card-footer --> 
               </form>
-            </div><!-- /.card -->
+            </div>
           </div>
           <div class="col-md-8">
             <?php 
@@ -176,15 +167,194 @@ include ('../includes/sidebar.php');
                   <?php 
                 }
               }?>
-            </div><!-- /.invoice -->
-          </div><!-- /.col -->
-        </div><!-- /.row -->        
-      </div><!-- /.container-fluid -->
-
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Total de Acessos</h3>
+                  <a href="#">Ver relatório</a> <!-- relatorioAcessos.php -->
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex">
+                  <p class="d-flex flex-column">
+                    <span class="text-bold text-lg"><?= $_GET['totAcessos']?>  Acessos</span>
+                    <span>Total de acessos (Últimos 10 dias)</span>
+                  </p>
+                </div>
+                <div class="position-relative mb-4">
+                  <canvas id="chart1" height="200"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Tempo Total de Acessos</h3>
+                  <a href="#">Ver relatório</a> <!-- relatorioTempoAcesso.php -->
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex">
+                  <p class="d-flex flex-column">
+                    <span class="text-bold text-lg"><?= $_GET['totHoras']?> Horas</span>
+                    <span>Total de horas (Últimos 10 dias)</span>
+                  </p>
+                </div>
+                <div class="position-relative mb-4">
+                  <canvas id="chart2" height="200"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
     </section>
-    <!-- /.content --> 
   </div>
-  <!-- /.content-wrapper -->
+
+
+  <script>
+      $(function () {
+      'use strict'
+    
+      var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold'
+      }
+    
+      var mode      = 'index'
+      var intersect = true
+    
+      var $chart1 = $('#chart1')
+      var chart1  = new Chart($chart1, {
+        type   : 'bar',
+        data   : {
+          labels  : ['01/05', '02/05', '03/05', '04/05', '05/05', '06/05', '07/05', '08/05', '09/05', '10/05'],
+          datasets: [
+            {
+              backgroundColor: '#007bff',
+              borderColor    : '#007bff',
+              data           : [100, 200, 300, 250, 270, 250, 300, 420, 180,210]
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          tooltips           : {
+            mode     : mode,
+            intersect: intersect
+          },
+          hover              : {
+            mode     : mode,
+            intersect: intersect
+          },
+          legend             : {
+            display: false
+          },
+          scales             : {
+            yAxes: [{
+              // display: false,
+              gridLines: {
+                display      : true,
+                lineWidth    : '4px',
+                color        : 'rgba(0, 0, 0, .2)',
+                zeroLineColor: 'transparent'
+              },
+              ticks    : $.extend({
+                beginAtZero: true,
+    
+                // Include a dollar sign in the ticks
+                callback: function (value, index, values) {
+                  if (value >= 1000) {
+                    value /= 1000
+                    value += 'k'
+                  }
+                  return value
+                }
+              }, ticksStyle)
+            }],
+            xAxes: [{
+              display  : true,
+              gridLines: {
+                display: false
+              },
+              ticks    : ticksStyle
+            }]
+          }
+        }
+      })
+
+      var $chart2 = $('#chart2')
+      var chart2  = new Chart($chart2, {
+        type   : 'bar',
+        data   : {
+          labels  : ['01/05', '02/05', '03/05', '04/05', '05/05', '06/05', '07/05', '08/05', '09/05', '10/05'],
+          datasets: [
+            {
+              backgroundColor: '#17a2b8',
+              borderColor    : '#17a2b8',
+              data           : [200, 1700, 2700, 2000, 1800, 1500, 2000, 400, 1200, 1800]
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          tooltips           : {
+            mode     : mode,
+            intersect: intersect
+          },
+          hover              : {
+            mode     : mode,
+            intersect: intersect
+          },
+          legend             : {
+            display: false
+          },
+          scales             : {
+            yAxes: [{
+              // display: false,
+              gridLines: {
+                display      : true,
+                lineWidth    : '4px',
+                color        : 'rgba(0, 0, 0, .2)',
+                zeroLineColor: 'transparent'
+              },
+              ticks    : $.extend({
+                beginAtZero: true,
+    
+                // Include a dollar sign in the ticks
+                callback: function (value, index, values) {
+                  if (value >= 1000) {
+                    value /= 1000
+                    value += 'k'
+                  }
+                  return value
+                }
+              }, ticksStyle)
+            }],
+            xAxes: [{
+              display  : true,
+              gridLines: {
+                display: false
+              },
+              ticks    : ticksStyle
+            }]
+          }
+        }
+      })
+    })
+    
+
+  </script>
+  <!-- OPTIONAL SCRIPTS -->
+  <script src="../plugins/chart.js/Chart.min.js"></script>
+  <!-- <script src="../js/dashboardCharts.js"></script> -->
 <?php
 include ('../includes/footer.php');
 ?>

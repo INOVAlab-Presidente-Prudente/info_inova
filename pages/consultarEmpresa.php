@@ -30,11 +30,18 @@
     <section class="content">     
       <div class="col-md-12">
         <?php 
+          if (isset($_GET['empresa_cadastrada'])) {
+            echo "<div class='alert alert-success alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-check'></i>&nbspEmpresa Cadastrada!</h5>
+                        <p>A empresa foi cadastrada com sucesso!</p>
+                  </div>";
+          }
           if (isset($_GET['empresa_excluida'])) {
             echo "<div class='alert alert-success alert-dismissible'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                     <h5><i class='fas fa-check'></i>&nbspEmpresa excluída!</h5>
-                        <p>A empresa foi excluída com sucesso!.</p>
+                        <p>A empresa foi excluída com sucesso!</p>
                   </div>";  
           }
           if (isset($_GET['empresa_nao_existe'])) {
@@ -62,7 +69,7 @@
           <!-- /.card-header -->
           <?php 
             require_once("../admin/DB.php");
-            $sql = 'SELECT * FROM empresa ORDER BY emp_razao_social';
+            $sql = 'SELECT * FROM empresa ORDER BY emp_nome_fantasia';
             $query = mysqli_query($connect, $sql);
             $row = mysqli_fetch_assoc($query);
           ?>
@@ -127,7 +134,9 @@
               "previous":   "Anterior"
             },
             "zeroRecords": "Nenhum dado encontrado."
-        }
+        },
+        
+        "order": []
       });
   </script>
 <?php

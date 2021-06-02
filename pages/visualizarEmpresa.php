@@ -95,7 +95,9 @@
                   
                   <b>Município:</b>&nbsp;<?=htmlspecialchars($row['emp_municipio'])?> - <?=htmlspecialchars( $row['emp_estado'])?><br/>
                   <b>CEP:</b>&nbsp;<?=htmlspecialchars($row['emp_cep'])?><br/>
-                  <b>Endereço:</b>&nbsp;<?=htmlspecialchars($row['emp_endereco'])?> - <b>Complemento:</b>&nbsp;<?=htmlspecialchars( $row['emp_complemento'])?><br/>
+                  <b>Endereço:</b>&nbsp;<?=htmlspecialchars($row['emp_endereco'])?><br>
+                  <b>Número:</b>&nbsp;<?=htmlspecialchars($row['emp_numero'])?><br>
+                  <b>Complemento:</b>&nbsp;<?=htmlspecialchars( $row['emp_complemento'])?><br/>
                   <b>Bairro:</b>&nbsp;<?=htmlspecialchars($row['emp_bairro'])?><br/>
                 </div>
               </div>

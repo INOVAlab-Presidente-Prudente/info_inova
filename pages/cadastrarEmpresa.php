@@ -127,7 +127,11 @@
                             <label>Endereço</label>
                             <input required enabled type="text" id="endereco" name="endereco" class="form-control">
                           </div>
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-1">
+                            <label>Número</label>
+                            <input required enabled type="text" id="numero" name="numero" class="form-control">
+                          </div>
+                          <div class="form-group col-md-2">
                             <label>Complemento</label>
                             <input enabled type="text" id="complemento" name="complemento" class="form-control">
                           </div>

@@ -8,6 +8,6 @@ $cnpj = $_POST['cnpj'];
 $sql = "SELECT emp_cnpj FROM empresa WHERE emp_cnpj = '".$cnpj."'";
 $query = mysqli_query($connect, $sql);
 if (mysqli_num_rows($query)) {
-    header("location: /pages/consultarEmpresaEdit.php?cnpj=".$cnpj."");
+    header("location: /pages/visualizarEmpresa.php?cnpj=".$cnpj."");
 } else 
     header("location: /pages/consultarEmpresa.php?empresa_nao_existe=true");

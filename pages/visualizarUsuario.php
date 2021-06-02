@@ -109,6 +109,7 @@
                   <address>
                     <b>CEP: </b><?=htmlspecialchars($row['usu_cep'])?><br/>
                     <b>Endereço: </b><?=htmlspecialchars($row['usu_endereco'])?><br/>
+                    <b>Número: </b><?=htmlspecialchars($row['usu_numero'])?><br/>
                     <b>Complemento: </b><?=htmlspecialchars($row['usu_complemento'])?><br/>
                     <b>Bairro: </b><?=htmlspecialchars($row['usu_bairro'])?><br/>                
                     <b>Cidade: </b><?=htmlspecialchars($row['usu_municipio'])?><br/>

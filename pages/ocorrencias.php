@@ -65,6 +65,13 @@
                                         <p>".$output."</p>
                                 </div>";
                             }
+                            if (isset($_GET['ocorrencia_cadastrada'])) {
+                                echo "<div class='alert alert-success alert-dismissible'>
+                                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                                    <h5><i class='fas fa-check'></i>&nbspOcorrência Cadastrada!</h5>
+                                        <p>A ocorrência foi cadastrada com sucesso!</p>
+                                    </div>";
+                            }
                         ?> 
                         <div class="card">
                             <div class="card-header">

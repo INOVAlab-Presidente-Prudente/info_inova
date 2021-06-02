@@ -27,6 +27,13 @@
     <section class="content">     
       <div class="col-md-12">
         <?php 
+        if (isset($_GET['modalidade_cadastrada'])) {
+          echo "<div class='alert alert-success alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h5><i class='fas fa-check'></i>&nbspModalidade Cadastrada!</h5>
+                  <p>A modalidade foi cadastrada com sucesso!</p>
+            </div>";
+        }
         if (isset($_GET['modalidade_excluida'])) {
             echo "<div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>

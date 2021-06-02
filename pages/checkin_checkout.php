@@ -6,6 +6,9 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>  
+  <div class="modal-hover" width="150px" heigth="150px">
+    <img id="img-hover" width="150px" heigth="150px" src=""  /> 
+  </div>
   <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
@@ -29,11 +32,13 @@
             <h3 class="card-title">Lista de usuários no Coworking</h3>
           </div>
           <div class="card-body table-responsive">
+            
             <table id="tabela-checkins" class="table table-bordered table-striped table-hover">
               <thead>                  
                 <tr>
                   <th>Nome</th>
                   <th>CPF</th>
+                  <th>Empresa</th>
                   <th>Horário de Entrada</th>
                   <th></th>
                 </tr>
@@ -41,8 +46,7 @@
               <tbody>
                 <?php 
                   require_once('../admin/DB.php');
-                  $sql = "SELECT u.usu_id, u.usu_nome, u.usu_cpf, c.che_horario_entrada FROM usuario u, check_in c
-                          WHERE c.usu_id = u.usu_id AND c.che_horario_saida IS NULL";
+                  $sql = "SELECT r.usu_id, r.usu_nome, r.usu_cpf, r.emp_razao_social, r.emp_nome_fantasia, c.che_horario_entrada FROM (SELECT u.*, e.emp_razao_social, e.emp_nome_fantasia FROM usuario u LEFT JOIN empresa e ON e.emp_id = u.emp_id) r, check_in c WHERE c.usu_id = r.usu_id AND c.che_horario_saida IS NULL";
                   $query = mysqli_query($connect, $sql);
                   if($query)
                     $row = mysqli_fetch_assoc($query);
@@ -56,13 +60,20 @@
                       <td class=" text-nowrap">
                         <?php 
                           if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
-                            echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
+                            echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
                           else
-                              echo '<img src="../images/avatar-df.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
+                              echo '<img src="../images/avatar-df.png" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
                         ?>
                         <a href="visualizarUsuario.php?cpf=<?=$row['usu_cpf']?>"><?=htmlspecialchars($row['usu_nome'])?></a>
                       </td> 
                       <td class=" text-nowrap"><?=htmlspecialchars($row['usu_cpf'])?></td>
+                      <?php 
+                        if(empty($row['emp_nome_fantasia']))
+                          $nome = strlen($row['emp_razao_social']) >= 35 ? substr($row['emp_razao_social'], 0, 35)."..." : $row['emp_razao_social'];
+                        else
+                          $nome = $row['emp_nome_fantasia'];
+                      ?>
+                      <td class=" text-nowrap"><?=htmlspecialchars($nome)?></td>
                       <td class=" text-nowrap"><?= date_format($data, 'H\hi')?> - <?=date_format($data,"d/m/Y")?></td>
                       <td class=" text-nowrap">
                         <button onclick='checkout("<?=$row["usu_cpf"]?>")' class="btn btn-danger btn-sm center">Fazer Checkout</button>
@@ -79,6 +90,19 @@
     </section>
   </div>
   <script>
+
+    $('.user-img').mouseenter(function(e) {
+      document.getElementById("img-hover").src=""+$(this).prop("src");
+      $(".modal-hover").css({left: e.pageX});
+      $(".modal-hover").css({top: e.pageY});
+        $('.modal-hover').show();  
+    }).mouseleave(function() {
+        $('.modal-hover').hide();
+    });
+
+    // $(".text-nowrap").hover(function(){
+    //   $(".modal-hover").css({display: 'none'});
+    // })
     function checkout(cpf){
       window.location.href = "../admin/CheckInUsuario.php?cpf="+cpf;
     }

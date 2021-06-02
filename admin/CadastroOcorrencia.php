@@ -19,11 +19,7 @@ if(!empty($data) && !empty($hora) && !empty($descricao)){
     $descricao); 
 
     if (mysqli_stmt_execute($prepare)) {
-        echo "<div class='alert alert-success alert-dismissible'>
-        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-        <h5><i class='fas fa-check'></i>&nbspOcorrência Cadastrada!</h5>
-            <p>A ocorrência foi cadastrada com sucesso!</p>
-        </div>";
+        header("location: ../pages/ocorrencias.php?usu_id=".$usu_id."&ocorrencia_cadastrada=true");
     } else {
         echo "<div class='alert alert-info alert-dismissible'>
         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>

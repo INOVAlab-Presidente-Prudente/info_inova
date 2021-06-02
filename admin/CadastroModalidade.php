@@ -14,11 +14,7 @@ if(!empty($codigo) && !empty($nome) && !empty($desc) && (!empty($valorAnual) || 
     mysqli_stmt_bind_param($prepare, "sssdds", $codigo, $nome, $desc, $valorMensal, $valorAnual, $edital);
 
     if (mysqli_stmt_execute($prepare)) {
-        echo "<div class='alert alert-success alert-dismissible'>
-        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-        <h5><i class='fas fa-check'></i>&nbspModalidade Cadastrada!</h5>
-            <p>A modalidade foi cadastrada com sucesso!.</p>
-        </div>";
+        header("location: ../pages/consultarModalidade.php?modalidade_cadastrada=true");
     } else {
         echo "<div class='alert alert-info alert-dismissible'>
         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>

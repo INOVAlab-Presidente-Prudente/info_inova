@@ -6,6 +6,9 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>
+<div class="modal-hover" width="150px" heigth="150px">
+    <img id="img-hover" width="150px" heigth="150px" src=""  /> 
+  </div>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,6 +30,13 @@
     <section class="content">     
       <div class="col-md-12">
         <?php 
+          if (isset($_GET['usuario_cadastrado'])){
+            echo "<div class='col alert alert-success alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-check'></i>&nbspUsuário Cadastrado!</h5>
+                        <p>O usuário foi cadastrado com sucesso!</p>
+                  </div>";
+          }
           if (isset($_GET['usuario_excluido'])){
               echo "<div class='alert alert-success alert-dismissible'>
                       <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
@@ -70,13 +80,15 @@
                 <tr>  
                   <th>Nome</th>
                   <th>CPF</th>
+                  <th>Empresa</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 <?php 
                   require_once("../admin/DB.php");
-                  $sql = 'SELECT * FROM usuario ORDER BY usu_nome';
+                  //testando - vinicius
+                  $sql = 'SELECT u.*, e.emp_nome_fantasia, e.emp_razao_social FROM usuario u LEFT JOIN empresa e ON u.emp_id = e.emp_id ORDER BY usu_nome';
                   $query = mysqli_query($connect, $sql);
                   $row = mysqli_fetch_assoc($query);
                   while ($row != null):
@@ -85,13 +97,22 @@
                   <td class=" text-nowrap">
                     <?php
                       if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
-                        echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
+                        echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
                       else
-                          echo '<img src="../images/avatar-df.png" class="img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
+                          echo '<img src="../images/avatar-df.png" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
                     ?>
                     <?=htmlspecialchars($row['usu_nome'])?>
                   </td>
                   <td class=" text-nowrap"><?=htmlspecialchars($row['usu_cpf'])?></td>
+                  <?php 
+                    if(empty($row['emp_nome_fantasia']))
+                      $nome = strlen($row['emp_razao_social']) >= 35 ? substr($row['emp_razao_social'], 0, 35)."..." : $row['emp_razao_social'];
+                    else
+                      $nome = $row['emp_nome_fantasia'];
+                  ?>
+                  <td class=" text-nowrap"><?=htmlspecialchars($nome)?></td>
+
+
                   <?php $dis = (($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])))? "":"disabled"?>
                   <td class=" text-nowrap">
                     <a <?=$dis?> class="btn btn-info btn-sm center" name="ocorrencias" href="ocorrencias.php?usu_id=<?=$row['usu_id']?>">
@@ -126,6 +147,16 @@
     <!-- /.content -->
   </div>
   <script>
+
+    $('.user-img').hover(function(e) {
+      document.getElementById("img-hover").src=""+$(this).prop("src");
+      $(".modal-hover").css({left: e.pageX});
+      $(".modal-hover").css({top: e.pageY});
+        $('.modal-hover').show();  
+    },function(){
+        $('.modal-hover').hide();
+    });
+
     $('#tabela-usuarios').DataTable({
         "bLengthChange": false,
         "bFilter": true,

@@ -178,7 +178,11 @@
                             <label>Endereço</label>
                             <input value='<?=$row['emp_endereco']?>' required enabled type="text" id="endereco" name="endereco" class="form-control">
                           </div>
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-1">
+                            <label>Número</label>
+                            <input value='<?=$row['emp_numero']?>' required enabled type="text" id="numero" name="numero" class="form-control">
+                          </div>
+                          <div class="form-group col-md-2">
                             <label>Complemento</label>
                             <input value='<?=$row['emp_complemento']?>' enabled type="text" id="complemento" name="complemento" class="form-control">
                           </div>
@@ -240,7 +244,7 @@
       document.getElementById('telefone').value=(conteudo.telefone.replace(" ", ""));
       document.getElementById('atividade_principal').value= (conteudo.atividade_principal[0].text);
       document.getElementById('nome_fantasia').value = (conteudo.fantasia);
-      document.getElementById('cep').value = (conteudo.cep);
+      document.getElementById('cep').value = (conteudo.cep.replace(".", ""));
       document.getElementById('endereco').value = (conteudo.logradouro);
       document.getElementById('complemento').value = (conteudo.complemento);
       document.getElementById('bairro').value = (conteudo.bairro);

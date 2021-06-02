@@ -16,8 +16,9 @@
     $estado = $_POST['estado'];
     $complemento = $_POST['complemento'];
     $email = $_POST['email'];
+    $numero = $_POST['numero'];
 
-    if (!empty($cep) && !empty($email) && !empty($complemento) && !empty($estado) && !empty($municipio) && !empty($bairro) && !empty($endereco) && !empty($razaoSocial) && !empty($cnpj) && !empty($telefone) && !empty($areaAtuacao) && !empty($nomeFantasia)) {
+    if (!empty($cep) && !empty($email) && !empty($estado) && !empty($municipio) && !empty($bairro) && !empty($endereco) && !empty($razaoSocial) && !empty($cnpj) && !empty($telefone) && !empty($areaAtuacao) && !empty($nomeFantasia)) {
         $sql = "UPDATE empresa SET 
         emp_razao_social = ?,
         emp_cnpj = ?,  
@@ -32,11 +33,12 @@
         emp_bairro = ?, 
         emp_estado = ?, 
         emp_cep = ?, 
-        emp_email = ?
+        emp_email = ?,
+        emp_numero = ?
         WHERE emp_cnpj = '".$_GET['cnpj']."'"; 
         
         $prepare = mysqli_prepare($connect, $sql);
-        $bindParam = mysqli_stmt_bind_param($prepare, "ssssisisssssss",
+        $bindParam = mysqli_stmt_bind_param($prepare, "ssssisisssssssi",
             $razaoSocial,
             $cnpj,
             $telefone,
@@ -50,7 +52,8 @@
             $bairro,
             $estado,
             $cep,
-            $email);
+            $email,
+            $numero);
         //var_dump($prepare);
         //var_dump($bindParam);
         if (mysqli_stmt_execute($prepare)){
