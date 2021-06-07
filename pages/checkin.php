@@ -5,9 +5,8 @@ include ('../includes/permissoes.php');
 include ('../includes/primeirologin.php');
 include ('../includes/navbar.php');
 include ('../includes/sidebar.php');
-
+require_once('../admin/DB.php');
   if(isset($_GET['status']) && isset($_GET['usu_id'])){ 
-    require_once('../admin/DB.php');
     $sql = "SELECT u.* FROM usuario u
             WHERE u.usu_id = ".$_GET['usu_id']; // so aparece os dados se existe uma empresa cadastrada no sistema
     $query = mysqli_query($connect,$sql);
@@ -170,19 +169,44 @@ include ('../includes/sidebar.php');
             </div>
           </div>
         </div>
+
+        <?php
+          $arr = [];
+          $datas = [];
+          $horas = [];
+          $dataAno = [];
+          for($i = 0; $i <10; $i++){
+            $sqlt = "SELECT count(che_id) as qtd, DATE(NOW() -INTERVAL ".$i." DAY) as data, SEC_TO_TIME(SUM(TIME_TO_SEC(che_horario_saida) - TIME_TO_SEC(che_horario_entrada))) as hora FROM check_in WHERE DATE(che_horario_entrada) = DATE(NOW() -INTERVAL ".$i." DAY) AND che_horario_saida IS NOT NULL";
+            $queryt = mysqli_query($connect, $sqlt);
+            if($queryt != null){
+                $rowt = mysqli_fetch_assoc($queryt);
+                $arr[$i] = intval($rowt['qtd']);
+                $datas[$i] = date_format(date_create($rowt['data']),"d/m");
+                $dataAno[$i] = date_format(date_create($rowt['data']),"Y-m-d");
+                $horas[$i] = intval(substr($rowt['hora'],0,2));
+            }
+            else
+              var_dump(mysqli_error($connect));
+          }
+          $acessos = array_sum($arr);
+          $totHoras = array_sum($horas);
+          $dtInicio = $dataAno[9];
+          $dtFim = $dataAno[0];
+        ?>
+
         <div class="row">
           <div class="col-lg-6">
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Total de Acessos</h3>
-                  <a href="#">Ver relatório</a> <!-- relatorioAcessos.php -->
+                  <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>">Ver relatório</a> <!-- relatorioAcessos.php -->
                 </div>
               </div>
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-bold text-lg"><?= $_GET['totAcessos']?>  Acessos</span>
+                    <span class="text-bold text-lg"><?=$acessos?> Acessos</span>
                     <span>Total de acessos (Últimos 10 dias)</span>
                   </p>
                 </div>
@@ -197,13 +221,13 @@ include ('../includes/sidebar.php');
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Tempo Total de Acessos</h3>
-                  <a href="#">Ver relatório</a> <!-- relatorioTempoAcesso.php -->
+                  <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>">Ver relatório</a> <!-- relatorioTempoAcesso.php -->
                 </div>
               </div>
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-bold text-lg"><?= $_GET['totHoras']?> Horas</span>
+                    <span class="text-bold text-lg"><?=$totHoras?> Horas</span>
                     <span>Total de horas (Últimos 10 dias)</span>
                   </p>
                 </div>
@@ -217,7 +241,7 @@ include ('../includes/sidebar.php');
       </div>
     </section>
   </div>
-
+  
 
   <script>
       $(function () {
@@ -235,16 +259,16 @@ include ('../includes/sidebar.php');
       var chart1  = new Chart($chart1, {
         type   : 'bar',
         data   : {
-          labels  : ['01/05', '02/05', '03/05', '04/05', '05/05', '06/05', '07/05', '08/05', '09/05', '10/05'],
+          labels  : ['<?=$datas[9]?>', '<?=$datas[8]?>', '<?=$datas[7]?>', '<?=$datas[6]?>', '<?=$datas[5]?>', '<?=$datas[4]?>', '<?=$datas[3]?>', '<?=$datas[2]?>', '<?=$datas[1]?>', '<?=$datas[0]?>'],
           datasets: [
             {
               backgroundColor: '#007bff',
               borderColor    : '#007bff',
-              data           : [100, 200, 300, 250, 270, 250, 300, 420, 180,210]
+              data           : [<?=$arr[9]?>, <?=$arr[8]?>, <?=$arr[7]?>, <?=$arr[6]?>, <?=$arr[5]?>, <?=$arr[4]?>, <?=$arr[3]?>, <?=$arr[2]?>, <?=$arr[1]?>, <?=$arr[0]?>]
             }
           ]
         },
-        options: {
+        options: {  
           maintainAspectRatio: false,
           tooltips           : {
             mode     : mode,
@@ -294,12 +318,12 @@ include ('../includes/sidebar.php');
       var chart2  = new Chart($chart2, {
         type   : 'bar',
         data   : {
-          labels  : ['01/05', '02/05', '03/05', '04/05', '05/05', '06/05', '07/05', '08/05', '09/05', '10/05'],
+          labels  : ['<?=$datas[9]?>', '<?=$datas[8]?>', '<?=$datas[7]?>', '<?=$datas[6]?>', '<?=$datas[5]?>', '<?=$datas[4]?>', '<?=$datas[3]?>', '<?=$datas[2]?>', '<?=$datas[1]?>', '<?=$datas[0]?>'],
           datasets: [
             {
               backgroundColor: '#17a2b8',
               borderColor    : '#17a2b8',
-              data           : [200, 1700, 2700, 2000, 1800, 1500, 2000, 400, 1200, 1800]
+              data           : [<?=$horas[9]?>, <?=$horas[8]?>, <?=$horas[7]?>, <?=$horas[6]?>, <?=$horas[5]?>, <?=$horas[4]?>, <?=$horas[3]?>, <?=$horas[2]?>, <?=$horas[1]?>, <?=$horas[0]?>]
             }
           ]
         },

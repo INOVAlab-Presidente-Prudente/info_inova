@@ -70,7 +70,7 @@
                                                 <h3 class="card-title">Relatório de Utilização pelos Usuários do Coworking
                                                 referente as datas <?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?> a <?=date_format(date_create($_POST['dtFim']),"d/m/Y")?> </h3>
                                             </div>
-                                            <div class="col-1"> <button id="btn-gerarpdf" onclick="getPDF('relatorio_<?=$_POST['dtInicio']?>_<?=$_POST['dtFim']?>')" class="btn btn-info">PDF</button></div>
+                                            <div class="col-1"> <button id="btn-gerarpdf" onclick="window.location.href='../admin/RelatorioCoworking.php?dtInicio=<?=$_POST['dtInicio']?>&dtFim=<?=$_POST['dtFim']?>'" class="btn btn-info">PDF</button></div>
                                         </div>
                                     </div>
                                     <div class="card-footer mid">

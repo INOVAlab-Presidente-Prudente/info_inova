@@ -65,9 +65,7 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
 !empty($municipio) && !empty($email) && !empty($areaAtuacao) && 
 !empty($areaInteresse) &&  !empty($telefone) && !empty($estado)) {
 
-    if (validaCPF(str_replace(".", "", str_replace("-", "", $cpf)))) {
-        
-    } else {
+    if (!validaCPF(str_replace(".", "", str_replace("-", "", $cpf)))) {
         header("location: ?erro=cpf_invalido");
         die();
     }

@@ -75,14 +75,13 @@
                                                 ?>
                                             </h3>
                                         </div>
-                                        <div class="col-1"> <button id="btn-gerarpdf" onclick="getPDF('relatorio_<?=$_POST['dtInicio']?>_<?=$_POST['dtFim']?>')" class="btn btn-info">PDF</button></div>
+                                        <div class="col-1"> <button id="btn-gerarpdf" onclick="window.open('../admin/RelatorioEmpresa.php?dtInicio=<?=$_POST['dtInicio']?>&dtFim=<?=$_POST['dtFim']?>', '_blank')" class="btn btn-info">PDF</button></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
                                         <?php 
                                             if($dif != 0)
                                                 echo "Periodo escolhido de ".($dif + 1)." dias";
-                                        
                                         ?>
                                         </div>
                                     </div>
