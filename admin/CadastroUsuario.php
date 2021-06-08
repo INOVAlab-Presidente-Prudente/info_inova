@@ -147,8 +147,20 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                     }
                     
                     if ($_FILES['uploadFoto']) {
-                        $uploadfile = "../images/usuarios/" . hash("md5", $cpf) . ".png";
-                        move_uploaded_file($_FILES['uploadFoto']['tmp_name'], $uploadfile);
+                        // Incluímos o arquivo com a classe
+                        include 'classes/classUpload.php';
+                        // Associamos a classe à variável $upload
+                        $upload = new UploadImagem();
+                        // Determinamos nossa largura máxima permitida para a imagem
+                        $upload->width = 300;
+                        // Determinamos nossa altura máxima permitida para a imagem
+                        $upload->height = 300;
+
+                        // Exibimos a mensagem com sucesso ou erro retornada pela função salvar.
+                        //Se for sucesso, a mensagem também é um link para a imagem enviada.
+                        $_FILES['uploadFoto']['name'] = "pict" . hash("md5", $cpf) . ".png";
+                        echo $upload->salvar("../images/usuarios/", $_FILES['uploadFoto']);
+                        // move_uploaded_file($_FILES['uploadFoto']['tmp_name'], $uploadfile);
                     }
                 //fim upload
                 header("location: ../pages/consultarUsuario.php?usuario_cadastrado=true");
