@@ -18,6 +18,9 @@
   else
     header("location: /pages/adminPage.php");
 ?>
+  <div class="modal-hover" width="250x" height="250px" >
+    <img id="img-hover"  width="250px" height="250px" class="elevation-2 mr-1" src="" style="border-radius: 100%;"/> <!-- style="width=25px; heigth=25px;" class="user-img elevation-2 mr-1"  -->
+  </div>
   <div class="content-wrapper">
     <div class="content-header">
       <div class="container-fluid">
@@ -65,14 +68,16 @@
             <div class="invoice p-3 mb-3">
               <div class="row">
                 <div class="col-12 mb-4">
+                  
                     <?php 
                         if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
                             echo '<img id="imgUsuario" src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="profile-user-img img-fluid img-circle border-2 border-default" style="height:100px;" alt="User Image">';
                         else
                             echo '<img id="imgUsuario" src="../images/avatar-df.png" class="profile-user-img img-fluid img-circle border-2 border-default" alt="User Image">';
                     ?>
+                  
                   <h2><?=htmlspecialchars($row['usu_nome'])?></h2>
-                  <a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>&alterar=true" class="btn btn-warning btn-sm center">
+                  <a href=e"consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>&alterar=true" class="btn btn-warning btn-sm center">
                     <i class="fas fa-edit"></i>&nbsp;
                     Alterar Usuário
                   </a>
@@ -123,6 +128,21 @@
       </div>
     </section>
 </div>
+<script>
+  const img = document.getElementById('imgUsuario');
+  $('#imgUsuario').hover(function(e) {
+      document.getElementById("img-hover").src=""+$(this).prop("src");
+      $(".modal-hover").css({left: getOffset(img).left + 130});
+      $(".modal-hover").css({top: getOffset(img).top - 70});
+        $('.modal-hover').show();  
+    },function(){
+      if($('.modal-hover:hover').length <= 0)
+        $('.modal-hover').hide();
+    }
+  );
+
+</script>
+
 <?php
   include ('../includes/footer.php');
 ?>

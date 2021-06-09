@@ -155,11 +155,12 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                         $upload->width = 300;
                         // Determinamos nossa altura máxima permitida para a imagem
                         $upload->height = 300;
-
+                        $uploadfile = "../images/usuarios/" . hash("md5", $cpf) . ".png";
+                        /* move_uploaded_file($_FILES['uploadFoto']['tmp_name'], $uploadfile); */
                         // Exibimos a mensagem com sucesso ou erro retornada pela função salvar.
                         //Se for sucesso, a mensagem também é um link para a imagem enviada.
-                        $_FILES['uploadFoto']['name'] = "pict" . hash("md5", $cpf) . ".png";
-                        echo $upload->salvar("../images/usuarios/", $_FILES['uploadFoto']);
+                        $_FILES['uploadFoto']['name'] = hash("md5", $cpf) . ".png";
+                        echo $upload->salvar($uploadfile, $_FILES['uploadFoto']);
                         // move_uploaded_file($_FILES['uploadFoto']['tmp_name'], $uploadfile);
                     }
                 //fim upload

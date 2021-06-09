@@ -93,7 +93,7 @@
                           </script>
                         </div>
                       </section>
-                      <div class="input-group">
+                      <div class="input-group mt-2">
                           <div class="input-wrapper mx-auto">
                             <input type="hidden" id="img64" name="img64" />
                             <button class="btn btn-secondary btn-md" type="button" onclick="abrirModal()">Tirar

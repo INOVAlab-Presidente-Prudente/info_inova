@@ -6,12 +6,10 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>
-<div class="modal-hover" width="150px" heigth="150px">
-    <img id="img-hover" width="150px" heigth="150px" src=""  /> 
+<div class="modal-hover" width="175x" height="175px" >
+    <img id="img-hover"  width="175px" height="175px" class="elevation-2 mr-1" src="" style="border-radius: 100%;"/> <!-- style="width=25px; heigth=25px;" class="user-img elevation-2 mr-1"  -->
   </div>
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -97,9 +95,9 @@
                   <td class=" text-nowrap">
                     <?php
                       if(in_array(hash("md5", $row['usu_cpf']).".png", scandir("../images/usuarios")))
-                        echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
+                        echo '<img src="../images/usuarios/'.hash("md5", $row['usu_cpf']).'.png" id="user-img" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
                       else
-                          echo '<img src="../images/avatar-df.png" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
+                          echo '<img src="../images/avatar-df.png" id="user-img" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
                     ?>
                     <?=htmlspecialchars($row['usu_nome'])?>
                   </td>
@@ -139,6 +137,7 @@
                   ?>
               </tbody>
             </table>
+
           </div>
           <!-- /.card-body -->
         <!-- /.card -->
@@ -147,13 +146,14 @@
     <!-- /.content -->
   </div>
   <script>
-
+   
     $('.user-img').hover(function(e) {
       document.getElementById("img-hover").src=""+$(this).prop("src");
-      $(".modal-hover").css({left: e.pageX});
-      $(".modal-hover").css({top: e.pageY});
+      $(".modal-hover").css({left: getOffset(this).left + 70});
+      $(".modal-hover").css({top: getOffset(this).top - 60});
         $('.modal-hover').show();  
     },function(){
+      if($('.modal-hover:hover').length <= 0)
         $('.modal-hover').hide();
     });
 

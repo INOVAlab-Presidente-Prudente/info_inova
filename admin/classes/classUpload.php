@@ -101,9 +101,9 @@
 			/* Retiramos acentos, espaços e hífens do nome da imagem
 			$file['name'] = $this->tirarAcento(($file['name'])); */
 
-			$mensagem = "Sucesso!"
+			$mensagem = "Sucesso!";
 			// Atribuímos caminho e nome da imagem a uma variável apenas
-			$uploadfile = $caminho.$file['name'];
+			$uploadfile = $caminho;
 
 			// Guardamos na variável tipo o formato do arquivo enviado
 			$tipo = strtolower(end(explode('/', $file['type'])));
