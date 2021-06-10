@@ -77,7 +77,7 @@
                     ?>
                   
                   <h2><?=htmlspecialchars($row['usu_nome'])?></h2>
-                  <a href=e"consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>&alterar=true" class="btn btn-warning btn-sm center">
+                  <a href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>&alterar=true" class="btn btn-warning btn-sm center">
                     <i class="fas fa-edit"></i>&nbsp;
                     Alterar Usuário
                   </a>

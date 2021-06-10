@@ -100,8 +100,13 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
             }
 
             if ($_FILES['uploadFoto']) {
-                $uploadfile = "../images/usuarios/" . hash("md5", $cpf) . ".png";
-                move_uploaded_file($_FILES['uploadFoto']['tmp_name'], $uploadfile);
+                include 'classes/classUpload.php';
+                $upload = new UploadImagem();
+                $upload->width = 320;
+                $upload->height = 320;
+                $uploadfile = "../images/usuarios/";
+                $_FILES['uploadFoto']['name'] = hash("md5", $cpf) . ".png";
+                echo $upload->salvar($uploadfile, $_FILES['uploadFoto']);
             }
             
             header("location: ../pages/visualizarUsuario.php?cpf=".$cpf."&usuario_alterado=true");

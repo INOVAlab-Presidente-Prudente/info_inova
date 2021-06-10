@@ -40,7 +40,6 @@ while($empresas!=null){
         htmlspecialchars($presenca),
         htmlspecialchars($row3['qtde']),
         htmlspecialchars($row['qtde']),
-        $empresas['emp_pendencia']? 'sim' : 'não',
         "?"
     ];
     $empresas = mysqli_fetch_assoc($query);
@@ -52,40 +51,58 @@ class PDF extends FPDF
     {
         global $tmpMedio, $qtdeCheckin;
         // Logo
-        $this->Image('../images/Logo_Inova_Prudente.png',10,6,40);
-        $this->Image('../images/prudente.jpeg',175,2,25);
+        $this->Image('../images/logo_relatorio.png',5,6,200);
         // Arial bold 15
         $this->SetFont('Arial','B',15);
-        // Move to the right
-        $this->Cell(80);
         // Title
-        $this->Cell(30,10,'Relatório de Utilização de Empresas',0,0,'C');
+        $this->Cell(0,65,'Relatório de Utilização de Empresas',0,1,'C');
 
         $this->SetFont('Arial','',12);
-        $this->Cell(-77,50,'Relatório de Utilização Empresa referente as datas '.date_format(date_create($_GET['dtInicio']),"d/m/Y").' a '.date_format(date_create($_GET['dtFim']),"d/m/Y").'',0,0,'C');
+        $this->Cell(0,-40,'Relatório de Utilização Empresa referente as datas '.date_format(date_create($_GET['dtInicio']),"d/m/Y").' a '.date_format(date_create($_GET['dtFim']),"d/m/Y").'',0,1,'L');
         // Line break
         $this->Ln(32);
     }
     // Simple table
     function BasicTable($header, $data)
     {
+        $cellHeight = 6;
         // Header
-        foreach($header as $col)
-            $this->Cell(38,7,$col,1);
+        $this->SetFillColor(189, 189, 189);
+        $this->SetFont('Arial', 'B', 10);
+        $i = 1;
+        foreach ($header as $h){
+            if (strlen($h) > 19) {}
+                $i = 2;
+                $h = substr($h,0, 19) . "\r\n" . substr($h, (strlen($h) - 19) * -1);
+            $this->Cell(38,$cellHeight*$i,$h,1, 0, 0, true);
+        }
         $this->Ln();
         // Data
+        $this->SetFont('Arial', '', 10);
         foreach($data as $row)
         {
-            foreach($row as $col)
-                $this->Cell(38,6,$col,1);
+            $i = 1;
+            $empresa = $row[0];
+            if (strlen($empresa) > 15) {
+                $empresa = substr($empresa,0, 15) . "\r\n" . substr($empresa, (strlen($empresa) - 15) * -1);
+                // var_dump($nome);
+                // die();
+                $i = 2;
+            }
+            $this->Cell(38, $cellHeight*$i, $empresa ,1);
+            $this->Cell(38, $cellHeight*$i, $row[1],1, 0, 'C');
+            $this->Cell(38, $cellHeight*$i, $row[2],1, 0, 'C');
+            $this->Cell(38, $cellHeight*$i, $row[3],1, 0, 'C');
+            $this->Cell(38, $cellHeight*$i, $row[4],1);
             $this->Ln();
+
         }
     }
 }
 
 $pdf = new PDF();
 // Column headings
-$header = array('Empresa', 'Nº de dias que a empresa compareceu', 'Nº de funcionarios que compareceram', 'Quantidade de funcionarios total', 'Aluguel Atrasado', 'Tempo restante de contrato');
+$header = array('Empresa', 'Qtde de dias que a empresa compareceu', 'Qtde de funcionarios que compareceram', 'Qtde de funcionarios total', 'Tempo restante de contrato');
 $pdf->SetFont('Arial','',8);
 $pdf->AddPage();
 $pdf->BasicTable($header,$tabela);

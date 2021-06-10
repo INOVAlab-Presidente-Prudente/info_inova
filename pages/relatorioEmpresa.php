@@ -100,7 +100,6 @@
                                             <th>Nº de dias que a empresa compareceu</th>
                                             <th>Nº de funcionarios que compareceram</th>
                                             <th>Quantidade de funcionarios total</th>
-                                            <th>Aluguel Atrasado</th>
                                             <th>Tempo restante de contrato</th>
                                         </tr>
                                     </thead>
@@ -150,7 +149,6 @@
                                                     <td><?=htmlspecialchars($presenca)?></td>
                                                     <td><?=htmlspecialchars($row3['qtde'])?></td>
                                                     <td><?=htmlspecialchars($row['qtde'])?></td>
-                                                    <td><?=$empresas['emp_pendencia']? 'sim' : 'não' ?></td>
                                                     <td>?</td>
                                                 </tr>
                                             <?php

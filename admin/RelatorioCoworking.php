@@ -53,8 +53,6 @@
             // $this->Image('../images/prudente.jpeg',175,2,25);
             // Arial bold 15
             $this->SetFont('Arial','B',15);
-            // Move to the right
-            // $this->Cell(80);
             // Title
             $this->Cell(0,65,'Relatório de Utilização do Coworking',0,1,'C');
 

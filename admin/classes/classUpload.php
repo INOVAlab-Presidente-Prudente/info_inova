@@ -97,7 +97,7 @@
 
 		// Função que irá fazer o upload da imagem
 		public function salvar($caminho, $file){
-
+			
 			/* Retiramos acentos, espaços e hífens do nome da imagem
 			$file['name'] = $this->tirarAcento(($file['name'])); */
 
@@ -113,10 +113,10 @@
 				png ou gif!</font>";
 				return $mensagem;
 			}
-
+			// chmod ("/fotos/", 0777);
 			/* Se a imagem temporária não for movida para onde a variável com caminho
 			e nome indica, exibiremos uma mensagem de erro */
-			else if (!move_uploaded_file($file['tmp_name'], $uploadfile)) {
+			else if (!move_uploaded_file($file['tmp_name'], $uploadfile.$file['name'])) {
 				switch($file['error']){
 					case 1:
 						$mensagem = "<font color='#F00'>O tamanho do arquivo é maior que o
@@ -140,7 +140,7 @@
 			} /* -> fim if */ 
 			else{
 				// Pegamos sua largura e altura originais
-				list($width_orig, $height_orig) = getimagesize($uploadfile);
+				list($width_orig, $height_orig) = getimagesize($uploadfile.$file['name']);
 
 				//Comparamos sua largura e altura originais com as desejadas
 				if($width_orig > $this->width || $height_orig > $this->height){
