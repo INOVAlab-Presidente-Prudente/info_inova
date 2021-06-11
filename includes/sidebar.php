@@ -100,7 +100,7 @@
                 if(isset($_SESSION['admin'])){ ?>
                     <li class="nav-item">
                         <a href="../pages/consultarSala.php" class="nav-link">
-                        <i class="nav-icon fas fa-building"></i>
+                        <i class="nav-icon fab fa-houzz"></i>
                         <p>
                             Salas
                         </p>

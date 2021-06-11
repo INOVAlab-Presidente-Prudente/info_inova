@@ -6,7 +6,7 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>
-<div class="modal-hover" width="175x" height="175px" >
+<div class="modal-hover" width="175x" height="175px" style="display : none" >
     <img id="img-hover"  width="175px" height="175px" class="elevation-2 mr-1" src="" style="border-radius: 100%;"/> <!-- style="width=25px; heigth=25px;" class="user-img elevation-2 mr-1"  -->
   </div>
   <div class="content-wrapper">

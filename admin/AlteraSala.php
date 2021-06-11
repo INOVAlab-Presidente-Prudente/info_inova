@@ -3,21 +3,21 @@ if(!isset($_SERVER['HTTP_REFERER']))
     header('location: /');
 
 $nome = $_POST['nome'];
-$capacidade = $_POST['capacidade'];
 $localizacao = $_POST['localizacao'];
+$capacidade = $_POST['capacidade'];
 $valPeriodo = $_POST['valPeriodo'];
 $valHora = $_POST['valHora'];
-$disponivel = $_POST['disponivel'];
+$disponivel = isset($_POST['disponivel']);
 $caixaSom = $_POST['caixaSom'];
-$climatizado = $_POST['climatizado'];
-$frigobar = $_POST['frigobar'];
-$projetor = $_POST['projetor'];
-$cadeiraApoio = $_POST['cadeiraApoio'];
-$iluminacao = $_POST['iluminacao'];
-$observacoes = $_POST['observacoes'];
 $computadores = $_POST['computadores'];
+$iluminacao = $_POST['iluminacao'];
 $mesas = $_POST['mesas'];
 $cadeiras = $_POST['cadeiras'];
+$climatizado = isset($_POST['climatizado']);
+$frigobar = isset($_POST['frigobar']);
+$projetor = isset($_POST['projetor']);
+$cadeiraApoio = isset($_POST['cadeiraApoio']);
+$observacoes = $_POST['observacoes'];
 
 if (!empty($nome) && !empty($localizacao) && !empty($valPeriodo) && !empty($valHora)) {
     $sql = "UPDATE sala SET 
@@ -37,7 +37,7 @@ if (!empty($nome) && !empty($localizacao) && !empty($valPeriodo) && !empty($valH
     sa_computadores = ?,
     sa_mesas = ?,
     sa_cadeiras = ?
-    WHERE sa_id = '".$_GET['sa_id']."'"; 
+    WHERE sa_id = '".$_GET['sala_id']."'"; 
     
     $prepare = mysqli_prepare($connect, $sql);
     $bindParam = mysqli_stmt_bind_param($prepare, "siddsiiiisiisiii",
@@ -57,8 +57,7 @@ if (!empty($nome) && !empty($localizacao) && !empty($valPeriodo) && !empty($valH
         $computadores,
         $mesas,
         $cadeiras);
-    //var_dump($prepare);
-    //var_dump($bindParam);
+        
     if (mysqli_stmt_execute($prepare)){
         header("location: ../pages/visualizarSala.php?sala_id=".$_GET['sala_id']."&sala_alterada=true");
     }

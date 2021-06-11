@@ -7,18 +7,17 @@ $localizacao = $_POST['localizacao'];
 $capacidade = $_POST['capacidade'];
 $valPeriodo = $_POST['valPeriodo'];
 $valHora = $_POST['valHora'];
-$disponivel = $_POST['disponivel'];
+$disponivel = isset($_POST['disponivel']);
 $caixaSom = $_POST['caixaSom'];
 $computadores = $_POST['computadores'];
 $iluminacao = $_POST['iluminacao'];
 $mesas = $_POST['mesas'];
 $cadeiras = $_POST['cadeiras'];
-$climatizado = $_POST['climatizado'];
-$frigobar = $_POST['frigobar'];
-$projetor = $_POST['projetor'];
-$cadeiraApoio = $_POST['cadeiraApoio'];
+$climatizado = isset($_POST['climatizado']);
+$frigobar = isset($_POST['frigobar']);
+$projetor = isset($_POST['projetor']);
+$cadeiraApoio = isset($_POST['cadeiraApoio']);
 $observacoes = $_POST['observacoes'];
-var_dump($climatizado);
 
 if (!empty($nome) && !empty($localizacao) && !empty($valPeriodo) && !empty($valHora)) {
     require_once("DB.php");
@@ -31,13 +30,13 @@ if (!empty($nome) && !empty($localizacao) && !empty($valPeriodo) && !empty($valH
             $valPeriodo,
             $valHora,
             $localizacao,
-            isset($_POST['climatizado']),
-            isset($_POST['projetor']),
+            $climatizado,
+            $projetor,
             $caixaSom,
-            isset($_POST['cadeiraApoio']),
+            $cadeiraApoio,
             $iluminacao,
             $disponivel,
-            isset($_POST['frigobar']),
+            $frigobar,
             $observacoes,
             $computadores,
             $mesas,
@@ -47,7 +46,10 @@ if (!empty($nome) && !empty($localizacao) && !empty($valPeriodo) && !empty($valH
         header("location: ../pages/consultarSala.php?sala_cadastrada=true");
     }
     else {
-        var_dump(mysqli_error($connect));
+        echo "<div class='alert alert-danger alert-dismissible'>
+            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            <h5><i class='icon fas fa-ban'></i> Ocorreu um erro ao cadastrar, tente novamente ou contate um Administrador!</h5>
+          </div>";
     }
 } else {
     echo "<div class='alert alert-warning alert-dismissible'>

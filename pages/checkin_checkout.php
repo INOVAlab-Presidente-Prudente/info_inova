@@ -6,8 +6,8 @@
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
 ?>  
-  <div class="modal-hover" width="150px" heigth="150px">
-    <img id="img-hover" width="150px" heigth="150px" src=""  /> 
+  <div class="modal-hover" width="175x" height="175px" style="display : none" >
+    <img id="img-hover"  width="175px" height="175px" class="elevation-2 mr-1" src="" style="border-radius: 100%;"/> <!-- style="width=25px; heigth=25px;" class="user-img elevation-2 mr-1"  -->
   </div>
   <div class="content-wrapper">
     <section class="content-header">
@@ -91,12 +91,13 @@
   </div>
   <script>
 
-    $('.user-img').mouseenter(function(e) {
+    $('.user-img').hover(function(e) {
       document.getElementById("img-hover").src=""+$(this).prop("src");
-      $(".modal-hover").css({left: e.pageX});
-      $(".modal-hover").css({top: e.pageY});
+      $(".modal-hover").css({left: getOffset(this).left + 70});
+      $(".modal-hover").css({top: getOffset(this).top - 60});
         $('.modal-hover').show();  
-    }).mouseleave(function() {
+    },function(){
+      if($('.modal-hover:hover').length <= 0)
         $('.modal-hover').hide();
     });
 

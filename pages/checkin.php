@@ -126,16 +126,13 @@ require_once('../admin/DB.php');
                   else
                     $src = "../images/avatar-df.png";
                 ?>
-                  <!-- title row -->
                   <div class="invoice p-3 mb-3" style= "border-radius: .25rem">
                   <div class="row">
                     <div class="col-12 mb-2">
                       <img src="<?=$src?>" style="width: 100px; height: 100px;" class="profile-user-img img-fluid img-circle border-2 <?=$border?>" alt="User profile picture"/>
                       <h2><?=$usuario['u.usu_nome']?></h2>
                     </div>
-                    <!-- /.col -->
                   </div>
-                  <!-- info row -->
                   <div class="row invoice-info mb-4">
                     <div class="col-md-6 invoice-col">
                       <b>Email: </b><?=htmlspecialchars($usuario['usu_email'])?><br>
@@ -147,7 +144,7 @@ require_once('../admin/DB.php');
                         <b>Nome do Responsável: </b><?=htmlspecialchars($usuario['usu_responsavel'])?><br>
                         <b>Telefone do Responsável: </b><?=htmlspecialchars($usuario['usu_tel_responsavel'])?><br>
                       <?php endif;?>
-                    </div><!-- /.col -->
+                    </div>
                     <div class="col-md-6 invoice-col">
                       <b>Área de Atuação: </b><?=htmlspecialchars($usuario['usu_area_atuacao'])?><br>
                       <b>Área de Interesse: </b><?=htmlspecialchars($usuario['usu_area_interesse'])?><br>
@@ -161,8 +158,8 @@ require_once('../admin/DB.php');
                         $perfil = mysqli_fetch_assoc($query)['pu_descricao'];
                       ?>                 
                       <b>Perfil de Usuário: </b><?=htmlspecialchars(ucwords($perfil))?><br>
-                    </div><!-- /.col -->
-                  </div><!-- /.row -->
+                    </div>
+                  </div>
                   <?php 
                 }
               }?>

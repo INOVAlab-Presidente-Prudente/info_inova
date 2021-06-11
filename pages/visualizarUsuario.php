@@ -18,7 +18,7 @@
   else
     header("location: /pages/adminPage.php");
 ?>
-  <div class="modal-hover" width="250x" height="250px" >
+  <div class="modal-hover" width="250x" height="250px" style="display : none" >
     <img id="img-hover"  width="250px" height="250px" class="elevation-2 mr-1" src="" style="border-radius: 100%;"/> <!-- style="width=25px; heigth=25px;" class="user-img elevation-2 mr-1"  -->
   </div>
   <div class="content-wrapper">

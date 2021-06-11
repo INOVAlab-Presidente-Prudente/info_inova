@@ -1,7 +1,7 @@
-
 <?php
   $titulo = "Consultar Sala";
   include ('../includes/header.php');
+  include ('../includes/primeirologin.php');
   include ('../includes/permissoes.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
@@ -23,16 +23,25 @@
         </div><!-- /.container-fluid -->
     </section>
     <section class="content">
+        <?php 
+          if (isset($_GET['sala_cadastrada'])){
+            echo "<div class='col alert alert-success alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-check'></i>&nbspSala Cadastrada!</h5>
+                        <p>A sala foi cadastrado com sucesso!</p>
+                  </div>";
+          }
+        ?>
         <div class="col-md-12">
             <?php /* Colocar os alerts dps */ ?>
             <div class="card">
                 <div class="card-header">
                     <div class="float-right">
                         <a href="cadastrarSala.php" class="btn btn-sm btn-success">
-                            <i class="nav-icon fas fa-briefcase"></i>&nbsp;
+                        <i class="nav-icon fab fa-houzz"></i>&nbsp;
                             Cadastrar
                         </a>
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#companiesModal">
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#salaModal">
                             <i class="fas fa-search"></i>&nbsp;
                             Pesquisar
                         </button>
@@ -62,19 +71,19 @@
                             <tr>
                                 <td class="text-nowrap"><?=$row['sa_nome_espaco']?></td>
                                 <td class="text-nowrap"><?=$row['sa_capacidade']?></td>
-                                <td class="text-nowrap"><?=$row['sa_valor_periodo']?></td>
-                                <td class="text-nowrap"><?=$row['sa_valor_hora']?></td>
+                                <td class="text-nowrap">R$<?=$row['sa_valor_periodo']?></td>
+                                <td class="text-nowrap">R$<?=$row['sa_valor_hora']?></td>
                                 <td class="text-nowrap"><?=$row['sa_localizacao']?></td>
                                 <td class="text-nowrap">
-                                    <a class="btn btn-primary btn-sm center" href="visualizarSala.php?id=<?= $row['sa_id'] ?>">
+                                    <a class="btn btn-primary btn-sm center" href="visualizarSala.php?sala_id=<?=$row['sa_id']?>">
                                         <i class="far fa-eye"></i>&nbsp;
                                         Visualizar
                                     </a>
-                                    <a class="btn btn-warning btn-sm center" href="consultarSalaEdit.php?id=<?= $row['sa_id'] ?>">
+                                    <a class="btn btn-warning btn-sm center" href="consultarSalaEdit.php?sala_id=<?=$row['sa_id']?>&alterar=true">
                                         <i class="far fa-edit"></i>&nbsp;
                                         Alterar
                                     </a>
-                                    <a class="btn btn-danger btn-sm center" href="../admin/ExcluiSala.php?id=<?= $row['sa_id'] ?>">
+                                    <a class="btn btn-danger btn-sm center" onclick="return confirm('Você realmente quer excluir essa sala?');" href="../admin/ExcluiSala.php?sala_id=<?=$row['sa_id']?>">
                                         <i class="far fa-trash-alt"></i>&nbsp;
                                         Excluir
                                     </a>
@@ -112,5 +121,6 @@
       });
 </script>
 <?php
+    include ('../includes/modal_sala.php');
     include ('../includes/footer.php');
 ?>  

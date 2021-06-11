@@ -70,11 +70,11 @@
             // Header
             $this->SetFillColor(189, 189, 189);
             $this->SetFont("Arial", "B");
-            $this->Cell(60, $cellHeight, $header[0],1, 0, 0, true);
-            $this->Cell(30, $cellHeight, $header[1],1, 0, 0, true);
-            $this->Cell(30, $cellHeight, $header[2],1, 0, 0, true);
-            $this->Cell(30, $cellHeight, $header[3],1, 0, 0, true);
-            $this->Cell($cellWidth, $cellHeight,$header[4],1, 0, 0, true);
+            $this->Cell(60, $cellHeight, $header[0],1, 0, 'C', true);
+            $this->Cell(30, $cellHeight, $header[1],1, 0, 'C', true);
+            $this->Cell(30, $cellHeight, $header[2],1, 0, 'C', true);
+            $this->Cell(30, $cellHeight, $header[3],1, 0, 'C', true);
+            $this->Cell($cellWidth, $cellHeight,$header[4],1, 0, 'C', true);
             $this->Ln();
             // Data
             $this->SetFont("Arial", "");

@@ -1,7 +1,7 @@
-
 <?php
   $titulo = "Cadastrar Sala";
   include ('../includes/header.php');
+  include ('../includes/primeirologin.php');
   include ('../includes/permissoes.php');
   include ('../includes/navbar.php');
   include ('../includes/sidebar.php');
@@ -44,31 +44,31 @@
                     <div class="row">
                         <div class="col-12 form-group">
                             <label>Nome do Espaço</label>
-                            <input type="text" name="nome" id="nome" class="form-control" autocomplete="off"/>
+                            <input type="text" name="nome" id="nome" required class="form-control" autocomplete="off"/>
                         </div>
                         <div class="col-12 form-group">
                             <label>Localização</label>
-                            <input type="text" name="localizacao" id="localizacao" class="form-control" autocomplete="off"/>
+                            <input type="text" name="localizacao" required id="localizacao" class="form-control" autocomplete="off"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4 form-group">
                             <label>Capacidade</label>
-                            <input type="number" min="0" name="capacidade" id="capacidade" class="form-control" autocomplete="off"/>
+                            <input type="number" min="0" name="capacidade" required id="capacidade" class="form-control" autocomplete="off"/>
                         </div>
                         <div class="col-4 form-group">
                             <label>Valor por periodo (R$)</label>
-                            <input type="text" name="valPeriodo" id="valPeriodo" class="form-control" autocomplete="off"/>
+                            <input type="text" name="valPeriodo" id="valPeriodo" pattern="[0-9\.]+" required class="form-control" autocomplete="off"/>
                         </div>
                         <div class="col-4 form-group">
                             <label>Valor por hora (R$)</label>
-                            <input type="text" name="valHora" id="valHora" class="form-control" autocomplete="off"/>
+                            <input type="text" name="valHora"  id="valHora" pattern="[0-9\.]+" required class="form-control" autocomplete="off"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4 form-group">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" value="true" checked class="checkbox custom-control-input" id="disponivel" name="disponivel">
+                                <input type="checkbox" checked class="checkbox custom-control-input" id="disponivel" name="disponivel">
                                 <label class="custom-control-label" for="disponivel">Disponivel</label>
                             </div>
                         </div>
@@ -121,13 +121,13 @@
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" value="false" class="checkbox custom-control-input" id="climatizado" name="climatizado">
+                                        <input type="checkbox" class="checkbox custom-control-input" id="climatizado" name="climatizado">
                                         <label class="custom-control-label" for="climatizado">Ambiente Climatizado</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" value="false" class="checkbox custom-control-input" id="frigobar" name="frigobar">
+                                        <input type="checkbox" class="checkbox custom-control-input" id="frigobar" name="frigobar">
                                         <label class="custom-control-label" for="frigobar">Frigobar</label>
                                     </div>
                                 </div>
@@ -135,13 +135,13 @@
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" value="false" class="checkbox custom-control-input" id="projetor" name="projetor">
+                                        <input type="checkbox" class="checkbox custom-control-input" id="projetor" name="projetor">
                                         <label class="custom-control-label" for="projetor">Projetor</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" value="false" class="checkbox custom-control-input" id="cadeiraApoio" name="cadeiraApoio">
+                                        <input type="checkbox" class="checkbox custom-control-input" id="cadeiraApoio" name="cadeiraApoio">
                                         <label class="custom-control-label" for="cadeiraApoio"> Cadeira com apoio </label> 
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="card-footer"> 
                         <div class="row">
-                            <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="fas fa-building"></i>&nbsp;&nbsp;Cadastrar nova sala</button>                
+                            <button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class="fab fa-houzz"></i>&nbsp;&nbsp;Cadastrar nova sala</button>                
                         </div> 
                         
                     </div>
@@ -168,16 +168,6 @@
     </form>
   </section>
 </div>
-<script>
-$(".checkbox").change(function() {
-    if(this.checked) {
-        this.value = "true";
-    }
-    else{
-        this.value = "false";
-    }
-});
-</script>
 <?php
     include ('../includes/footer.php');
 ?>
