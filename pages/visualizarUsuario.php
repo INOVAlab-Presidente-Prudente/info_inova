@@ -124,10 +124,82 @@
               </div>
             </div>
           </div>
-        </div>        
+        </div> 
+        <?php
+          $arr = [];
+          $datas = [];
+          $horas = [];
+          $dataAno = [];
+          for($i = 0; $i <10; $i++){
+            $sqlt = "SELECT count(che_id) as qtd, DATE(NOW() -INTERVAL ".$i." DAY) as data, SEC_TO_TIME(SUM(TIME_TO_SEC(che_horario_saida) - TIME_TO_SEC(che_horario_entrada))) as hora FROM check_in WHERE DATE(che_horario_entrada) = DATE(NOW() -INTERVAL ".$i." DAY) AND che_horario_saida IS NOT NULL AND usu_id = ".$row['usu_id'];
+            $queryt = mysqli_query($connect, $sqlt);
+            if($queryt != null){
+                $rowt = mysqli_fetch_assoc($queryt);
+                $arr[$i] = intval($rowt['qtd']);
+                $datas[$i] = date_format(date_create($rowt['data']),"d/m");
+                $dataAno[$i] = date_format(date_create($rowt['data']),"Y-m-d");
+                $horas[$i] = intval(substr($rowt['hora'],0,2));
+            }
+            else
+              var_dump(mysqli_error($connect));
+          }
+          $acessos = array_sum($arr);
+          $totHoras = array_sum($horas);
+          $dtInicio = $dataAno[9];
+          $dtFim = $dataAno[0];
+        ?>       
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Total de Acessos</h3>
+                  <!-- <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>">Ver relatório</a> <!-- relatorioAcessos.php -->
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex">
+                  <p class="d-flex flex-column">
+                    <span class="text-bold text-lg"><?=$acessos?> Acessos</span>
+                    <span>Total de acessos (Últimos 10 dias)</span>
+                  </p>
+                </div>
+                <div class="position-relative mb-4">
+                  <canvas id="chart1" height="200"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Tempo Total de Acessos</h3>
+                  <!-- <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>">Ver relatório</a> <!-- relatorioTempoAcesso.php -->
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex">
+                  <p class="d-flex flex-column">
+                    <span class="text-bold text-lg"><?=$totHoras?> Horas</span>
+                    <span>Total de horas (Últimos 10 dias)</span>
+                  </p>
+                </div>
+                <div class="position-relative mb-4">
+                  <canvas id="chart2" height="200"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
       </div>
     </section>
-</div>
+
+    
+
+    <!-- colocar os cards de graficos aqui -->
+
+  </div>
 <script>
   const img = document.getElementById('imgUsuario');
   $('#imgUsuario').hover(function(e) {
@@ -141,8 +213,142 @@
     }
   );
 
+  $(function () {
+      'use strict'
+    
+      var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold'
+      }
+    
+      var mode      = 'index'
+      var intersect = true
+    
+      //grafico 1 
+      var $chart1 = $('#chart1')
+      var chart1  = new Chart($chart1, {
+        type   : 'bar',
+        data   : {
+          labels  : ['<?=$datas[9]?>', '<?=$datas[8]?>', '<?=$datas[7]?>', '<?=$datas[6]?>', '<?=$datas[5]?>', '<?=$datas[4]?>', '<?=$datas[3]?>', '<?=$datas[2]?>', '<?=$datas[1]?>', '<?=$datas[0]?>'],
+          datasets: [
+            {
+              backgroundColor: '#007bff',
+              borderColor    : '#007bff',
+              data           : [<?=$arr[9]?>, <?=$arr[8]?>, <?=$arr[7]?>, <?=$arr[6]?>, <?=$arr[5]?>, <?=$arr[4]?>, <?=$arr[3]?>, <?=$arr[2]?>, <?=$arr[1]?>, <?=$arr[0]?>]
+            }
+          ]
+        },
+        options: {  
+          maintainAspectRatio: false,
+          tooltips           : {
+            mode     : mode,
+            intersect: intersect
+          },
+          hover              : {
+            mode     : mode,
+            intersect: intersect
+          },
+          legend             : {
+            display: false
+          },
+          scales             : {
+            yAxes: [{
+              // display: false,
+              gridLines: {
+                display      : true,
+                lineWidth    : '4px',
+                color        : 'rgba(0, 0, 0, .2)',
+                zeroLineColor: 'transparent'
+              },
+              ticks    : $.extend({
+                beginAtZero: true,
+    
+                // Include a dollar sign in the ticks
+                callback: function (value, index, values) {
+                  if (value >= 1000) {
+                    value /= 1000
+                    value += 'k'
+                  }
+                  return value
+                }
+              }, ticksStyle)
+            }],
+            xAxes: [{
+              display  : true,
+              gridLines: {
+                display: false
+              },
+              ticks    : ticksStyle
+            }]
+          }
+        }
+      })
+      
+      //grafico 2
+      var $chart2 = $('#chart2')
+      var chart2  = new Chart($chart2, {
+        type   : 'bar',
+        data   : {
+          labels  : ['<?=$datas[9]?>', '<?=$datas[8]?>', '<?=$datas[7]?>', '<?=$datas[6]?>', '<?=$datas[5]?>', '<?=$datas[4]?>', '<?=$datas[3]?>', '<?=$datas[2]?>', '<?=$datas[1]?>', '<?=$datas[0]?>'],
+          datasets: [
+            {
+              backgroundColor: '#17a2b8',
+              borderColor    : '#17a2b8',
+              data           : [<?=$horas[9]?>, <?=$horas[8]?>, <?=$horas[7]?>, <?=$horas[6]?>, <?=$horas[5]?>, <?=$horas[4]?>, <?=$horas[3]?>, <?=$horas[2]?>, <?=$horas[1]?>, <?=$horas[0]?>]
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          tooltips           : {
+            mode     : mode,
+            intersect: intersect
+          },
+          hover              : {
+            mode     : mode,
+            intersect: intersect
+          },
+          legend             : {
+            display: false
+          },
+          scales             : {
+            yAxes: [{
+              // display: false,
+              gridLines: {
+                display      : true,
+                lineWidth    : '4px',
+                color        : 'rgba(0, 0, 0, .2)',
+                zeroLineColor: 'transparent'
+              },
+              ticks    : $.extend({
+                beginAtZero: true,
+    
+                // Include a dollar sign in the ticks
+                callback: function (value, index, values) {
+                  if (value >= 1000) {
+                    value /= 1000
+                    value += 'k'
+                  }
+                  return value
+                }
+              }, ticksStyle)
+            }],
+            xAxes: [{
+              display  : true,
+              gridLines: {
+                display: false
+              },
+              ticks    : ticksStyle
+            }]
+          }
+        }
+      })
+  });
+      console.log("Chart 1: "+chart1+"\nChart 2:"+chart2)
 </script>
-
+<!-- OPTIONAL SCRIPTS -->
+<script src="../plugins/chart.js/Chart.min.js"></script>
+  <!-- <script src="../js/dashboardCharts.js"></script> -->
 <?php
   include ('../includes/footer.php');
 ?>
