@@ -7,7 +7,7 @@
   include ('../includes/sidebar.php');
 
   require_once("../admin/DB.php");
-  $sql = "SELECT * FROM usuario WHERE usu_cpf = '".$_GET['cpf']."'";
+  $sql = "SELECT * FROM usuario  WHERE usu_cpf = '".$_GET['cpf']."'";
   $query = mysqli_query($connect, $sql);
   $row = mysqli_fetch_assoc($query);
 ?>
@@ -269,8 +269,23 @@
                       <input required <?=$alterar?> enabled type="text" name="areaAtuacao" class="form-control" <?="value='".$row['usu_area_atuacao']."'"?>>
                     </div>
                     <div class="form-group col-md-6">
-                      <label>Área de Interesse</label>
-                      <input required <?=$alterar?> enabled type="text" name="areaInteresse" class="form-control" <?="value='".$row['usu_area_interesse']."'"?>>
+                      <label>Interesse no Coworking</label>
+                      <select required <?=$alterar?> autocomplete="off" name="areaInteresse" class="form-control">
+                        <?php
+                            $sql = "SELECT * FROM area_interesse";
+                            $queryAI = mysqli_query($connect, $sql);
+                            $resAI = mysqli_fetch_array($queryAI);    
+
+                            while ($resAI != null) {
+                                if ($resAI['ai_id'] == $row['ai_id'])
+                                    echo "<option selected value='".$resAI['ai_id']."'>". ucwords($resAI['ai_descricao']) ."</option>";
+                                else
+                                    echo "<option value='".$resAI['ai_id']."'>". ucwords($resAI['ai_descricao']) ."</option>";
+                                
+                                $resAI = mysqli_fetch_array($queryAI);
+                            }
+                          ?>
+                      </select>
                     </div>
                     <div class="form-group col-md-7">
                       <label>Empresa:</label>
@@ -319,7 +334,7 @@
                                 $res2 = mysqli_fetch_array($query);
                             }
                           ?>
-                        </select>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -329,32 +344,11 @@
                     <?php 
                       if (isset($_GET['alterar']) && ($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf']))) {
                           echo "<button class='col-md-6 offset-md-3 btn btn-primary' name='confirmar'><i class='fas fa-edit'></i>&nbsp;&nbsp;Salvar Alterações</button>";
-                          if (isset($_POST['confirmar'])) {
+                          if (isset($_POST['confirmar'])) 
                             require_once("../admin/AlteraUsuario.php");
-                          }
-                      } 
-                      else if (isset($_GET['excluir']) && ($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf']))) {
-                          echo "<button class='btn btn-danger' name='sim'>Sim</button>";
-                          echo "<button class='btn btn-light' name='nao'>Não</button>";
-                          if (isset($_POST['sim'])) {
-                              require_once("../admin/ExcluiUsuario.php");
-                          }
-                          if (isset($_POST['nao'])) {
-                              header("location: ?cpf=".$row['usu_cpf']."");
-                          }
+                          
                       }
-                      else {
-                          if ($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])) {
-                              echo "<div class='col'><button type='submit' name='alterar' class='btn btn-warning w-100'>Alterar</button></div>";
-                              echo "<div class='col'><a href='../admin/ExcluirUsuario.php?cpf=".$row['usu_cpf']."'id='btn-excluir' type='button' name='excluir' class='col btn btn-danger w-100' onclick=\"return confirm('Você realmente quer excluir esse usuário?');\"> Excluir</a></div>";  
-                              echo "<div class='col'><button type='button' class='btn btn-info w-100' onclick='window.location.href = \"ocorrencias.php?usu_id=".$row['usu_id']."\"'>Ocorrências</button></div>"  ;
-                          }
-                          if (isset($_POST['alterar'])) {
-                              header("location: ?cpf=".$row['usu_cpf']."&alterar=enabled");
-                              
-                          }
-                      }
-                  ?>                
+                    ?>                
                   </div> 
                 </div>
                 

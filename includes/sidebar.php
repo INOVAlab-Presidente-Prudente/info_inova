@@ -97,7 +97,7 @@
                 </li>
                 <?php 
                 }
-                if(isset($_SESSION['admin'])){ ?>
+                if(isset($_SESSION['admin']) || isset($_SESSION['coworking'])){ ?>
                     <li class="nav-item">
                         <a href="../pages/consultarSala.php" class="nav-link">
                         <i class="nav-icon fab fa-houzz"></i>

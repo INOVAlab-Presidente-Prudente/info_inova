@@ -233,8 +233,20 @@
                       <input required enabled type="text" name="areaAtuacao" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
-                      <label>Área de Interesse</label>
-                      <input required enabled type="text" name="areaInteresse" class="form-control">
+                      <label>Interesse no Coworking</label>
+                      <select required <?=$alterar?> autocomplete="off" name="areaInteresse" class="form-control">
+                        <?php
+                            require_once("../admin/DB.php");
+                            $sql = "SELECT * FROM area_interesse";
+                            $queryAI = mysqli_query($connect, $sql);
+                            $resAI = mysqli_fetch_array($queryAI);    
+
+                            while ($resAI != null) {
+                                echo "<option value='".$resAI['ai_id']."'>". ucwords($resAI['ai_descricao']) ."</option>";
+                                $resAI = mysqli_fetch_array($queryAI);
+                            }
+                          ?>
+                      </select>
                     </div>
                   </div>
                   <div class="row">
@@ -242,8 +254,7 @@
                       <label>Empresa</label>
                       <select name="empresa" class="form-control ">
                         <option value="">...</option>
-                        <?php 
-                            require_once("../admin/DB.php");
+                        <?php
                             $sql = "SELECT * FROM empresa ORDER BY emp_razao_social";
                             $query = mysqli_query($connect, $sql);
                             $res = mysqli_fetch_array($query);

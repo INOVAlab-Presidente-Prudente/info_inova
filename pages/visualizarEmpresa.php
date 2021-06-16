@@ -106,6 +106,61 @@
         </div>     
       </div>
     </section>
+    <section class="content">     
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">            
+            <p class="card-title">Lista de colaboradores</p>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>                  
+                <tr>
+                  <th>Nome</th>
+                  <th>CPF</th>                  
+                  <th>Empresa</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php 
+                  $sql = "SELECT * FROM usuario WHERE emp_id = ".$row['emp_id'];
+                  $queryUsuario = mysqli_query($connect, $sql);
+                  $usuarios = mysqli_fetch_assoc($queryUsuario);
+                
+                while($usuarios != null){?>
+                  <tr>
+                    <td class=" text-nowrap"><a href="visualizarUsuario.php?cpf=<?=$usuarios['usu_cpf']?>"><?=$usuarios['usu_nome']?></td>
+                    <td class=" text-nowrap"><?=$usuarios['usu_cpf']?></td>
+                    <td class=" text-nowrap"><?=$row['emp_nome_fantasia']?></td>
+                    <td class=" text-nowrap">
+                      <a href="ocorrencias.php" class="btn btn-info btn-sm center">
+                        <i class="fas fa-portrait"></i>&nbsp;
+                        Ocorrências
+                      </a>
+                      <a href="consultarUsuarioEdit.php?cpf=<?=$usuarios['usu_cpf']?>" class="btn btn-warning btn-sm center">
+                        <i class="far fa-edit"></i>&nbsp;
+                        Alterar
+                      </a>
+                      <a href="../admin/ExcluiUsuario.php?cpf=<?=$usuarios['usu_cpf']?>" class="btn btn-danger btn-sm center" onclick="return confirm('Você realmente quer excluir esse usuário?');">
+                        <i class="far fa-trash-alt"></i>&nbsp;
+                        Excluir
+                      </a>
+                    </td>
+                  </tr>
+                <?php 
+                    $usuarios = mysqli_fetch_assoc($queryUsuario);
+                  }
+                ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </section>
   </section>
 </div>
 <?php

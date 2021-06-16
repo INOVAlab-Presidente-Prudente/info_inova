@@ -99,10 +99,10 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     $query = mysqli_query($connect, $sql);
 
     if (!mysqli_num_rows($query)) {
-        $sql = "INSERT INTO usuario (pu_id, emp_id, usu_nome, usu_rg, usu_cpf, usu_data_nascimento, usu_responsavel, usu_tel_responsavel, usu_endereco, usu_cep, usu_bairro, usu_municipio, usu_area_atuacao, usu_area_interesse, usu_telefone, usu_email, usu_senha, usu_socio, usu_primeiro_login, usu_complemento, usu_estado, usu_numero) 
+        $sql = "INSERT INTO usuario (pu_id, emp_id, usu_nome, usu_rg, usu_cpf, usu_data_nascimento, usu_responsavel, usu_tel_responsavel, usu_endereco, usu_cep, usu_bairro, usu_municipio, usu_area_atuacao, ai_id, usu_telefone, usu_email, usu_senha, usu_socio, usu_primeiro_login, usu_complemento, usu_estado, usu_numero) 
         VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $prepare = mysqli_prepare($connect, $sql);
-        $bindParam = mysqli_stmt_bind_param($prepare, "iisssssssssssssssiissi", 
+        $bindParam = mysqli_stmt_bind_param($prepare, "iisssssssssssisssiissi", 
             $perfilUsuario,
             $empresa,
             $nome,

@@ -53,18 +53,20 @@
           }
         ?>
         <div class="card">
-          <div class="card-header">
-              <div class="float-right">
-                  <a href="cadastrarEmpresa.php" class="btn btn-sm btn-success">
-                    <i class="nav-icon fas fa-briefcase"></i>&nbsp;
-                    Cadastrar
-                  </a>
-                  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#companiesModal">
-                    <i class="fas fa-search"></i>&nbsp;
-                    Pesquisar
-                  </button>
-              </div>             
-            <p class="card-title">Lista de empresas</p>
+        <div class="card-header">             
+            <p class="card-title">Lista de Empresas</p>
+            <div class="card-tools">
+              <div class="input-group input-group-sm">
+                <a href="cadastrarEmpresa.php" class="btn btn-sm btn-success mr-2">
+                  <i class="fas fa-briefcase"></i>&nbsp;
+                  Cadastrar
+                </a>
+                <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+              </div>              
+            </div>
           </div>
           <!-- /.card-header -->
           <?php 
@@ -92,12 +94,10 @@
                       $nome = $row['emp_nome_fantasia'];
                   ?>
                   <td class=" text-nowrap"><?=htmlspecialchars($row['emp_cnpj'])?></td>
-                  <td class=" text-nowrap"><?=htmlspecialchars($nome)?></td>
                   <td class=" text-nowrap">
-                    <a href="visualizarEmpresa.php?cnpj=<?=$row['emp_cnpj']?>" class="btn btn-primary btn-sm center">
-                      <i class="far fa-eye"></i>&nbsp;
-                      Visualizar
-                    </a>
+                    <a href="visualizarEmpresa.php?cnpj=<?=$row['emp_cnpj']?>"><?=htmlspecialchars($nome)?></a>
+                  </td>
+                  <td class=" text-nowrap">
                     <a href="consultarEmpresaEdit.php?cnpj=<?=$row['emp_cnpj']?>&alterar=true" class="btn btn-warning btn-sm center">
                       <i class="far fa-edit"></i>&nbsp;
                       Alterar
@@ -138,6 +138,10 @@
         
         "order": []
       });
+      oTable = $('#tabela-empresas').DataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        $('#pesquisar').keyup(function(){
+          oTable.search($(this).val()).draw() ;
+        })
   </script>
 <?php
   include ('../includes/modal_empresas.php');

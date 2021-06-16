@@ -57,18 +57,20 @@
           }
         ?>
         <div class="card">
-          <div class="card-header">
-              <div class="float-right">
-                  <a href="cadastrarModalidade.php" class="btn btn-sm btn-success">
-                    <i class="nav-icon fas fa-handshake"></i>&nbsp;
-                    Cadastrar
-                  </a>
-                  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalidadeModal">
-                    <i class="fas fa-search"></i>&nbsp;
-                    Pesquisar
-                  </button>
-              </div>             
-            <p class="card-title">Lista de modalidades</p>
+        <div class="card-header">             
+            <p class="card-title">Lista de Modalidades</p>
+            <div class="card-tools">
+              <div class="input-group input-group-sm">
+                <a href="cadastrarModalidade.php" class="btn btn-sm btn-success mr-2">
+                  <i class="fas fa-handshake"></i>&nbsp;
+                  Cadastrar
+                </a>
+                <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+              </div>              
+            </div>
           </div>
           <div class="card-body table-responsive">
             <table id="tabela-modalidades" class="table table-bordered table-striped table-hover">
@@ -93,10 +95,6 @@
                   <td class=" text-nowrap"><a href="visualizarModalidade.php?mod_id=<?=$row['mod_id']?>"><?= htmlspecialchars(ucwords($row['mod_nome']))?></a></td>
                   <td class=" text-nowrap"><?=htmlspecialchars(ucwords($row['mod_edital']))?></td>
                   <td class=" text-nowrap">
-                    <a href="visualizarModalidade.php?mod_id=<?=$row['mod_id']?>" class="btn btn-primary btn-sm center">
-                      <i class="far fa-eye"></i>&nbsp;
-                      Visualizar
-                    </a>
                     <a href="consultarModalidadeEdit.php?mod_id=<?=$row['mod_id']?>&alterar=true" name="alterar" class="btn btn-warning btn-sm center">
                       <i class="far fa-edit"></i>&nbsp;
                       Alterar
@@ -134,6 +132,10 @@
             "zeroRecords": "Nenhum dado encontrado."
         } 
       });
+      oTable = $('#tabela-modalidades').DataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        $('#pesquisar').keyup(function(){
+          oTable.search($(this).val()).draw() ;
+        })
   </script>
 <?php
   include ('../includes/modal_modalidades.php');

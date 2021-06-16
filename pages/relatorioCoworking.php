@@ -1,7 +1,7 @@
 <?php include('../includes/header.php')?>
 <?php include("../includes/primeirologin.php")?>
 <?php include('../includes/permissoes.php')?>
-<body class="hold-transition sidebar-mini" onload="document.title='Relatório de Utilização pelos Usuários do Coworking'">
+<body class="hold-transition sidebar-mini" onload="document.title='Relatório de utilização do Coworking'">
     <?php include("../includes/navbar.php")?>
     <?php include("../includes/sidebar.php")?>
     <div class="wrapper">
@@ -10,146 +10,149 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Relatório de Utilização do Coworking</h1>
+                        <h2>Relatório - Coworking</h2>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/pages/adminPage.php">Home</a></li>
-                            <li class="breadcrumb-item active">Relatório de Utilização do Coworking</li>
+                            <li class="breadcrumb-item active">Relatório - Coworking</li>
                         </ol>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
         <section class="content">
-            <div class="container-fluid">
-            
-                <div class="col-md-12">
-                    <div class="card card-primary">
-                        
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title text-center">Pesquisar um intervalo de dias</h3>
+                        </div>
                         <form id="quickForm" method="post">
-                            <!-- <div class="card-header">
-                                <?php 
-                                    //mostrar o retorno caso ocorra um erro
-                                ?>
-                            </div> -->
-                            <div class="card-body pb-0">
-                                <div class="form-group">
-                                    <div class="row justify-content-center">
-                                        <div class="col-md-3">
-                                            <label>Data inicial:</label>
-                                            <input class="form-control" type="date" id="dtInicio" name="dtInicio"/><br>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Data final:</label>
-                                            <input class="form-control" type="date" id="dtFim" name="dtFim"/> <br>
-                                        </div>                                        
+                            
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-6">    
+                                        <label>Data inicial:</label>
+                                        <input class="form-control" type="date" id="dtInicio" name="dtInicio"/><br>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Data final:</label>
+                                        <input class="form-control" type="date" id="dtFim" name="dtFim"/> <br>
+                                    </div>                                        
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-3">
-                                        <button class="btn btn-primary w-100" name="consultar">Consultar</button>
-                                    </div>
-                                </div>
+                                <button class="btn btn-primary" name="consultar"><i class="fas fa-search"></i>&nbsp;&nbsp;Pesquisar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="card">
-                         
-                            <?php
-                            if(isset($_POST['consultar'])){
-                                if(isset($_POST['dtInicio']) && isset($_POST['dtFim'])){
-                                    require_once('../admin/DB.php');?>
-                                    <div id="info-1" class="card-header">
-                                        <div class="row">
-                                            <div class="col-11">
-                                                <h3 class="card-title">Relatório de Utilização pelos Usuários do Coworking
-                                                referente as datas <?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?> a <?=date_format(date_create($_POST['dtFim']),"d/m/Y")?> </h3>
-                                            </div>
-                                            <div class="col-1"> <button id="btn-gerarpdf" onclick="window.location.href='../admin/RelatorioCoworking.php?dtInicio=<?=$_POST['dtInicio']?>&dtFim=<?=$_POST['dtFim']?>'" class="btn btn-info">PDF</button></div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer mid">
-                                        <div class="card-body">
-                                            <?php
-                                                // pega quantidade de check in e tempo medio
-                                                $sql = "SELECT r.cont, sec_to_time(r.res/r.cont) AS tempo_total FROM (
-                                                SELECT COUNT(che_id) AS cont, SUM(TIME_TO_SEC(TIMEDIFF(che_horario_saida, che_horario_entrada))) AS res
-                                                            FROM check_in 
-                                                                WHERE che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' AND che_horario_saida <= '".$_POST['dtFim']." 23:59:59') r;";
-                                                $query = mysqli_query($connect, $sql);
-                                                $row = mysqli_fetch_assoc($query);
-                                            ?>
-                                            <div id="info-2" class="form-group">
-                                                <?php 
-                                                    $tmpMedio = explode(".",$row['tempo_total'])[0];
-                                                ?>
-                                                <label><p>Tempo médio entre todos usuários: <?=$tmpMedio?> hrs.</p></label><br>
-                                                <label><p>Quantidade de check-in: <?=$row['cont']?></p></label>
-                                            </div>
+            </div>
+            <?php
+            if(isset($_POST['consultar'])){
+                if(isset($_POST['dtInicio']) && isset($_POST['dtFim'])){
+                    require_once('../admin/DB.php');
+                
+                    // pega quantidade de check in e tempo medio
+                    $sql = "SELECT r.cont, sec_to_time(r.res/r.cont) AS tempo_total FROM (
+                    SELECT COUNT(che_id) AS cont, SUM(TIME_TO_SEC(TIMEDIFF(che_horario_saida, che_horario_entrada))) AS res
+                                FROM check_in 
+                                    WHERE che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' AND che_horario_saida <= '".$_POST['dtFim']." 23:59:59') r;";
+                    $query = mysqli_query($connect, $sql);
+                    $row = mysqli_fetch_assoc($query);
+                
+                    
+                    $tmpMedio = explode(".",$row['tempo_total'])[0];
+                    $tmpMedioVet = explode(":", $tmpMedio);
+            ?>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr/>
+                        <div class="callout callout-info">
                         
-                                            <table id="table-relatorio" class="table table-bordered table-hover">
-                                                
-                                                <?php
-                                                    $sql = "SELECT DISTINCT u.usu_id, u.usu_nome, u.usu_area_atuacao FROM usuario u, check_in c 
-                                                            WHERE c.usu_id = u.usu_id AND c.che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' 
-                                                                        AND c.che_horario_saida <= '".$_POST['dtFim']." 23:59:59' ORDER BY usu_area_atuacao";
-                                                    $query = mysqli_query($connect, $sql);
-                                                    $row = mysqli_fetch_assoc($query);
-                                                ?>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Usuario</th>
-                                                        <th>Qtd Horas</th>
-                                                        <th>Qtde check-in</th>
-                                                        <th>Qtde Ocorrencias</th>
-                                                        <th>Area atuacao</th>
-                                                    </tr>
-                                                </thead>
-                                                
-                                                <tbody>
-                                                    <?php
-                                                        while($row != null){
-                                                            $sql2 = "SELECT COUNT(c.che_id) AS qtde, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(c.che_horario_saida, c.che_horario_entrada)))) AS tempo 
-                                                                        FROM check_in c WHERE c.usu_id = ".$row['usu_id']." AND c.che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' 
-                                                                        AND c.che_horario_saida <= '".$_POST['dtFim']." 23:59:59'";
-                                                            $query2 = mysqli_query($connect, $sql2);
-                                                            $row2 = mysqli_fetch_assoc($query2);
-
-                                                            $sql3 = "SELECT COUNT(oc_id) AS qtdeOcorrencia
-                                                                        FROM ocorrencia WHERE usu_id = ".$row['usu_id']." AND oc_data >= '".$_POST['dtInicio']." 00:00:00' 
-                                                                        AND oc_data <= '".$_POST['dtFim']." 23:59:59'";
-                                                            $query3 = mysqli_query($connect, $sql3);
-                                                            $row3 = mysqli_fetch_assoc($query3);
-
-                                                            //if ($row2['tempo']){ 
-                                                                ?>
-                                                                    <tr>
-                                                                        <td><?=htmlspecialchars($row['usu_nome'])?></td>
-                                                                        <td><?=htmlspecialchars($row2['tempo'])?></td>
-                                                                        <td><?=htmlspecialchars($row2['qtde'])?></td>
-                                                                        <td><?=htmlspecialchars($row3['qtdeOcorrencia'])?></td>
-                                                                        <td><?=htmlspecialchars($row['usu_area_atuacao'])?></td>
-                                                                    </tr>
-                                                            <?php //}
-                                                            $row = mysqli_fetch_assoc($query);
-                                                        }
-                                                    ?>
-                                                </tbody>
-                                                
-                                                <!-- <tfoot>
-                                                
-                                                </tfoot> -->
-                                            </table>
-                                        </div>
-                                    </div>
-                                <?php }?>            
-                            <?php }?>
+                            <p class="col-md-12 lead">        
+                            Período: <strong><?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?></strong> a <strong><?=date_format(date_create($_POST['dtFim']),"d/m/Y")?></strong>
+                            </p>
+                            <p>
+                            Tempo médio entre todos usuários: <strong><?=$tmpMedioVet[0]."h ".$tmpMedioVet[1]."m ".$tmpMedioVet[2]."s "?></strong>
+                            </p>
+                            <p>
+                            Quantidade de check-ins: <strong><?=$row['cont']?></strong>
+                            </p>
+                        </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="float-right">
+                                    <button id="btn-gerarpdf" onclick="window.open('../admin/RelatorioCoworking.php?dtInicio=<?=$_POST['dtInicio']?>&dtFim=<?=$_POST['dtFim']?>', '_blank')" class="btn btn-sm btn-danger">
+                                        <i class="far fa-file-pdf"></i>&nbsp;
+                                        Exportar em PDF
+                                    </button>
+                                </div>    
+                                <p class="card-title">Lista de usuários</p>
+                            </div>
+                            <div class="card-footer mid">
+                                <div class="card-body">
+                                    <table id="table-relatorio" class="table table-bordered table-striped table-hover">
+                                        
+                                        <?php
+                                            $sql = "SELECT DISTINCT u.usu_id, u.usu_nome, u.usu_area_atuacao, u.usu_cpf FROM usuario u, check_in c 
+                                                    WHERE c.usu_id = u.usu_id AND c.che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' 
+                                                                AND c.che_horario_saida <= '".$_POST['dtFim']." 23:59:59' ORDER BY usu_area_atuacao";
+                                            $query = mysqli_query($connect, $sql);
+                                            $row = mysqli_fetch_assoc($query);
+                                            ?>
+                                        <thead>
+                                            <tr>
+                                                <th>Usuário</th>
+                                                <th>Horas (Total)</th>
+                                                <th>N° de Check-ins</th>
+                                                <th>N° de Ocorrências</th>
+                                                <th>Área Atuação</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                            <?php
+                                                while($row != null){
+                                                    $sql2 = "SELECT COUNT(c.che_id) AS qtde, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(c.che_horario_saida, c.che_horario_entrada)))) AS tempo 
+                                                                FROM check_in c WHERE c.usu_id = ".$row['usu_id']." AND c.che_horario_entrada >= '".$_POST['dtInicio']." 00:00:00' 
+                                                                AND c.che_horario_saida <= '".$_POST['dtFim']." 23:59:59'";
+                                                                $query2 = mysqli_query($connect, $sql2);
+                                                                $row2 = mysqli_fetch_assoc($query2);
+
+                                                                $sql3 = "SELECT COUNT(oc_id) AS qtdeOcorrencia
+                                                                FROM ocorrencia WHERE usu_id = ".$row['usu_id']." AND oc_data >= '".$_POST['dtInicio']." 00:00:00' 
+                                                                AND oc_data <= '".$_POST['dtFim']." 23:59:59'";
+                                                                $query3 = mysqli_query($connect, $sql3);
+                                                                $row3 = mysqli_fetch_assoc($query3);
+
+                                                                //if ($row2['tempo']){ 
+                                                                    ?>
+                                                            <tr>
+                                                                <td><a href="visualizarUsuario.php?cpf=<?=$row['usu_cpf']?>"><?=htmlspecialchars($row['usu_nome'])?></a></td>
+                                                                <td><?=htmlspecialchars($row2['tempo'])?></td>
+                                                                <td><?=htmlspecialchars($row2['qtde'])?></td>
+                                                                <td><?=htmlspecialchars($row3['qtdeOcorrencia'])?></td>
+                                                                <td><?=htmlspecialchars($row['usu_area_atuacao'])?></td>
+                                                            </tr>
+                                                    <?php //}
+                                                    $row = mysqli_fetch_assoc($query);
+                                                }
+                                                ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php }?>            
+                <?php }?>
                 </div>
             </div>
         </section>
@@ -176,24 +179,24 @@
     <script src="../js/gerarPDF.js"></script>
     
     <script>
-  $(function () {
-    // $("#table-relatorio").DataTable({
-    //   "responsive": true, "lengthChange": false, "autoWidth": false, "searching":false,
-    //   "buttons": [{
-    //             extend: 'pdfHtml5',
-    //             download: 'open'
-    //         }]
-    // }).buttons().container().appendTo('#table-relatorio_wrapper .col-md-6:eq(0)');
-    $('#table-relatorio2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
+  
+    $('#table-relatorio').DataTable({
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "language": {
+            "paginate": {
+              "first":      "First",
+              "last":       "Last",
+              "next":       "Próximo",
+              "previous":   "Anterior"
+            },
+            "zeroRecords": "Nenhum dado encontrado."
+        },
+        "order": []
     });
-  });
+
 </script>
 
 <?php include('../includes/footer.php'); ?>

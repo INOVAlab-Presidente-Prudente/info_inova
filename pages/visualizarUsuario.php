@@ -7,10 +7,11 @@
   include ('../includes/sidebar.php');
 
   require_once("../admin/DB.php");
-  $sql = "	SELECT u.*, pu_descricao, emp_nome_fantasia, emp_razao_social
+  $sql = "	SELECT u.*, ai_descricao, pu_descricao, emp_nome_fantasia, emp_razao_social
             FROM usuario u 
             LEFT JOIN empresa emp ON emp.emp_id = u.emp_id
             LEFT JOIN perfil_usuario pu ON pu.pu_id = u.pu_id
+            LEFT JOIN area_interesse ai ON ai.ai_id = u.ai_id
             WHERE u.usu_cpf = '".$_GET['cpf']."' "; 
   $query = mysqli_query($connect, $sql);
   if($query)
@@ -53,8 +54,8 @@
               if (isset($_GET['usuario_nao_alterado'])){
                   echo "<div class='alert alert-warning alert-dismissible'>
                           <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                          <h5><i class='fas fa-exclamation-triangle'></i>&nbspDados Incorretos!</h5>
-                          <p>Não foi possível alterar este usuário.</p>
+                          <h5><i class='fas fa-exclamation-triangle'></i>&nbspErro ao alterar!</h5>
+                          <p>Não foi possível alterar este usuário, contate um administrador.</p>
                         </div>";
               }
               if (isset($_GET['erro'])){
@@ -100,7 +101,7 @@
                 </div>
                 <div class="col-md-4 invoice-col">
                   <b>Área de Atuação: </b><?=htmlspecialchars($row['usu_area_atuacao'])?><br/>
-                  <b>Área de Interesse: </b><?=htmlspecialchars($row['usu_area_interesse'])?><br/>
+                  <b>Área de Interesse: </b><?=htmlspecialchars($row['ai_descricao'])?><br/>
                   <?php 
                     if ($row['emp_id'] != null):
                       $empresa = $row['emp_nome_fantasia'] ? $row['emp_nome_fantasia'] : $row['emp_razao_social'];
@@ -138,7 +139,7 @@
                 $arr[$i] = intval($rowt['qtd']);
                 $datas[$i] = date_format(date_create($rowt['data']),"d/m");
                 $dataAno[$i] = date_format(date_create($rowt['data']),"Y-m-d");
-                $horas[$i] = intval(substr($rowt['hora'],0,2));
+                $horas[$i] = intval(explode(":", $rowt['hora'])[0]);
             }
             else
               var_dump(mysqli_error($connect));
@@ -149,33 +150,12 @@
           $dtFim = $dataAno[0];
         ?>       
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-7">
             <div class="card">
-              <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Total de Acessos</h3>
-                  <!-- <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>">Ver relatório</a> <!-- relatorioAcessos.php -->
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg"><?=$acessos?> Acessos</span>
-                    <span>Total de acessos (Últimos 10 dias)</span>
-                  </p>
-                </div>
-                <div class="position-relative mb-4">
-                  <canvas id="chart1" height="200"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header border-0">
+              <div class="card-header border-0" style="height: 50.4px">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Tempo Total de Acessos</h3>
-                  <!-- <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>">Ver relatório</a> <!-- relatorioTempoAcesso.php -->
+                  <a href="relatorioCoworking.php">Ver relatório</a>
                 </div>
               </div>
               <div class="card-body">
@@ -190,6 +170,50 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <p class="card-title">Entrada e Saída</p>
+                  <a href="relatorioCoworking.php">Ver relatório</a>
+                </div>
+              </div>
+              <?php
+                $sql = "SELECT  DATE(che_horario_entrada) AS dia, TIME(che_horario_entrada) AS horaIni,
+                                TIME(che_horario_saida) AS horaFim FROM check_in 
+                                WHERE usu_id = ".$row['usu_id']." AND che_horario_entrada >= DATE(NOW() -INTERVAL 10 DAY)
+                                ORDER BY che_horario_saida DESC";
+                $queryCheckin = mysqli_query($connect, $sql);
+                $checkins = mysqli_fetch_assoc($queryCheckin);
+              ?>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 335px;">
+                <table class="table table-bordered table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>Data</th>
+                      <th>Entrada</th>
+                      <th>Saída</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php while($checkins != null){ ?>
+                        <tr>
+                          <td><?=date_format(date_create($checkins['dia']),"d/m/Y")?></td>
+                          <td><?=substr($checkins['horaIni'],0,5)?></td>
+                          <td><?=substr($checkins['horaFim'],0,5)?></td>
+                        </tr>
+                    <?php
+                        $checkins = mysqli_fetch_assoc($queryCheckin);
+                      }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
           </div>
         </div> 
       </div>
@@ -223,67 +247,7 @@
     
       var mode      = 'index'
       var intersect = true
-    
-      //grafico 1 
-      var $chart1 = $('#chart1')
-      var chart1  = new Chart($chart1, {
-        type   : 'bar',
-        data   : {
-          labels  : ['<?=$datas[9]?>', '<?=$datas[8]?>', '<?=$datas[7]?>', '<?=$datas[6]?>', '<?=$datas[5]?>', '<?=$datas[4]?>', '<?=$datas[3]?>', '<?=$datas[2]?>', '<?=$datas[1]?>', '<?=$datas[0]?>'],
-          datasets: [
-            {
-              backgroundColor: '#007bff',
-              borderColor    : '#007bff',
-              data           : [<?=$arr[9]?>, <?=$arr[8]?>, <?=$arr[7]?>, <?=$arr[6]?>, <?=$arr[5]?>, <?=$arr[4]?>, <?=$arr[3]?>, <?=$arr[2]?>, <?=$arr[1]?>, <?=$arr[0]?>]
-            }
-          ]
-        },
-        options: {  
-          maintainAspectRatio: false,
-          tooltips           : {
-            mode     : mode,
-            intersect: intersect
-          },
-          hover              : {
-            mode     : mode,
-            intersect: intersect
-          },
-          legend             : {
-            display: false
-          },
-          scales             : {
-            yAxes: [{
-              // display: false,
-              gridLines: {
-                display      : true,
-                lineWidth    : '4px',
-                color        : 'rgba(0, 0, 0, .2)',
-                zeroLineColor: 'transparent'
-              },
-              ticks    : $.extend({
-                beginAtZero: true,
-    
-                // Include a dollar sign in the ticks
-                callback: function (value, index, values) {
-                  if (value >= 1000) {
-                    value /= 1000
-                    value += 'k'
-                  }
-                  return value
-                }
-              }, ticksStyle)
-            }],
-            xAxes: [{
-              display  : true,
-              gridLines: {
-                display: false
-              },
-              ticks    : ticksStyle
-            }]
-          }
-        }
-      })
-      
+
       //grafico 2
       var $chart2 = $('#chart2')
       var chart2  = new Chart($chart2, {

@@ -58,18 +58,20 @@
           }
         ?>
         <div class="card">
-          <div class="card-header">
-              <div class="float-right">
-                  <a href="cadastrarUsuario.php" class="btn btn-sm btn-success">
-                    <i class="fas fa-user-plus"></i>&nbsp;
-                    Cadastrar
-                  </a>
-                  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#usersModal">
-                    <i class="fas fa-search"></i>&nbsp;
-                    Pesquisar
-                  </button>
-              </div>             
+        <div class="card-header">             
             <p class="card-title">Lista de usuários</p>
+            <div class="card-tools">
+              <div class="input-group input-group-sm">
+                <a href="cadastrarUsuario.php" class="btn btn-sm btn-success mr-2">
+                  <i class="fas fa-user-plus"></i>&nbsp;
+                  Cadastrar
+                </a>
+                <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+              </div>              
+            </div>
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive">
@@ -86,7 +88,7 @@
                 <?php 
                   require_once("../admin/DB.php");
                   //testando - vinicius
-                  $sql = 'SELECT u.*, e.emp_nome_fantasia, e.emp_razao_social FROM usuario u LEFT JOIN empresa e ON u.emp_id = e.emp_id ORDER BY usu_nome';
+                  $sql = 'SELECT u.*, e.emp_nome_fantasia, e.emp_razao_social, e.emp_cnpj FROM usuario u LEFT JOIN empresa e ON u.emp_id = e.emp_id ORDER BY usu_nome';
                   $query = mysqli_query($connect, $sql);
                   $row = mysqli_fetch_assoc($query);
                   while ($row != null):
@@ -99,7 +101,7 @@
                       else
                           echo '<img src="../images/avatar-df.png" id="user-img" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
                     ?>
-                    <?=htmlspecialchars($row['usu_nome'])?>
+                    <a href="visualizarUsuario.php?cpf=<?=$row['usu_cpf']?>"><?=htmlspecialchars($row['usu_nome'])?></a>
                   </td>
                   <td class=" text-nowrap"><?=htmlspecialchars($row['usu_cpf'])?></td>
                   <?php 
@@ -108,7 +110,9 @@
                     else
                       $nome = $row['emp_nome_fantasia'];
                   ?>
-                  <td class=" text-nowrap"><?=htmlspecialchars($nome)?></td>
+                  <td class=" text-nowrap">
+                    <a href="visualizarEmpresa.php?cnpj=<?=$row['emp_cnpj']?>"><?=htmlspecialchars($nome)?></a>
+                  </td>
 
 
                   <?php $dis = (($row['pu_id'] != '1' && $row['pu_id'] != '2' || isset($_SESSION['admin']) || (isset($_SESSION['coworking']) && $row['usu_cpf'] == $_SESSION['cpf'])))? "":"disabled"?>
@@ -116,10 +120,6 @@
                     <a <?=$dis?> class="btn btn-info btn-sm center" name="ocorrencias" href="ocorrencias.php?usu_id=<?=$row['usu_id']?>">
                       <i class="fas fa-portrait"></i>&nbsp;
                       Ocorrências
-                    </a>
-                    <a <?=$dis?> class='btn btn-primary btn-sm center' name="visualizar" href="visualizarUsuario.php?cpf=<?=$row['usu_cpf']?>">
-                      <i class="fas fa-user"></i>&nbsp;
-                      Visualizar
                     </a>
                     <a <?=$dis?> class='btn btn-warning btn-sm center' name="alterar" href="consultarUsuarioEdit.php?cpf=<?=$row['usu_cpf']?>&alterar=true">
                       <i class="far fa-edit"></i>&nbsp;
@@ -173,6 +173,10 @@
             "zeroRecords": "Nenhum dado encontrado."
         }
       });
+      oTable = $('#tabela-usuarios').DataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        $('#pesquisar').keyup(function(){
+          oTable.search($(this).val()).draw() ;
+        })
   </script>
   
 <?php

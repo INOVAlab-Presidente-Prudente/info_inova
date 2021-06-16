@@ -5,6 +5,8 @@
     {
         header("location: ../");
     }
+    if(!isset($titulo))
+        $titulo = "Infoinova";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

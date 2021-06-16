@@ -124,5 +124,6 @@ input[type='file'] {
 
 .dataTables_filter {
     /* Filtro de pesquisa do datatables */
+    display: none;
     float: right !important;
 }

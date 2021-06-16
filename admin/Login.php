@@ -5,10 +5,11 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 
 require_once("DB.php");
 
-$email = $_POST['email'];
+$email = $_POST['usuario'];
+$nomeUsuario = $_POST['usuario'];
 $senha = $_POST['senha'];
 
-$sql = "SELECT usu_nome, usu_senha, pu_id, usu_primeiro_login, usu_cpf, usu_nomedeusuario FROM usuario WHERE usu_email = '".$email."'";
+$sql = "SELECT usu_nome, usu_senha, pu_id, usu_primeiro_login, usu_cpf, usu_nomedeusuario FROM usuario WHERE usu_email = '".$email."' OR usu_nomedeusuario = '".$nomeUsuario."'";
 
 $query = mysqli_query($connect, $sql);
 

@@ -56,9 +56,9 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
     $upload_dir = "../images/usuarios//";
     $file = $upload_dir . hash("md5", $cpf) . ".png";
 
-    $sql = "UPDATE usuario SET pu_id = ?, emp_id = ?, usu_nome = ?, usu_rg = ?, usu_cpf = ?, usu_data_nascimento = ?, usu_responsavel = ?, usu_tel_responsavel = ?, usu_endereco = ?, usu_cep = ?, usu_bairro = ?, usu_municipio = ?, usu_area_atuacao = ?, usu_area_interesse = ?, usu_telefone = ?, usu_email = ?, usu_senha = ?, usu_socio = ?, usu_complemento = ?, usu_estado = ?, usu_numero = ? WHERE usu_cpf = '".$_GET['cpf']."'";
+    $sql = "UPDATE usuario SET pu_id = ?, emp_id = ?, usu_nome = ?, usu_rg = ?, usu_cpf = ?, usu_data_nascimento = ?, usu_responsavel = ?, usu_tel_responsavel = ?, usu_endereco = ?, usu_cep = ?, usu_bairro = ?, usu_municipio = ?, usu_area_atuacao = ?, ai_id = ?, usu_telefone = ?, usu_email = ?, usu_senha = ?, usu_socio = ?, usu_complemento = ?, usu_estado = ?, usu_numero = ? WHERE usu_cpf = '".$_GET['cpf']."'";
     $prepare = mysqli_prepare($connect, $sql);
-    mysqli_stmt_bind_param($prepare, "iisssssssssssssssissi",
+    mysqli_stmt_bind_param($prepare, "iisssssssssssisssissi",
     $perfilUsuario,
     $empresa,
     $nome,
@@ -111,9 +111,10 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
             
             header("location: ../pages/visualizarUsuario.php?cpf=".$cpf."&usuario_alterado=true");
         }
-            
-        else
-            header("location: ../pages/visualizarUsuario.php?cpf=".$_GET['cpf']."&usuario_nao_alterado=true");
+        else{
+            var_dump(mysqli_error($connect));
+        }
+            //header("location: ../pages/visualizarUsuario.php?cpf=".$_GET['cpf']."&usuario_nao_alterado=true");
     }
 } else {
     header("location: ../pages/visualizarUsuario.php?cpf=".$_GET['cpf']."&usuario_nao_alterado=true");

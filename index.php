@@ -31,48 +31,47 @@
       <div class="login-logo">
         <a href="#"><b>Info</b>Inova</a>
       </div>
-      <!-- /.login-logo -->
       <div class="card">
-      
         <div class="card-body login-card-body">
-          <div class="mb-2">
-            <?php 
-              if (isset($_POST['entrar'])) {
-                  require_once("admin/Login.php");
-              }
-            ?>
-          </div>
-          <p class="login-box-msg">Faça login para iniciar sua sessão</p>
-
-          <form method="post">
-            <div class="input-group mb-3">
-              <input type="email" name = "email" class="form-control" placeholder="example@email.com">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-envelope"></span>
-                </div>
-              </div>
+          <div class="container-fluid">
+            <div class="mb-2">
+              <?php 
+                if (isset($_POST['entrar'])) {
+                    require_once("admin/Login.php");
+                }
+              ?>
             </div>
-            <div class="input-group mb-3">
-              <input type="password" class="form-control" name ="senha" placeholder="Senha">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
+            <p class="login-box-msg">Faça login para iniciar sua sessão</p>
+            <form method="post">
+              <div class="row justify-content-center">
+                
+                <div class="col-md-12 input-group mb-3">
+                  <input type="text" name="usuario" class="form-control" placeholder="Email ou nome de usuário">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="input-group">
-                <div class="col w-100 mx-auto">
+                <div class="col-md-12 input-group mb-3">
+                  <input type="password" class="form-control" name ="senha" placeholder="Senha">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
                   <div id="g-recaptcha" data-sitekey="6LfOv_kaAAAAAEafHopd2IGULE3LDMUH1byxx5ya"></div>
                 </div>
-            </div>
-                <br>
-                <button type="submit" name="entrar" class="btn btn-warning btn-block fo">Login</button>
-          </form>
-          
+                <div class="col-md-12 input-group">
+                  <button type="submit" name="entrar" class="btn btn-warning btn-block font-weight-bold text-center mt-2"><i class="fas fa-sign-in-alt mr-2"></i>Login</button>
+                </div>
+              </div>
+            </form>
+          </div>          
+        </div>
       </div>
-    </div>
     </div>
 
     <!-- jQuery -->

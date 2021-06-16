@@ -180,7 +180,7 @@ require_once('../admin/DB.php');
                 $arr[$i] = intval($rowt['qtd']);
                 $datas[$i] = date_format(date_create($rowt['data']),"d/m");
                 $dataAno[$i] = date_format(date_create($rowt['data']),"Y-m-d");
-                $horas[$i] = intval(substr($rowt['hora'],0,2));
+                $horas[$i] = intval(explode(":", $rowt['hora'])[0]);
             }
             else
               var_dump(mysqli_error($connect));
@@ -197,7 +197,7 @@ require_once('../admin/DB.php');
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Total de Acessos</h3>
-                  <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>">Ver relatório</a> <!-- relatorioAcessos.php -->
+                  <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>" target="_blank">Ver relatório</a> <!-- relatorioAcessos.php -->
                 </div>
               </div>
               <div class="card-body">
@@ -218,7 +218,7 @@ require_once('../admin/DB.php');
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Tempo Total de Acessos</h3>
-                  <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>">Ver relatório</a> <!-- relatorioTempoAcesso.php -->
+                  <a href="../admin/RelatorioCoworking.php?dtInicio=<?=$dtInicio?>&dtFim=<?=$dtFim?>" target="_blank">Ver relatório</a> <!-- relatorioTempoAcesso.php -->
                 </div>
               </div>
               <div class="card-body">

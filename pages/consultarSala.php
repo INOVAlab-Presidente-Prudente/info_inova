@@ -35,18 +35,20 @@
         <div class="col-md-12">
             <?php /* Colocar os alerts dps */ ?>
             <div class="card">
-                <div class="card-header">
-                    <div class="float-right">
-                        <a href="cadastrarSala.php" class="btn btn-sm btn-success">
-                        <i class="nav-icon fab fa-houzz"></i>&nbsp;
-                            Cadastrar
-                        </a>
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#salaModal">
-                            <i class="fas fa-search"></i>&nbsp;
-                            Pesquisar
-                        </button>
-                    </div>
+                <div class="card-header">             
                     <p class="card-title">Lista de Salas</p>
+                    <div class="card-tools">
+                    <div class="input-group input-group-sm">
+                        <a href="cadastrarSala.php" class="btn btn-sm btn-success mr-2">
+                        <i class="fab fa-houzz"></i>&nbsp;
+                        Cadastrar
+                        </a>
+                        <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">
+                        <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        </div>
+                    </div>              
+                    </div>
                 </div>
                 <?php 
                     require_once("../admin/DB.php");
@@ -69,15 +71,17 @@
                         <tbody>
                             <?php while($row != null):?>
                             <tr>
-                                <td class="text-nowrap"><?=$row['sa_nome_espaco']?></td>
+                                <td class="text-nowrap">
+                                    <a href="visualizarSala.php?sala_id=<?=$row['sa_id']?>"><?=$row['sa_nome_espaco']?></a>
+                                </td>
                                 <td class="text-nowrap"><?=$row['sa_capacidade']?></td>
                                 <td class="text-nowrap">R$<?=$row['sa_valor_periodo']?></td>
                                 <td class="text-nowrap">R$<?=$row['sa_valor_hora']?></td>
                                 <td class="text-nowrap"><?=$row['sa_localizacao']?></td>
                                 <td class="text-nowrap">
-                                    <a class="btn btn-primary btn-sm center" href="visualizarSala.php?sala_id=<?=$row['sa_id']?>">
-                                        <i class="far fa-eye"></i>&nbsp;
-                                        Visualizar
+                                    <a <?=$dis?> class="btn btn-info btn-sm center" name="reservarSala" href="reservarSala.php?sa_id=<?=$row['sa_id']?>">
+                                        <i class="far fa-calendar-check"></i>&nbsp;
+                                        Reservar Sala
                                     </a>
                                     <a class="btn btn-warning btn-sm center" href="consultarSalaEdit.php?sala_id=<?=$row['sa_id']?>&alterar=true">
                                         <i class="far fa-edit"></i>&nbsp;
@@ -119,6 +123,10 @@
         
         "order": []
       });
+      oTable = $('#tabela-salas').DataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        $('#pesquisar').keyup(function(){
+          oTable.search($(this).val()).draw() ;
+        })
 </script>
 <?php
     include ('../includes/modal_sala.php');

@@ -28,8 +28,16 @@
     <section class="content">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Lista de usuários no Coworking</h3>
+        <div class="card-header">             
+            <p class="card-title">Lista de usuários no Coworking</p>
+            <div class="card-tools">
+              <div class="input-group input-group-sm">
+                <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+              </div>              
+            </div>
           </div>
           <div class="card-body table-responsive">
             
@@ -123,6 +131,10 @@
             "zeroRecords": "Nenhum dado encontrado."
         }
       });
+      oTable = $('#tabela-checkins').DataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        $('#pesquisar').keyup(function(){
+          oTable.search($(this).val()).draw() ;
+        })
   </script>
 <?php
   include ('../includes/footer.php');
