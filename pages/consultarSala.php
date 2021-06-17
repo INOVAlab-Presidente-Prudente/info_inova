@@ -79,7 +79,7 @@
                                 <td class="text-nowrap">R$<?=$row['sa_valor_hora']?></td>
                                 <td class="text-nowrap"><?=$row['sa_localizacao']?></td>
                                 <td class="text-nowrap">
-                                    <a <?=$dis?> class="btn btn-info btn-sm center" name="reservarSala" href="reservarSala.php?sa_id=<?=$row['sa_id']?>">
+                                    <a class="btn btn-info btn-sm center" name="reservarSala" href="reservarSala.php?sa_id=<?=$row['sa_id']?>">
                                         <i class="far fa-calendar-check"></i>&nbsp;
                                         Reservar Sala
                                     </a>

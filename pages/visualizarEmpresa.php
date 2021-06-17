@@ -18,6 +18,9 @@
     else
         header("location: consultarEmpresa.php");
 ?> 
+<div class="modal-hover" width="175x" height="175px" style="display : none" >
+  <img id="img-hover"  width="175px" height="175px" class="elevation-2 mr-1" src="" style="border-radius: 100%;"/> <!-- style="width=25px; heigth=25px;" class="user-img elevation-2 mr-1"  -->
+</div>
 <div class="content-wrapper">
     <section class="content-header">
       <section class="container-fluid">
@@ -131,7 +134,17 @@
                 
                 while($usuarios != null){?>
                   <tr>
-                    <td class=" text-nowrap"><a href="visualizarUsuario.php?cpf=<?=$usuarios['usu_cpf']?>"><?=$usuarios['usu_nome']?></td>
+                    <td class=" text-nowrap">
+                      <?php
+                      if(in_array(hash("md5", $usuarios['usu_cpf']).".png", scandir("../images/usuarios")))
+                        echo '<img src="../images/usuarios/'.hash("md5", $usuarios['usu_cpf']).'.png" id="user-img" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px" alt="User Image">';
+                      else
+                          echo '<img src="../images/avatar-df.png" id="user-img" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
+                      ?>
+                      <a href="visualizarUsuario.php?cpf=<?=$usuarios['usu_cpf']?>">
+                        <?=$usuarios['usu_nome']?>
+                      </a>
+                    </td>
                     <td class=" text-nowrap"><?=$usuarios['usu_cpf']?></td>
                     <td class=" text-nowrap"><?=$row['emp_nome_fantasia']?></td>
                     <td class=" text-nowrap">
@@ -163,6 +176,17 @@
     </section>
   </section>
 </div>
+<script>
+  $('.user-img').hover(function(e) {
+      document.getElementById("img-hover").src=""+$(this).prop("src");
+      $(".modal-hover").css({left: getOffset(this).left + 70});
+      $(".modal-hover").css({top: getOffset(this).top - 60});
+        $('.modal-hover').show();  
+    },function(){
+      if($('.modal-hover:hover').length <= 0)
+        $('.modal-hover').hide();
+    });
+</script>
 <?php
   
   include ('../includes/footer.php');

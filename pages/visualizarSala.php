@@ -37,6 +37,20 @@
                         <p>Não foi possível alterar a modalidade, tente novamente!</p>
                       </div>";
             }
+            if (isset($_GET['reserva_excluida'])) {
+              echo "<div class='alert alert-success alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='fas fa-check'></i>&nbspReserva Excluída!</h5>
+                    <p>A Reserva foi excluída com sucesso!</p>
+              </div>";
+            } 
+            if (isset($_GET['erro_excluir'])) {
+              echo "<div class='alert alert-warning alert-dismissible'>
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                <h5><i class='icon fas fa-exclamation-triangle'></i>Exclusão Negada!</h5>
+                    <p>Ocorreu um erro ao excluir essa reserva.</p>
+              </div>";
+            } 
         ?>
         <!-- /.flash message -->
         <div class="row mb-2">
@@ -116,7 +130,98 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    <section class="content">     
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">            
+            <p class="card-title">Reservas da sala</p>
+            <div class="card-tools">
+              <div class="input-group input-group-sm">
+                <a href="reservarSala.php?sala_id=<?=$_GET['sala_id']?>" class="btn btn-sm btn-success mr-2">
+                  <i class="far fa-calendar-check"></i>&nbsp;
+                  Reservar Sala
+                </a>
+                <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <table id="tabela-salas" class="table table-bordered table-striped table-hover">
+              <thead>                  
+                <tr>
+                  <th>Data</th>
+                  <th>Horário Início</th>                  
+                  <th>Horário Fim</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php 
+                  $sql = "SELECT * FROM reserva_sala WHERE sa_id = ".$_GET['sala_id'];
+                  $query = mysqli_query($connect, $sql);
+                  $dados = mysqli_fetch_assoc($query);
+
+                  $data = date_format(date_create(explode(" ", $dados['res_inicio'])[0]), "d/m/Y");
+                  $horaInicio = substr(explode(" ", $dados['res_inicio'])[1], 0, 5)."h";
+                  $horaFim = substr(explode(" ", $dados['res_fim'])[1], 0, 5)."h";
+                
+                while($dados != null){?>
+                  <tr>
+                    <td class=" text-nowrap"><a href="visualizarReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$dados['res_id']?>"><?=$data?></td>
+                    <td class=" text-nowrap"><?=$horaInicio?></td>
+                    <td class=" text-nowrap"><?=$horaFim?></td>
+                    <td class=" text-nowrap">
+                      <a href="#" class="btn btn-warning btn-sm center">
+                        <i class="far fa-edit"></i>&nbsp;
+                        Alterar
+                      </a>
+                      <a href="../admin/ExcluiReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$dados['res_id']?>" class="btn btn-danger btn-sm center" onclick="return confirm('Você realmente quer excluir essa reserva?');">
+                        <i class="far fa-trash-alt"></i>&nbsp;
+                        Excluir
+                      </a>
+                    </td>
+                  </tr>
+                <?php 
+                    $dados = mysqli_fetch_assoc($query);
+                  }
+                ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </section>
 </div>
+<script>
+    $('#tabela-salas').DataTable({
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "language": {
+            "search": "Pesquisar",
+            "paginate": {
+              "first":      "First",
+              "last":       "Last",
+              "next":       "Próximo",
+              "previous":   "Anterior"
+            },
+            "zeroRecords": "Nenhum dado encontrado."
+        },
+        
+        "order": []
+      });
+      oTable = $('#tabela-salas').DataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        $('#pesquisar').keyup(function(){
+          oTable.search($(this).val()).draw() ;
+        })
+  </script>
 <?php
   include ('../includes/footer.php');
 ?>

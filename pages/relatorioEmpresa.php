@@ -47,30 +47,24 @@
                     </div>
                 </div>
             </div>
+            <?php
+            if(isset($_POST['consultar'])){
+                if(isset($_POST['dtInicio']) && isset($_POST['dtFim'])){
+                    ?>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <hr/>
                         <div class="callout callout-info">
                             <p class="col-md-12 lead">        
-                                Período: <?php 
-                                    $dif = date_diff(date_create($_POST['dtInicio']), date_create($_POST['dtFim']))->format('%d');
-                                    if($dif != 0)
-                                        echo "<strong>".date_format(date_create($_POST['dtInicio']),"d/m/Y")."</strong> a <strong>".date_format(date_create($_POST['dtFim']),"d/m/Y")."</strong>";
-                                    else
-                                        echo "Relatorio do dia <strong>".date_format(date_create($_POST['dtInicio']),"d/m/Y")."</strong>";
-                                ?>
+                                Período: <strong><?=date_format(date_create($_POST['dtInicio']),"d/m/Y")?></strong> a <strong><?=date_format(date_create($_POST['dtFim']),"d/m/Y")?></strong>
                             </p>
-                        </div><!--  -->
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <?php
-                            if(isset($_POST['consultar'])){
-                                if(isset($_POST['dtInicio']) && isset($_POST['dtFim'])){
-                                    ?>
                                     <div class="card-header">
                                         <div class="float-right">  
                                             <button id="btn-gerarpdf" onclick="window.open('../admin/RelatorioEmpresa.php?dtInicio=<?=$_POST['dtInicio']?>&dtFim=<?=$_POST['dtFim']?>', '_blank')" class="btn btn-sm btn-danger">
@@ -146,15 +140,13 @@
                                             </table>
                                         </div>
                                     </div>
-                            <?php }
-                            else{
-
-                            }
-                        }?>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php   
+             } 
+            }?>
         </section>
      </div>
     </div>
