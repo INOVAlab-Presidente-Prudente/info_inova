@@ -2,6 +2,10 @@
 if(!isset($_SERVER['HTTP_REFERER']))
     header('location: /');
 
+//ids
+$idEmpresa = $_POST['idEmpresa'] == "" ? null : $_POST['idEmpresa'];
+$idUsuario = $_POST['idUsuario'] == "" ? null : $_POST['idUsuario'];
+
 //reserva sala
 $sa_id = $_GET['sa_id'];
 $data = $_POST['data'];
@@ -22,11 +26,13 @@ $ministrante = $_POST['ministrante'];
 //if para validar dados nulos
 if( !empty($sa_id) && !empty($data) && !empty($horaInicio) && !empty($horaFim) && !empty($pagamento) && !empty($observacoes) && !empty($valTotal)){
     require_once("DB.php");
-    $sql = "INSERT INTO reserva_sala (sa_id, res_inicio, res_fim, res_pagamento, res_observacoes, res_valor_total) VALUES( ?, ?, ?, ?, ?, ?);";
+    $sql = "INSERT INTO reserva_sala (sa_id, usu_id, emp_id, res_inicio, res_fim, res_pagamento, res_observacoes, res_valor_total) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
     var_dump($pagamento);
     $prepare = mysqli_prepare($connect, $sql);
-    mysqli_stmt_bind_param($prepare, "issisd",
+    mysqli_stmt_bind_param($prepare, "iiissisd",
         $sa_id,
+        $idUsuario,
+        $idEmpresa,
         $horaInicio,
         $horaFim,
         $pagamento,
@@ -65,7 +71,8 @@ if( !empty($sa_id) && !empty($data) && !empty($horaInicio) && !empty($horaFim) &
         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
         <h5><i class='fas fa-info'></i>&nbspReserva Não Efetuada!</h5>
             <p>Ocorreu um erro ao cadastrar Reserva. Contate um administrador!</p>
-        </div>";
+        </div>".mysqli_error($connect);
+        var_dump($idEmpresa);
     }
 }else{
     echo "<div class='alert alert-info alert-dismissible'>
