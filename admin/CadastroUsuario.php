@@ -167,11 +167,11 @@ if (!empty($nome) && !empty($cpf) && !empty($rg) &&
                         <p>Usuário já está cadastrado no sistema!.</p>
                     </div>";
                 else 
-                echo "<div class='col alert alert-info alert-dismissible'>
-                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                <h5><i class='fas fa-info'></i>&nbspUsuário não Cadastrado!</h5>
-                    <p> Novo usuário não foi cadastrado, tente novamente!.</p>
-                </div>";
+                    echo "<div class='col alert alert-info alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-info'></i>&nbspUsuário não Cadastrado!</h5>
+                        <p> Novo usuário não foi cadastrado, tente novamente!.</p>
+                    </div>";
             }
         }
     }

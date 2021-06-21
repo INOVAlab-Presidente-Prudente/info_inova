@@ -165,17 +165,17 @@
                   $query = mysqli_query($connect, $sql);
                   $dados = mysqli_fetch_assoc($query);
 
-                  $data = date_format(date_create(explode(" ", $dados['res_inicio'])[0]), "d/m/Y");
-                  $horaInicio = substr(explode(" ", $dados['res_inicio'])[1], 0, 5)."h";
-                  $horaFim = substr(explode(" ", $dados['res_fim'])[1], 0, 5)."h";
-                
-                while($dados != null){?>
+                  while($dados != null){
+                    $data = date_format(date_create(explode(" ", $dados['res_inicio'])[0]), "d/m/Y");
+                    $horaInicio = substr(explode(" ", $dados['res_inicio'])[1], 0, 5)."h";
+                    $horaFim = substr(explode(" ", $dados['res_fim'])[1], 0, 5)."h";
+                  ?>
                   <tr>
                     <td class=" text-nowrap"><a href="visualizarReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$dados['res_id']?>"><?=$data?></td>
                     <td class=" text-nowrap"><?=$horaInicio?></td>
                     <td class=" text-nowrap"><?=$horaFim?></td>
                     <td class=" text-nowrap">
-                      <a href="#" class="btn btn-warning btn-sm center">
+                      <a href="alterarReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$dados['res_id']?>" class="btn btn-warning btn-sm center">
                         <i class="far fa-edit"></i>&nbsp;
                         Alterar
                       </a>

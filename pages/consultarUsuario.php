@@ -87,7 +87,6 @@
               <tbody>
                 <?php 
                   require_once("../admin/DB.php");
-                  //testando - vinicius
                   $sql = 'SELECT u.*, e.emp_nome_fantasia, e.emp_razao_social, e.emp_cnpj FROM usuario u LEFT JOIN empresa e ON u.emp_id = e.emp_id ORDER BY usu_nome';
                   $query = mysqli_query($connect, $sql);
                   $row = mysqli_fetch_assoc($query);

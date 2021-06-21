@@ -69,7 +69,7 @@
               <div class="row">
                 <div class="col-12 mb-4">
                   <h2><?=htmlspecialchars(ucwords($row['sa_nome_espaco']))?></h2>
-                  <a href="consultarSalaEdit.php?sala_id=<?=$_GET['sala_id']?>&alterar=enabled" class="btn btn-warning btn-sm center">
+                  <a href="alterarReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$_GET['res_id']?>" class="btn btn-warning btn-sm center">
                     <i class="fas fa-edit"></i>&nbsp;
                     Alterar dados da reserva
                   </a>
@@ -111,7 +111,7 @@
                 <?php endif?>
                 <!-- /.col -->
               </div><!-- /.row -->
-              <?php if(strlen($row['sa_observacoes'])>0){ ?>
+              <?php if(strlen($dados['res_observacoes'])>0){ ?>
                 <div class="row invoice-info mb-4">
                   <div class="col-12 invoice-col">
                       <b>Observações:</b> <?=htmlspecialchars($dados['res_observacoes']);?>
