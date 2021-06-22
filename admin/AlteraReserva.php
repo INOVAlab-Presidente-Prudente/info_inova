@@ -27,7 +27,7 @@ $qtdInscritos = $_POST['qtdInscritos'];
 $ministrante = $_POST['ministrante'];
 
 //if para validar dados nulos
-if( !empty($sa_id) && !empty($data) && !empty($horaInicio) && !empty($horaFim) && !empty($observacoes) && (!empty($valTotal) || $valTotal == "0")){
+if( !empty($sa_id) && !empty($data) && !empty($horaInicio) && !empty($horaFim) && (!empty($valTotal) || $valTotal == "0")){
     require_once("DB.php");
     $sql = "UPDATE reserva_sala SET 
             sa_id = ?, 

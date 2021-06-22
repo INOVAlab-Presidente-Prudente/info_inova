@@ -61,19 +61,22 @@ class PDF_Diag extends PDF_Sector {
     {
 
         // RGB for color 0
-        $colors[0][0] = 155;
+        //$colors[0][0] = 155;
+        //$colors[0][1] = 75;
+        //$colors[0][2] = 155;
+        $colors[0][0] = 0;
         $colors[0][1] = 75;
-        $colors[0][2] = 155;
+        $colors[0][2] = 230;
 
         // RGB for color 1
         $colors[1][0] = 0;
-        $colors[1][1] = 155;
-        $colors[1][2] = 0;
+        $colors[1][1] = 75;
+        $colors[1][2] = 230;
 
         // RGB for color 2
-        $colors[2][0] = 75;
-        $colors[2][1] = 155;
-        $colors[2][2] = 255;
+        $colors[2][0] = 0;
+        $colors[2][1] = 75;
+        $colors[2][2] = 230;
 
         // RGB for color 3
         $colors[3][0] = 75;
@@ -101,7 +104,7 @@ class PDF_Diag extends PDF_Sector {
         $lDiag = floor($w - $margin * 3 - $this->wLegend);
 
         if($color == null)
-            $color=array(155,155,155);
+            $color=array(255,0,0);
         if ($maxVal == 0) 
         {
             foreach($data as $val)
@@ -131,11 +134,11 @@ class PDF_Diag extends PDF_Sector {
         // determine the bar's thickness
         $lBar = floor($lDiag / ($this->NbVal + 1));
         $lDiag = $lBar * ($this->NbVal + 1);
-        $eColumn = floor($lBar * 80 / 80);
+        $eColumn = floor($lBar * 80 / 100);
 
-        // draw the chart border
+        // draw the chart border - Linha em volta do grafico
         $this->SetLineWidth(0.2);
-        $this->Rect($XDiag, $YDiag, $lDiag, $hDiag);
+        //$this->Rect($XDiag, $YDiag, $lDiag, $hDiag);
 
         $this->SetFont('Courier', '', 10);
         $this->SetFillColor($color[0],$color[1],$color[2]);
@@ -151,7 +154,7 @@ class PDF_Diag extends PDF_Sector {
             {
                 $hval = (int)($v * $unit);
                 $this->SetFillColor($colors[$j][0], $colors[$j][1], $colors[$j][2]);
-                $this->Rect($xval+($lval*$j), $yval, $lval, -$hval, 'DF');
+                $this->Rect($xval+($lval*$j), $yval, $lval, -$hval, 'F'); // rect desenha as bordas nas barras
                 $j++;
             }
 
@@ -161,11 +164,11 @@ class PDF_Diag extends PDF_Sector {
             $i++;
         }
 
-        //Scales
+        //Scales - Linhas que ficam no meio de tudo
         for ($i = 0; $i <= $nbDiv; $i++) 
         {
             $ypos = $YDiag + $hRepere * $i;
-            $this->Line($XDiag, $ypos, $XDiag + $lDiag, $ypos);
+            //$this->Line($XDiag, $ypos, $XDiag + $lDiag, $ypos);
             $val = ($nbDiv - $i) * $valIndRepere;
             $ypos = $YDiag + $hRepere * $i;
             $xpos = $XDiag - $margin - $this->GetStringWidth($val);

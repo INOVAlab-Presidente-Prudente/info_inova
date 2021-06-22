@@ -114,10 +114,18 @@
         <div class="card">
           <div class="card-header">            
             <p class="card-title">Lista de colaboradores</p>
+            <div class="card-tools">
+              <div class="input-group input-group-sm">
+                <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- /.card-header -->
-          <div class="card-body table-responsive p-0">
-            <table class="table table-bordered table-striped table-hover">
+          <div class="card-body table-responsive">
+            <table id="tabela-colaboradores" class="table table-bordered table-striped table-hover">
               <thead>                  
                 <tr>
                   <th>Nome</th>
@@ -186,8 +194,30 @@
       if($('.modal-hover:hover').length <= 0)
         $('.modal-hover').hide();
     });
+
+    $('#tabela-colaboradores').DataTable({
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "language": {
+            "search": "Pesquisar",
+            "paginate": {
+              "first":      "First",
+              "last":       "Last",
+              "next":       "Próximo",
+              "previous":   "Anterior"
+            },
+            "zeroRecords": "Nenhum dado encontrado."
+        },
+        
+        "order": []
+      });
+      oTable = $('#tabela-colaboradores').DataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        $('#pesquisar').keyup(function(){
+          oTable.search($(this).val()).draw() ;
+        })
 </script>
 <?php
-  
   include ('../includes/footer.php');
 ?>

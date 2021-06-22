@@ -19,7 +19,7 @@ $projetor = isset($_POST['projetor']);
 $cadeiraApoio = isset($_POST['cadeiraApoio']);
 $observacoes = $_POST['observacoes'];
 
-if (!empty($nome) && !empty($localizacao) && !empty($valPeriodo) && !empty($valHora)) {
+if (!empty($nome) && !empty($localizacao) && (!empty($valPeriodo) || $valPeriodo == "0" ) && (!empty($valHora) || $valHora == "0") ) {
     $sql = "UPDATE sala SET 
     sa_nome_espaco = ?,
     sa_capacidade = ?,  

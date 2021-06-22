@@ -153,6 +153,7 @@
             <table id="tabela-salas" class="table table-bordered table-striped table-hover">
               <thead>                  
                 <tr>
+                  <th>Locador</th>
                   <th>Data</th>
                   <th>Horário Início</th>                  
                   <th>Horário Fim</th>
@@ -161,7 +162,10 @@
               </thead>
               <tbody>
                 <?php 
-                  $sql = "SELECT * FROM reserva_sala WHERE sa_id = ".$_GET['sala_id'];
+                  $sql = "SELECT * FROM reserva_sala r
+                          left join usuario u on r.usu_id = u.usu_id
+                          left join empresa e on r.emp_id = e.emp_id
+                          WHERE sa_id = ".$_GET['sala_id'];
                   $query = mysqli_query($connect, $sql);
                   $dados = mysqli_fetch_assoc($query);
 
@@ -171,7 +175,10 @@
                     $horaFim = substr(explode(" ", $dados['res_fim'])[1], 0, 5)."h";
                   ?>
                   <tr>
-                    <td class=" text-nowrap"><a href="visualizarReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$dados['res_id']?>"><?=$data?></td>
+                    <td class=" text-nowrap"><a href="visualizarReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$dados['res_id']?>">
+                      <?=$dados['emp_nome_fantasia'] != "" ? $dados['emp_nome_fantasia'] : $dados['usu_nome'] ?>
+                    </td>
+                    <td class=" text-nowrap"><?=$data?></td>
                     <td class=" text-nowrap"><?=$horaInicio?></td>
                     <td class=" text-nowrap"><?=$horaFim?></td>
                     <td class=" text-nowrap">

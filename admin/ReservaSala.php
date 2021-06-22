@@ -29,7 +29,6 @@ $ministrante = $_POST['ministrante'];
 if(!empty($data) && !empty($horaInicio) && !empty($horaFim) && (!empty($valTotal) || $valTotal == "0") && !(empty($idEmpresa) && empty($idUsuario))){
     require_once("DB.php");
     $sql = "INSERT INTO reserva_sala (sa_id, usu_id, emp_id, res_inicio, res_fim, res_pagamento, res_observacoes, res_valor_total) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
-    var_dump($pagamento);
     $prepare = mysqli_prepare($connect, $sql);
     mysqli_stmt_bind_param($prepare, "iiissisd",
         $sa_id,

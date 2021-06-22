@@ -28,7 +28,20 @@
             echo "<div class='col alert alert-success alert-dismissible'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                     <h5><i class='fas fa-check'></i>&nbspSala Cadastrada!</h5>
-                        <p>A sala foi cadastrado com sucesso!</p>
+                        <p>A sala foi cadastrada com sucesso!</p>
+                  </div>";
+          }else if (isset($_GET['erro_excluir'])){
+            echo "<div class='col alert alert-danger alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-exclamation-triangle'></i>&nbspErro ao excluir a sala!</h5>
+                        <p></p>
+                  </div>";
+          }
+          else if (isset($_GET['sala_excluida'])){
+            echo "<div class='col alert alert-success alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h5><i class='fas fa-check'></i>&nbspSala Excluida!</h5>
+                        <p>A sala foi excluida com sucesso!</p>
                   </div>";
           }
         ?>
