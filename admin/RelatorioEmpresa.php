@@ -74,7 +74,7 @@ class PDF extends FPDF
             if (strlen($h) > 19) {}
                 $i = 2;
                 $h = substr($h,0, 19) . "\r\n" . substr($h, (strlen($h) - 19) * -1);
-            $this->Cell(38,$cellHeight*$i,$h,1, 0, 0, true);
+            $this->Cell(38,$cellHeight*$i,$h,1, 0, 'C', true);
         }
         $this->Ln();
         // Data
@@ -84,16 +84,16 @@ class PDF extends FPDF
             $i = 1;
             $empresa = $row[0];
             if (strlen($empresa) > 15) {
-                $empresa = substr($empresa,0, 15) . "\r\n" . substr($empresa, (strlen($empresa) - 15) * -1);
-                // var_dump($nome);
-                // die();
+                $empresa = ltrim(substr($empresa, 0, 15)) . "\r\n" . ltrim(substr($empresa, (strlen($empresa) - 15) * -1));
                 $i = 2;
+                if (strlen($empresa) > 30)
+                    $empresa = ltrim(substr($empresa, 0, 15)) . "\r\n" . ltrim(substr($empresa, 15, 15)) . "\r\n" . ltrim(substr($empresa, (strlen($empresa) - 30) * -1));
             }
             $this->Cell(38, $cellHeight*$i, $empresa ,1);
             $this->Cell(38, $cellHeight*$i, $row[1],1, 0, 'C');
             $this->Cell(38, $cellHeight*$i, $row[2],1, 0, 'C');
             $this->Cell(38, $cellHeight*$i, $row[3],1, 0, 'C');
-            $this->Cell(38, $cellHeight*$i, $row[4],1);
+            $this->Cell(38, $cellHeight*$i, $row[4],1, 0, 'C');
             $this->Ln();
 
         }

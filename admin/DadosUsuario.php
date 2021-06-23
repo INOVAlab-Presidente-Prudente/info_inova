@@ -5,8 +5,11 @@ if(!isset($_SERVER['HTTP_REFERER']))
 require_once("DB.php");
 
 $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : false;
+$uID = isset($dados['usu_id']) ? $dados['usu_id'] : "";
 $cnpj = isset($_POST['cnpj']) ? $_POST['cnpj'] : false;
-if ($cpf) {
+$eID = isset($dados['emp_id']) ? $dados['emp_id'] : "";
+
+if ($cpf || $uID) {
     $sql = "SELECT  usu_nome as nome,
                     usu_cpf as doc,
                     usu_rg as rg,
@@ -16,8 +19,8 @@ if ($cpf) {
                     usu_municipio as municipio,
                     usu_email as email,
                     usu_telefone as telefone,
-                    usu_id FROM usuario WHERE usu_cpf = '$cpf'";
-} else if ($cnpj) {
+                    usu_id FROM usuario WHERE usu_id = '$uID' OR usu_cpf = '$cpf'";
+} else if ($cnpj || $eID) {
     $sql = "SELECT  emp_id,
                     emp_razao_social as nome,
                     emp_cnpj as doc,
@@ -27,16 +30,16 @@ if ($cpf) {
                     emp_municipio as municipio,
                     emp_email as email,
                     emp_telefone as telefone 
-                    FROM empresa WHERE emp_cnpj = '$cnpj'";
+                    FROM empresa WHERE emp_id = '$eID' OR emp_cnpj = '$cnpj'";
 }
 
 $query = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($query);
 
-if ($cpf && $row == null) {
+if (($cpf || $uID) && $row == null) {
     echo "<script>document.getElementById('alert-pj').style.display = 'none';</script>";
     echo "<script>document.getElementById('alert-pf').style.display = 'block';</script>";
-} else if ($cnpj && $row == null){
+} else if (($cnpj || $eID) && $row == null){
     echo "<script>document.getElementById('alert-pf').style.display = 'none';</script>";
     echo "<script>document.getElementById('alert-pj').style.display = 'block';</script>";
 } else {
@@ -77,4 +80,4 @@ if ($cpf && $row == null) {
             document.getElementById("data-user").style.display = "none";
         </script>
     <?php endif?>
-</div>            
+</div>

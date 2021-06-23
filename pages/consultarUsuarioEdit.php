@@ -228,7 +228,7 @@
                         </div>
                         <div class="form-group col-md-2">
                           <label>Complemento</label>
-                          <input required <?=$alterar?> enabled type="text" id="complemento" name="complemento" class="form-control" <?="value='".$row['usu_complemento']."'"?>>
+                          <input <?=$alterar?> enabled type="text" id="complemento" name="complemento" class="form-control" <?="value='".$row['usu_complemento']."'"?>>
                         </div>
                         <div class="form-group col-md-4">
                           <label>Bairro</label>

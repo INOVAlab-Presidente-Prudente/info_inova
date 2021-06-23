@@ -64,8 +64,13 @@ if ($fetch != null) {
             }else if ($fetch['usu_primeiro_login']){
                 $_SESSION['primeiro_login'] = true;
                 header("location: ../pages/alterarSenha.php");
-            }else{
-                header("location: ../pages/adminPage.php");}
+            }
+            else if (isset($_SESSION['coworking'])){
+                header("location: ../pages/checkin.php");
+            }
+            else{
+                header("location: ../pages/adminPage.php");
+            }
         }
         else{
             echo "<div class='alert alert-danger alert-dismissible'>

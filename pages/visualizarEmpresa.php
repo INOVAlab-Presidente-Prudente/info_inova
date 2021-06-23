@@ -150,11 +150,11 @@
                           echo '<img src="../images/avatar-df.png" id="user-img" class="user-img img-circle elevation-2 mr-1" style="width: 35px; height: 35px;" alt="User Image">';
                       ?>
                       <a href="visualizarUsuario.php?cpf=<?=$usuarios['usu_cpf']?>">
-                        <?=$usuarios['usu_nome']?>
+                        <?=htmlspecialchars($usuarios['usu_nome'])?>
                       </a>
                     </td>
-                    <td class=" text-nowrap"><?=$usuarios['usu_cpf']?></td>
-                    <td class=" text-nowrap"><?=$row['emp_nome_fantasia']?></td>
+                    <td class=" text-nowrap"><?=htmlspecialchars($usuarios['usu_cpf'])?></td>
+                    <td class=" text-nowrap"><?=htmlspecialchars($row['emp_nome_fantasia'])?></td>
                     <td class=" text-nowrap">
                       <a href="ocorrencias.php" class="btn btn-info btn-sm center">
                         <i class="fas fa-portrait"></i>&nbsp;

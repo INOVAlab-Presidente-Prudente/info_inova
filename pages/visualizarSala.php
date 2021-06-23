@@ -176,11 +176,11 @@
                   ?>
                   <tr>
                     <td class=" text-nowrap"><a href="visualizarReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$dados['res_id']?>">
-                      <?=$dados['emp_nome_fantasia'] != "" ? $dados['emp_nome_fantasia'] : $dados['usu_nome'] ?>
+                      <?=$dados['emp_nome_fantasia'] != "" ? htmlspecialchars($dados['emp_nome_fantasia']) : htmlspecialchars($dados['usu_nome']) ?>
                     </td>
-                    <td class=" text-nowrap"><?=$data?></td>
-                    <td class=" text-nowrap"><?=$horaInicio?></td>
-                    <td class=" text-nowrap"><?=$horaFim?></td>
+                    <td class=" text-nowrap"><?=htmlspecialchars($data)?></td>
+                    <td class=" text-nowrap"><?=htmlspecialchars($horaInicio)?></td>
+                    <td class=" text-nowrap"><?=htmlspecialchars($horaFim)?></td>
                     <td class=" text-nowrap">
                       <a href="alterarReserva.php?sala_id=<?=$_GET['sala_id']?>&res_id=<?=$dados['res_id']?>" class="btn btn-warning btn-sm center">
                         <i class="far fa-edit"></i>&nbsp;

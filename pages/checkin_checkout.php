@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Check-in / Check-out</h1>
+            <h1>Coworking</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -29,7 +29,7 @@
       <div class="col-md-12">
         <div class="card">
         <div class="card-header">             
-            <p class="card-title">Lista de usuários no Coworking</p>
+            <p class="card-title">Lista de usuários Ativos</p>
             <div class="card-tools">
               <div class="input-group input-group-sm">
                 <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">

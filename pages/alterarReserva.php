@@ -7,12 +7,8 @@
   include ('../includes/sidebar.php');
   $sa_id = $_GET['sala_id'];
   require_once("../admin/DB.php");
-  $sql = "SELECT * FROM sala WHERE sa_id = ".$sa_id;
-  $query = mysqli_query($connect,$sql);
-  $sala = mysqli_fetch_assoc($query);
 ?>
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
@@ -43,11 +39,10 @@
                 <?php
                     if(isset($sa_id)){
                         require_once("../admin/DB.php");
-                        $sqlSala = "SELECT * FROM sala WHERE sa_id = ".$_GET['sala_id']."";
+                        $sqlSala = "SELECT * FROM sala WHERE sa_id = ".$sa_id."";
                         $querySala = mysqli_query($connect, $sqlSala);
                         $rowSala = mysqli_fetch_assoc($querySala);
                     }
-                
                 ?>
                 <div class="card card-secondary">
                     <div class="card-header">
@@ -97,7 +92,7 @@
                             <div class="form-group col-md-2">
                                 <?php 
                                     // dados da reserva e evento
-                                    $sql = "SELECT * FROM reserva_sala r LEFT JOIN evento e ON e.res_id = r.res_id WHERE r.res_id = ".$_GET['res_id']." AND r.sa_id = ".$_GET['sala_id']."";
+                                    $sql = "SELECT * FROM reserva_sala r LEFT JOIN evento e ON e.eve_id = r.eve_id WHERE r.res_id = ".$_GET['res_id']." AND r.sa_id = ".$_GET['sala_id']."";
                                     $query = mysqli_query($connect, $sql);
                                     $dados = mysqli_fetch_assoc($query);
 
@@ -129,97 +124,23 @@
                                 </div>
                             </form>
                         </div>
-                        <?php
-                            $row = null;
-                            if((isset($dados['usu_id']) && !isset($_POST['cnpj'])) || (isset($_POST['cpf']) && !empty($_POST['cpf'])) ){
-                                $uID = $dados['usu_id'];
-                                $cpf = "";
-                                if(isset($_POST['cpf']) && !empty($_POST['cpf'])){
-                                    $uID = "";
-                                    $cpf = $_POST['cpf'];
-                                }
-                                
-                                $sql = "SELECT  usu_nome as nome,
-                                                usu_cpf as doc,
-                                                usu_rg as rg,
-                                                usu_cep as cep,
-                                                usu_endereco as endereco,
-                                                usu_bairro as bairro,
-                                                usu_municipio as municipio,
-                                                usu_email as email,
-                                                usu_telefone as telefone,
-                                                usu_id FROM usuario WHERE usu_id = '".$uID."' OR usu_cpf = '".$cpf."'";
-                                $query = mysqli_query($connect, $sql);
-                                if(!$query)
-                                    echo "problema ao acessar o banco efetuar a pesquisa: ".mysqli_error($connect);
-                                else{
-                                    $row = mysqli_fetch_assoc($query);
-                                    if($row == null){
-                                        echo "<div class='col alert alert-warning alert-dismissible'>
-                                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                                                <h5><i class='fas fa-exclamation-triangle'></i>&nbsp;Usuário não cadastro!</h5>
-                                                <p><a class='text-secondary stretched-link' style='cursor:pointer' href='cadastrarUsuario.php'>Clique aqui</a> para realizar o cadastro!.<p>
-                                            </div>";
-                                    }
-                                }
-
-                            }else if( (isset($dados['emp_id']) && !isset($_POST['cpf'])) || (isset($_POST['cnpj']) && !empty($_POST['cnpj']))){
-                                $eID = $dados['emp_id'];
-                                $cnpj = "";
-                                if (isset($_POST['cnpj']) && !empty($_POST['cnpj'])) {
-                                    $eID = "";
-                                    $cnpj = $_POST['cnpj'];
-                                }
-                                $sql = "SELECT  emp_id,
-                                                emp_razao_social as nome,
-                                                emp_cnpj as doc,
-                                                emp_cep as cep,
-                                                emp_endereco as endereco,
-                                                emp_bairro as bairro,
-                                                emp_municipio as municipio,
-                                                emp_email as email,
-                                                emp_telefone as telefone 
-                                                FROM empresa WHERE emp_id = '".$eID."' OR emp_cnpj = '".$cnpj."'";
-                                $query = mysqli_query($connect, $sql);
-                                if(!$query)
-                                    echo "problema ao acessar o banco efetuar a pesquisa".mysqli_error($connect);
-                                else{
-                                    $row = mysqli_fetch_assoc($query);
-                                    if($row == null){
-                                        echo "<div class='col alert alert-warning alert-dismissible'>
-                                                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                                                <h5><i class='fas fa-exclamation-triangle'></i>&nbsp; Empresa não cadastrada!</h5>
-                                                <p><a class='text-secondary stretched-link' style='cursor:pointer' href='cadastrarEmpresa.php'>Clique aqui</a> para realizar o cadastro!.<p>
-                                            </div>";
-                                    }
-                                }
-                            }
-                        ?>
-                        <div class="invoice p-2 mb-2" id="data-user" style="display: none">
-                            <div class="row col-md-12 invoice-info mb-1" >
-                                <?php if($row != null): ?>
-                                    <div class="col-md-6 invoice-col">
-                                        <b>Nome/Razão Social:</b>&nbsp;<?=htmlspecialchars($row["nome"])?><br/>
-                                        <b>Email:</b>&nbsp;<?=htmlspecialchars($row["email"])?><br/>
-                                        <?php 
-                                            if(isset($row["rg"])){?>
-                                                <b>RG:</b>&nbsp;<?=htmlspecialchars($row["rg"])?><br/>
-                                                <b>CPF:</b>&nbsp;<?=htmlspecialchars($row['doc'])?><br/>
-                                        <?php
-                                            }
-                                            else{?>
-                                                <b>CNPJ:</b>&nbsp;<?=htmlspecialchars($row['doc'])?><br/>
-                                        <?php }?>
-                                        <b>Telefone:</b>&nbsp;<?=htmlspecialchars($row["telefone"])?><br/>
-                                    </div>
-                                    <div class="col-md-6 invoice-col">
-                                        <b>CEP:</b>&nbsp;<?=htmlspecialchars($row["cep"])?><br/>
-                                        <b>Endereço:</b>&nbsp;<?=htmlspecialchars($row["endereco"])?><br/>
-                                        <b>Bairro:</b>&nbsp;<?=htmlspecialchars($row["bairro"])?><br/>
-                                        <b>Munícipio:</b>&nbsp;<?=htmlspecialchars($row["municipio"])?><br/>
-                                    </div>       
-                                <?php endif?>          
-                            </div>    
+                        <!-- Alertas -->
+                        <div id="alert-pf" class='col alert alert-warning alert-dismissible' style="display: none">
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            <h5><i class='fas fa-exclamation-triangle'></i>&nbsp;Usuário não cadastrado!</h5>
+                            <p><a class='text-secondary stretched-link' style='cursor:pointer' href='cadastrarUsuario.php'>Clique aqui</a> para realizar o cadastro!.<p>
+                        </div>
+                        <div id="alert-pj" class='col alert alert-warning alert-dismissible' style="display: none">
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                            <h5><i class='fas fa-exclamation-triangle'></i>&nbsp; Empresa não cadastrada!</h5>
+                            <p><a class='text-secondary stretched-link' style='cursor:pointer' href='cadastrarEmpresa.php'>Clique aqui</a> para realizar o cadastro!.<p>
+                        </div>
+                        <div class="invoice p-2 mb-2" id="data-user" style="display: flex">
+                            <?php
+                                if(isset($dados['usu_id']) || isset($dados['emp_id'])){
+                                    require_once("../admin/DadosUsuario.php");
+                                }        
+                            ?> 
                         </div>  
                         </div>
                 </div>
@@ -392,29 +313,6 @@
             $("#evento").prop("checked",true);
       }
     };
-
-
-    <?php
-    if($row!=null){
-    ?>
-        document.getElementById("data-user").style.display = "flex";
-        document.getElementById("idUsuario").value = '<?=isset($row['usu_id']) ? $row['usu_id'] : ""?>';
-        document.getElementById("idEmpresa").value = '<?=isset($row['emp_id']) ? $row['emp_id'] : ""?>';
-    <?php }
-    ?>
-    
-    $('#cpf').on('input',()=>{
-        if($('#cpf').val().length == 14){
-            var form = document.getElementById("form-busca");
-            form.submit();
-        }
-    })
-    $('#cnpj').on('input',()=>{
-        if($('#cnpj').val().length == 18){
-            var form = document.getElementById("form-busca");
-            form.submit();
-        }
-    })
     
     $('#PF').on('change',()=>{
         console.log("PF changed")
@@ -471,6 +369,23 @@
             
         }
     });
+
+    const cpf = document.getElementById("cpf");
+        cpf.oninput = () => {
+            if (cpf.value.length == 14) {
+                $("#data-user").load("../admin/DadosUsuario.php", {
+                    cpf: cpf.value
+                })
+            }
+        }
+    const cnpj = document.getElementById("cnpj");
+        cnpj.oninput = () => {
+            if (cnpj.value.length == 18) {
+                $("#data-user").load("../admin/DadosUsuario.php", {
+                    cnpj: cnpj.value
+                })
+            }
+        }
 </script>
 <?php
     include ('../includes/footer.php');

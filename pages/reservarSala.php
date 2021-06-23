@@ -7,12 +7,8 @@
   include ('../includes/sidebar.php');
   $sa_id = $_GET['sala_id'];
   require_once("../admin/DB.php");
-  $sql = "SELECT * FROM sala WHERE sa_id = ".$sa_id;
-  $query = mysqli_query($connect,$sql);
-  $sala = mysqli_fetch_assoc($query);
 ?>
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
@@ -42,8 +38,7 @@
             <div class="col-md-12">
                 <?php
                     if(isset($sa_id)){
-                        require_once("../admin/DB.php");
-                        $sql = "SELECT * FROM sala WHERE sa_id = ".$_GET['sala_id']."";
+                        $sql = "SELECT * FROM sala WHERE sa_id = ".$sa_id."";
                         $query = mysqli_query($connect, $sql);
                         $row = mysqli_fetch_assoc($query);
                         
@@ -208,13 +203,39 @@
                             <label>Observações</label>
                             <textarea id="observacoes" name="observacoes" placeholder="Coloque informações adicionais aqui" class="form-control" maxlength="200"></textarea>
                         </div>
-                        <div class="col-12">
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
                             <div class="form-group">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="checkbox custom-control-input" id="evento" name="evento">
-                                    <label class="custom-control-label" for="evento">Evento</label>
+                                    <label class="custom-control-label" for="evento">Novo evento</label>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <select class="form-control" name="eventoSelect" id="eventoSelect">
+                                    <option disabled selected value="">Escolha um evento</option>
+                                    <option value="">Nenhum evento associado</option>
+                                    <?php 
+                                        $sql = "SELECT *, DATE_FORMAT(eve_dataInicio, \" %d/%m/%y \") as data FROM evento WHERE eve_dataInicio BETWEEN DATE(NOW() -INTERVAL 15 DAY) AND DATE(NOW() + INTERVAL 30 DAY) ";
+                                        $queryEvento = mysqli_query($connect, $sql);
+
+                                        $evento = mysqli_fetch_assoc($queryEvento);
+                                        while($evento != null){
+                                            ?>
+                                                <option value="<?=$evento['eve_id']?>">
+                                                    <?=$evento['eve_nome']?> <?=$evento['data']?>
+                                                </option>
+                                            <?php
+                                            $evento = mysqli_fetch_assoc($queryEvento);
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -256,15 +277,29 @@
                                     <option selected disabled value="">Escolha um tipo</option>
                                         <?php
                                             $sql = "SELECT * FROM tipo_evento";
-                                            $queryEvento = mysqli_query($connect, $sql);
-                                            $tipoEvento = mysqli_fetch_array($queryEvento);    
+                                            $queryTp = mysqli_query($connect, $sql);
+                                            $tipoEvento = mysqli_fetch_array($queryTp);    
 
                                             while ($tipoEvento != null) {
                                                 echo "<option value='".$tipoEvento['tip_id']."'>". ucwords($tipoEvento['tip_descricao']) ."</option>";
-                                                $tipoEvento = mysqli_fetch_array($queryEvento);
+                                                $tipoEvento = mysqli_fetch_array($queryTp);
                                             }
                                         ?>
                                         </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Periodo do evento -->
+                                    <div class="form-group">
+                                        <label>Periodo do evento:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control float-right" name="periodoEvento" id="periodoEvento">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -283,14 +318,46 @@
       </form>
   </section>
 </div>
-
+<script src="../plugins/moment/moment.min.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.js"></script>
 <script>
-    <?php
-    if($row!=null){?>
-        // document.getElementById("data-user").style.display = "flex";
-        
-    <?php }
-    ?>
+    $(function() { 
+        $('#periodoEvento').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'MM/DD/YYYY HH:mm',
+            "applyLabel": "Aplicar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "De",
+            "toLabel": "Até",
+            "customRangeLabel": "Custom",
+            "daysOfWeek": [
+                "Dom",
+                "Seg",
+                "Ter",
+                "Qua",
+                "Qui",
+                "Sex",
+                "Sáb"
+            ],
+            "monthNames": [
+                "Janeiro",
+                "Fevereiro",
+                "Março",
+                "Abril",
+                "Maio",
+                "Junho",
+                "Julho",
+                "Agosto",
+                "Setembro",
+                "Outubro",
+                "Novembro",
+                "Dezembro"
+            ]
+        }
+        });
+    });
 
     window.onload = function(){
       if(<?= isset($row['usu_id']) ? 1 : 0?>) {
@@ -338,24 +405,26 @@
         if($("#manha").is(":checked")){
             $('#horaInicio').val('08:00');
             $('#horaFim').val('12:00');
-            $('#valTotal').val('<?=$sala['sa_valor_periodo']?>')
+            $('#valTotal').val('<?=$row['sa_valor_periodo']?>')
         }
         else if($("#tarde").is(":checked")){
             $('#horaInicio').val('13:00');
             $('#horaFim').val('17:00');
-            $('#valTotal').val('<?=$sala['sa_valor_periodo']?>')
+            $('#valTotal').val('<?=$row['sa_valor_periodo']?>')
         }else if($("#noite").is(":checked")){
             $('#horaInicio').val('18:00');
             $('#horaFim').val('22:00');
-            $('#valTotal').val('<?=$sala['sa_valor_periodo']?>')
+            $('#valTotal').val('<?=$row['sa_valor_periodo']?>')
         }
     });
     
     $('#evento').on('change',()=>{
         if($('#evento').is(':checked')){
             $('#view-evento').css("display","block");
+            $('#eventoSelect').css('display','none');
         }else{
             $('#view-evento').css("display","none");
+            $('#eventoSelect').css('display','block');
         }
     });
 

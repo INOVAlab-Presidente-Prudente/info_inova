@@ -172,7 +172,7 @@ require_once('../admin/DB.php');
           $datas = [];
           $horas = [];
           $dataAno = [];
-          for($i = 0; $i <10; $i++){
+          for($i = 1; $i <11; $i++){
             $sqlt = "SELECT count(che_id) as qtd, DATE(NOW() -INTERVAL ".$i." DAY) as data, SEC_TO_TIME(SUM(TIME_TO_SEC(che_horario_saida) - TIME_TO_SEC(che_horario_entrada))) as hora FROM check_in WHERE DATE(che_horario_entrada) = DATE(NOW() -INTERVAL ".$i." DAY) AND che_horario_saida IS NOT NULL";
             $queryt = mysqli_query($connect, $sqlt);
             if($queryt != null){
@@ -187,8 +187,8 @@ require_once('../admin/DB.php');
           }
           $acessos = array_sum($arr);
           $totHoras = array_sum($horas);
-          $dtInicio = $dataAno[9];
-          $dtFim = $dataAno[0];
+          $dtInicio = $dataAno[10];
+          $dtFim = $dataAno[1];
         ?>
 
         <div class="row">
@@ -256,12 +256,12 @@ require_once('../admin/DB.php');
       var chart1  = new Chart($chart1, {
         type   : 'bar',
         data   : {
-          labels  : ['<?=$datas[9]?>', '<?=$datas[8]?>', '<?=$datas[7]?>', '<?=$datas[6]?>', '<?=$datas[5]?>', '<?=$datas[4]?>', '<?=$datas[3]?>', '<?=$datas[2]?>', '<?=$datas[1]?>', '<?=$datas[0]?>'],
+          labels  : ['<?=$datas[10]?>', '<?=$datas[9]?>', '<?=$datas[8]?>', '<?=$datas[7]?>', '<?=$datas[6]?>', '<?=$datas[5]?>', '<?=$datas[4]?>', '<?=$datas[3]?>', '<?=$datas[2]?>', '<?=$datas[1]?>'],
           datasets: [
             {
               backgroundColor: '#007bff',
               borderColor    : '#007bff',
-              data           : [<?=$arr[9]?>, <?=$arr[8]?>, <?=$arr[7]?>, <?=$arr[6]?>, <?=$arr[5]?>, <?=$arr[4]?>, <?=$arr[3]?>, <?=$arr[2]?>, <?=$arr[1]?>, <?=$arr[0]?>]
+              data           : [<?=$arr[10]?>, <?=$arr[9]?>, <?=$arr[8]?>, <?=$arr[7]?>, <?=$arr[6]?>, <?=$arr[5]?>, <?=$arr[4]?>, <?=$arr[3]?>, <?=$arr[2]?>, <?=$arr[1]?>]
             }
           ]
         },

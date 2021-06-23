@@ -52,7 +52,7 @@
                 <li class="nav-item">
                     <a href="/pages/checkin_checkout.php" class="nav-link">
                         <i class="nav-icon fas fa-calendar-check"></i>
-                        <p>Usuários ativos</p>
+                        <p>Coworking</p>
                     </a>
                 </li>
                 <?php endif;?>
@@ -100,15 +100,20 @@
                 if(isset($_SESSION['admin']) || isset($_SESSION['coworking'])){ ?>
                     <li class="nav-item">
                         <a href="../pages/consultarSala.php" class="nav-link">
-                        <i class="nav-icon fab fa-houzz"></i>
-                        <p>
-                            Salas
-                        </p>
+                            <i class="nav-icon fab fa-houzz"></i>
+                            <p>Salas</p>
                         </a>
                     </li>
-                    <?php
-                    }
-                ?>
+                <?php
+                } 
+                if(isset($_SESSION['admin']) || isset($_SESSION['coworking']) || isset($_SESSION['evento']) ) { ?>
+                    <li class="nav-item">
+                        <a href="../pages/consultarEvento.php" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i> 
+                        <p>Eventos</p>
+                        </a>
+                    </li>
+                <?php } ?>
                 <li class="nav-item"><!--Relatorios-->
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>

@@ -48,7 +48,7 @@
             echo "<div class='alert alert-warning alert-dismissible'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                     <h5><i class='icon fas fa-exclamation-triangle'></i> Empresa não encontrada!</h5>
-                        <p>Empresa não encontrada no nosso sistema!</p>
+                        <p>Empresa não encontrada no sistema!</p>
                   </div>";
           }
         ?>

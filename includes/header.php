@@ -25,8 +25,6 @@
     <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-    <!-- DatapickerRange style -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- CSS style -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- Modal style -->
@@ -46,6 +44,8 @@
     <!-- jQuery Mask -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     
+    <!-- daterangepicker -->
+    <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->

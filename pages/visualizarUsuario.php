@@ -87,7 +87,7 @@
               <div class="row invoice-info mb-4">
                 <div class="col-md-4 invoice-col">
                   <b>Email: </b><?=htmlspecialchars($row['usu_email'])?><br/>
-                  <b>Data de nascimento: </b><?=htmlspecialchars($row['usu_data_nascimento'])?><br/>
+                  <b>Data de nascimento: </b><?=date_format(date_create($row['usu_data_nascimento']),"d/m/Y")?><br/>
                   <b>RG: </b><?=htmlspecialchars($row['usu_rg'])?><br/>
                   <b>CPF: </b><?=htmlspecialchars($row['usu_cpf'])?><br/>
                   <b>Telefone: </b><?=htmlspecialchars($row['usu_telefone'])?><br/>

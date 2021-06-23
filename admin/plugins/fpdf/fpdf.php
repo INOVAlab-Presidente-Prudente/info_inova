@@ -644,6 +644,7 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
             for($l=0;$l<$lines;$l++) {
                 $txt=$txts[$l];
                 $w_txt=$this->GetStringWidth($txt);
+				$txt = iconv('utf-8', 'cp1252', $txt); // Linha mudada para aceitar utf-8
                 if($align=='R')
                     $dx=$w-$w_txt-$this->cMargin;
                 elseif($align=='C')
