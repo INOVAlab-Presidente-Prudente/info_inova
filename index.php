@@ -80,6 +80,10 @@
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
+<?php
+    // Desabilita o recaptcha quando em teste no Docker
+    if(!getenv('DOCKER_ENV')) {
+?>    
     <script>
     var onloadCallback = function() {
         grecaptcha.render('g-recaptcha', {
@@ -87,5 +91,10 @@
           'theme' : 'light'
         })}
     </script>
+<?php
+    } else {
+      echo "<b>Ambiente de teste usando Docker</b><br/>ReCaptcha desabilitado";
+    }
+?>    
   </body>
 </html>
