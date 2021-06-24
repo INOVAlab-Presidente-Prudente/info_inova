@@ -5,6 +5,8 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 
 require_once("DB.php");
 
+$isDocker = getenv('DOCKER_ENV');
+
 $email = $_POST['usuario'];
 $nomeUsuario = $_POST['usuario'];
 $senha = $_POST['senha'];
@@ -15,13 +17,19 @@ $query = mysqli_query($connect, $sql);
 
 $fetch = mysqli_fetch_assoc($query);
 if ($fetch != null) {
-    if (password_verify($senha, $fetch['usu_senha']) && isset($_POST['g-recaptcha-response'])) {
+    $captchaOK = isset($_POST['g-recaptcha-response']);
+    if ($isDocker)  // ignora captcha no docker
+        $captchaOK = true;
+
+    if (password_verify($senha, $fetch['usu_senha']) && $captchaOK) {
         require_once("SecretKey.php");
         $secretkey = SECRET_KEY;
         $ip = $_SERVER['REMOTE_ADDR'];
         $response = $_POST['g-recaptcha-response'];
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secretkey."&response=".$response;
         $success = json_decode(file_get_contents($url))->success;
+        if ($isDocker) // ignora captcha no docker
+            $success = true;
 
         if ($success) {
             $_SESSION['logado'] = true;

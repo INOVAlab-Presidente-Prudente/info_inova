@@ -246,9 +246,22 @@ CREATE TABLE IF NOT EXISTS `infoinova`.`ocorrencia` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+------------------------------------
+---------adicionando dados de teste
+
 GRANT ALL PRIVILEGES ON `infoinova`.* TO 'tutorial';
 
 INSERT INTO `area_interesse` (`ai_descricao`) VALUES ('area 101');
 INSERT INTO `area_interesse` (`ai_descricao`) VALUES ('area 202');
+INSERT INTO `area_interesse` (`ai_descricao`) VALUES ('area 303');
+
+INSERT INTO `modalidade` (`mod_codigo`, `mod_nome`, `mod_descricao`, `mod_valMensal`, `mod_valAnual`, `mod_edital`) VALUES ('', '', 'mod 1', 200, 200, '');
+
+INSERT INTO `empresa` (`emp_razao_social`, `emp_cpf`, `emp_cnpj`, `emp_telefone`, `emp_area_atuacao`, `mod_id`, `emp_nome_fantasia`, `emp_residente`, `emp_municipio`, `emp_endereco`, `emp_bairro`, `emp_estado`, `emp_cep`, `emp_email`, `emp_complemento`, `emp_numero`) VALUES ('empresa 1', '12345678999', '12345678999', '', '', 1, '', NULL, '', '', '', '', '', '', NULL, NULL);
+
+INSERT INTO `perfil_usuario` (`pu_descricao`) VALUES ('perfil1');
+
+--- password eh 'aaa'
+INSERT INTO `usuario` (`pu_id`, `emp_id`, `usu_nome`, `usu_rg`, `usu_cpf`, `usu_data_nascimento`, `usu_responsavel`, `usu_tel_responsavel`, `usu_endereco`, `usu_cep`, `usu_bairro`, `usu_municipio`, `usu_area_atuacao`, `ai_id`, `usu_telefone`, `usu_email`, `usu_senha`, `usu_socio`, `usu_primeiro_login`, `usu_nomedeusuario`, `usu_complemento`, `usu_estado`, `usu_numero`) VALUES (1, 1, 'Nome do User1', '', '', '2000-06-24', 'fdfsd', '2222222', '', '', '', '', '', 1, '', '', '$2y$10$31TYY5TWAkPAulaGWWnT1OfPI7BNbApV/8eltb8CKm04AVMblEsym', 1, 0, 'user1', 'dsfsdfsdf', '', 1);
 
 USE `infoinova` ;
