@@ -17,6 +17,7 @@ services:
             DOCKER_ENV: ${DOCKER_ENV}
     db:
         image: mariadb:latest
+        container_name: db_mysql
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_USER: ${MYSQL_USER}

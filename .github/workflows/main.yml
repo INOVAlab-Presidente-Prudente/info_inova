@@ -25,10 +25,17 @@ jobs:
       - name: start container
         run: cd testes && docker-compose up -d --build
 
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '30s'
+      - name: espera pelo MySQL
+        run: |
+          echo 'pausing: waiting for mysql to come available'
+          ./wait-for-mysql.sh
+          echo 'un-pausing: mysql is now available'
+
+      # funciona 
+      # - name: Sleep for 30 seconds
+      #   uses: jakejarvis/wait-action@master
+      #   with:
+      #     time: '30s'
 
       - name: run tests
         run: cd testes && robot test_login.robot
