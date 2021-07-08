@@ -25,6 +25,11 @@ jobs:
       - name: start container
         run: cd testes && docker-compose up -d --build
 
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '30s'
+
       - name: run tests
         run: cd testes && robot test_login.robot
 
