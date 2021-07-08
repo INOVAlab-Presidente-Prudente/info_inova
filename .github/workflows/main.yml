@@ -17,29 +17,23 @@ jobs:
         with:
             python-version: '3.x'
             
-      - name: Install Python dependencies
+      - name: Instalar as dependencias do Python
         uses: py-actions/py-dependency-install@v2
         with:
           path: "testes/requirements.txt"
     
-      - name: start container
+      - name: Iniciar container
         run: cd testes && docker-compose up -d --build
 
-      - name: espera pelo MySQL
+      - name: Esperar pela disponibilidade do MySQL
         run: |
           echo 'pausing: waiting for mysql to come available'
           ./wait-for-mysql.sh
           echo 'un-pausing: mysql is now available'
 
-      # funciona 
-      # - name: Sleep for 30 seconds
-      #   uses: jakejarvis/wait-action@master
-      #   with:
-      #     time: '30s'
-
-      - name: run tests
+      - name: Executar testes
         run: cd testes && robot test_login.robot
 
-      - name: Stop container
+      - name: Parar container
         if: always()
         run: cd testes && docker-compose down
