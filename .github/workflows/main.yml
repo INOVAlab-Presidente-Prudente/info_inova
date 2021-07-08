@@ -19,6 +19,8 @@ jobs:
             
       - name: Install Python dependencies
         uses: py-actions/py-dependency-install@v2
+        with:
+          path: "testes/requirements.txt"
     
       - name: start container
         run: cd testes && docker-compose up -d --build
