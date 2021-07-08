@@ -8,3 +8,4 @@ ${BROWSER}    headlesschrome
 Abrir Browser
     Open Browser                ${APP URL}    ${BROWSER}
     Maximize Browser Window
+    Set Selenium Timeout  20s
